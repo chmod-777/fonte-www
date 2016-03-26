@@ -1,5 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.fonteionic617450" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap = "http://phonegap.com/ns/1.0" version   = "1.0.3">
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns="http://www.w3.org/ns/widgets" 
+        xmlns:cdv="http://cordova.apache.org/ns/1.0"
+        xmlns:gap = "http://phonegap.com/ns/1.0" 
+        version   = "1.0.3">
+
   <name>Fonte da Vida</name>
   <description>
         Biblia e Sermoes na sua Lingua
@@ -7,8 +11,7 @@
   <author email="jon@equipmoz.org" href="http://equipmoz.org">
       Jon Reinagel
     </author>
-  <content src="index.html"/>
-  <access origin="*"/>
+
   <preference name="target-device" value="universal" />
   <preference name="fullscreen" value="true" />
   <preference name="phonegap-version" value="cli-5.2.0" />
