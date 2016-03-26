@@ -1,0 +1,41 @@
+<!--
+Create tabs with an icon and label, using the tabs-positive style.
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+<ion-tabs class="tabs-icon-top tabs-color-active-positive">
+
+  <!-- Dashboard Tab -->
+  <ion-tab title="{{'TAB_HOME' | translate}}" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" href="#/tab/dash">
+    <ion-nav-view name="tab-dash"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Chats Tab
+  <ion-tab title="Chats" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/tab/chats">
+    <ion-nav-view name="tab-chats"></ion-nav-view>
+  </ion-tab> -->
+
+  <!-- Bible Tab -->
+  <ion-tab title="{{'TAB_BIBLES' | translate}}" icon-off="ion-ios-book-outline" icon-on="ion-ios-book" href="#/tab/bible">
+    <ion-nav-view name="tab-bible"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Sermons Tab -->
+  <ion-tab title="{{'TAB_SERMONS' | translate}}" icon-off="ion-mic-b" icon-on="ion-mic-b" href="#/tab/sermons">
+    <ion-nav-view name="tab-sermons"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Resources Tab -->
+  <ion-tab title="{{'TAB_RESOURCES' | translate}}" icon-off="ion-ios-folder-outline" icon-on="ion-ios-folder" href="#/tab/resources">
+    <ion-nav-view name="tab-resources"></ion-nav-view>
+  </ion-tab>
+
+
+
+  <ion-tab title="{{'TAB_SETTINGS' | translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/settings">
+    <ion-nav-view name="tab-settings"></ion-nav-view>
+  </ion-tab>
+
+
+
+</ion-tabs>

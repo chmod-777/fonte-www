@@ -1,0 +1,9 @@
+<ion-view view-title="Resources">
+  <ion-content>
+    <h3>Organizations that work with Us</h3>
+    <ion-checkbox ng-repeat="org in organizationList" ng-model="org.checked" ng-checked="org.checked">
+    {{org.orgName}}
+    </ion-checkbox>
+      <pre ng-bind="organizationList | json"></pre>
+  </ion-content>
+</ion-view>

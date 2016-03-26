@@ -1,0 +1,32 @@
+
+<ion-view view-title="Listen to Sermons">
+<ion-content>
+    <ion-list>
+        <ion-item ng-repeat="sermon in preachingList" ng-click="playNow({{sermon}})" class="item-thumbnail-left amazingaudioplayer-card" data-artist="{{sermon.artist}}" data-title="{{sermon.title}}" data-album="" data-info="" data-image="{{sermon.image}}" data-duration="{{sermon.duration}}" data-src="{{sermon.src}}" data-type="audio/mpeg">
+            <img src="audios/Ap-Mario.jpg">
+            <h2>{{sermon.title}}</h2>
+            <h3>{{sermon.artist}}</h3>
+        </ion-item>
+
+    </ion-list>
+<!--     <div class="card">
+        <div class="item item-divider">
+        Tres Tipos de Maldição
+        </div>
+        <div class="item item-image">
+            <img src="audios/Ap-Mario.jpg" />
+        
+        </div>
+        <div class="item item-text-wrap">
+        <i class="icon ion-home"></i>
+        Pastor Mario Casquinha 
+        </div>
+    </div>-->
+</ion-content>
+    <div id="amazingaudioplayer-1" class="teaching-player-div player-div" style="display:none;position:fixed;bottom:0px;width:100%;height:170px;margin:0px auto 0px;">
+        <ul class="amazingaudioplayer-audios" style="display:none;">     
+        </ul>
+
+      </div>
+
+</ion-view>

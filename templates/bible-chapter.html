@@ -1,0 +1,9 @@
+<ion-view view-title="Listen to the Bible" ng-controller="BibleBookCtrl">
+  <ion-content>
+    <h1>{{this.book}}</h1>
+
+    <ion-item class="item-icon-right" type="item-text-wrap" ng-repeat="chapters in api.data" href="#/tab/bible/{{settings.bibleBookId}}/{{chapters.chapter_id}}">
+	    <h3 class="padding">Chapter {{chapters.chapter_id}}</h3>
+    </ion-item>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,20 @@
+<ion-view view-title="Listen to the Bible - Choose a Book">
+  <ion-content ng-controller="BibleCtrl">
+  <label class="item item-input item-select">
+      <div class="input-label">
+        Bible Language
+      </div>
+      <select ng-model="settings.language">
+        <option ng-repeat="lang in language" ng-value='{{lang.IDNT}}'>{{lang.en_language}}</option>
+      </select>
+    </label>
+    <ion-list>
+    <h3 class="padding">Books of the Bible</h3>
+      <ion-item ng-repeat='books in books' class="item-icon-right" type="item-text-wrap" href="#/tab/bible/{{books.Index}}" ng-click="changeBookId(settings, books.Index, books.en_language)">
+        <h2 ng-if="lang === 'en'">{{books.bookEN}}</h2>
+        <h2 ng-if="lang === 'pt'">{{books.bookPT}}</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

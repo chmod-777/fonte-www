@@ -1,0 +1,92 @@
+[
+  {
+    "en_language": "Portuguese",
+    "pt_language": "Português",
+    "IDNT": "PORNLHN2DA",
+    "IDOT": "PORBSPO2ET"
+  },
+  {
+    "en_language": "English",
+    "pt_language": "Inglês",
+    "IDNT": "ENGESVN2DA",
+    "IDOT": "ENGESVO2DA"
+  },
+  {
+    "en_language": "Sena",
+    "pt_language": "Sena",
+    "IDNT": "SWKBSMN2DA",
+    "IDOT": 0
+  },
+  {
+    "en_language": "Ndau",
+    "pt_language": "Ndau",
+    "IDNT": "NDCBSZN2DA",
+    "IDOT": 0
+  },
+  {
+    "en_language": "Lomwe",
+    "pt_language": "Lomwe",
+    "IDNT": "NGLBSSN2DA",
+    "IDOT": 0
+  },
+  {
+    "en_language": "Chewa",
+    "pt_language": "Chewa",
+    "IDNT": "NYJBLVN2DA",
+    "IDOT": 0
+  },
+  {
+    "en_language": "Ronga",
+    "pt_language": "Ronga",
+    "IDNT": "RNGSBMN2DA",
+    "IDOT": 0
+  },
+  {
+    "en_language": "Shona",
+    "pt_language": "Shona",
+    "IDNT": "SHDIBSN2DA",
+    "IDOT": 0
+  },
+  {
+    "en_language": "Makuwa",
+    "pt_language": "Makuwa",
+    "IDNT": "VMWBSMN2DA",
+    "IDOT": 0
+  },
+  {
+    "en_language": "Yao",
+    "pt_language": "Yao",
+    "IDNT": "YAOBSMN2DA",
+    "IDOT": 0
+  },
+  {
+    "en_language": "Chopi",
+    "pt_language": "Chopi",
+    "IDNT": "CCESBMN2DA",
+    "IDOT": 0
+  },
+  {
+    "en_language": "Kunda",
+    "pt_language": "Kunda",
+    "IDNT": "KDNBSZN2DA",
+    "IDOT": 0
+  },
+  {
+    "en_language": "Mwani",
+    "pt_language": "Mwani",
+    "IDNT": "WMWWYIN2DA",
+    "IDOT": 0
+  },
+  {
+    "en_language": "Swahili",
+    "pt_language": "Swahili",
+    "IDNT": "SWAHNVN2DA",
+    "IDOT": 0
+  },
+  {
+    "en_language": "Tswa",
+    "pt_language": "Tswa",
+    "IDNT": "TSCBSMN2DA",
+    "IDOT": 0
+  }
+]
