@@ -31,18 +31,18 @@
    </platform>
 
    <platform name="ios">
-      <icon src="images/icon-72x72.png" width="72" height="72" platform="ios" />
+      <icon src="images/ios-icon-120.png" width="120" height="120" platform="ios" />
    </platform>
 
    <platform name="winphone">
-         <icon src="images/wp-tile-71.png" width="71" height="71" />
-         <icon src="images/wp-tile-99.png" width="99" height="99" />
-         <icon src="images/wp-tile-110.png" width="110" height="110" />
-         <icon src="images/wp-tile-150.png" width="150" height="150" />
-         <icon src="images/wp-tile-159.png" width="159" height="159" />
-         <icon src="images/wp-tile-170.png" width="170" height="170" />
-         <icon src="images/wp-tile-202.png" width="202" height="202" /> 
-         <icon src="images/wp-tile-336.png" width="336" height="336" role="background" />
+     <icon src="images/wp-tile-71.png" width="71" height="71" />
+     <icon src="images/wp-tile-99.png" width="99" height="99" />
+     <icon src="images/wp-tile-110.png" width="110" height="110" />
+     <icon src="images/wp-tile-150.png" width="150" height="150" />
+     <icon src="images/wp-tile-159.png" width="159" height="159" />
+     <icon src="images/wp-tile-170.png" width="170" height="170" />
+     <icon src="images/wp-tile-202.png" width="202" height="202" /> 
+     <icon src="images/wp-tile-336.png" width="336" height="336" role="background" />
    </platform>
       <!-- Splash Screens -->
    <gap:splash src="splash.png" />
