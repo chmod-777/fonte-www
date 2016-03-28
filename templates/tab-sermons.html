@@ -1,11 +1,19 @@
 
 <ion-view view-title="Listen to Sermons">
 <ion-content>
+    <div class="bar item-input-inset bar-light">
+        <label class="item-input-wrapper">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="search" placeholder="search" ng-model="query">
+        </label>
+        </div>
     <ion-list>
-        <ion-item ng-repeat="sermon in preachingList" ng-click="playNow({{sermon}})" class="item-thumbnail-left amazingaudioplayer-card" data-artist="{{sermon.artist}}" data-title="{{sermon.title}}" data-album="" data-info="" data-image="{{sermon.image}}" data-duration="{{sermon.duration}}" data-src="{{sermon.src}}" data-type="audio/mpeg">
+        <ion-item ng-repeat="sermon in preachingList | filter:query | orderBy:'-hits'" ng-click="playNow({{sermon}})" data-tap-disabled="true" class="item-thumbnail-left amazingaudioplayer-card" data-artist="{{sermon.artist}}" data-title="{{sermon.title}}" data-album="" data-info="" data-image="{{sermon.image}}" data-duration="{{sermon.duration}}" data-src="{{sermon.src}}" data-type="audio/mpeg">
             <img src="audios/Ap-Mario.jpg">
             <h2>{{sermon.title}}</h2>
             <h3>{{sermon.artist}}</h3>
+            <p>{{sermon.Organization}}</p>
+            <p>Hits: {{sermon.hits}}</p>
         </ion-item>
 
     </ion-list>

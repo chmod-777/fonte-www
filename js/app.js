@@ -5,10 +5,11 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analytics', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform, $rootScope) {
+.run(function($ionicPlatform, $ionicAnalytics, $rootScope) {
   $ionicPlatform.ready(function() {
+    $ionicAnalytics.register();
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -20,7 +21,45 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
   });
+})
+
+.config(function ($sceDelegateProvider, $translateProvider) {
+   $sceDelegateProvider.resourceUrlWhitelist([
+    // Allow same origin resource loads.
+    'self',
+    // Allow loading from our assets domain.  Notice the difference between * and **.
+    'https://storage.googleapis.com/jonandc1-europe/**'
+  ]);
+
+  $translateProvider.translations('en', {
+    TAB_HOME: 'Home',
+    TAB_BIBLES: 'Bibles',
+    TAB_SERMONS: 'Sermons',
+    TAB_RESOURCES: 'Resources',
+    TAB_SETTINGS: 'Settings',
+    TAG_LINE: 'Bibles, Sermons, and Resources in your language!',
+    SETTINGS_TITLE: 'Settings',
+    SETTINGS_EN: 'English',
+    SETTINGS_PT: 'Portuguese',
+    SETTINGS_INFORMATION: 'Information',
+    SETTINGS_CLANGUAGE: 'Choose the App language:'
+  });
+  $translateProvider.translations('pt', {
+    TAB_HOME: 'Casa',
+    TAB_BIBLES: 'Biblias',
+    TAB_SERMONS: 'Sermoés',
+    TAB_RESOURCES: 'Recoursos',
+    TAB_SETTINGS: 'Configuração',
+    TAG_LINE: 'A Biblia, Sermoés, e Recoursos Cristão no seu lingua!',
+    SETTINGS_TITLE: 'Configuração',
+    SETTINGS_EN: 'Inglês',
+    SETTINGS_PT: 'Portugûes',
+    SETTINGS_INFORMATION: 'Informação',
+    SETTINGS_CLANGUAGE: 'Escole a lingua de Applicativo:'
+  });
+  $translateProvider.preferredLanguage('en');
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -49,25 +88,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
-
-  .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
   .state('tab.bible', {
       url: '/bible',
       views: {

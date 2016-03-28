@@ -1,50 +1,33 @@
 angular.module('starter.services', [])
+.value('settings', {
+  damId: "ENGESVN2DA",
+  dbtKey: 'd634c26f06be1dae73edfb08d7290f52',
+  orgList: [    
+    {"orgName": "Peniel International", checked: true},
+    {"orgName": "Assemblies of God", checked: false},
+    {"orgName": "Baptist", checked: true},
+    ],
+  rLanguage: "Portuguese",
+  rootURL: 'http://cloud.faithcomesbyhearing.com/mp3audiobibles2/',
+  bibleBook: "",
+  bibleBookId: 1,
+  bibleBookNumChapters: 5,
+  bibleChapterId: 0,
+  languages: "",
+  aapNum: 1
+})
 
-.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
+.service('fonteFns', ['settings', '$translate', '$http', function(settings, $translate, $http) {
+    getLanguages = function (){
+      console.log("getLanguages called");
+      $http.get('ajax/languages.json').success(function(data) {
+        settings.languages = data;
+        console.log('languages.json called successfully from fonteFns');
+        console.log(data);
+      });
+    };
+    getLanguages();
+  this.languages = settings.languages;
+}])
 
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
-
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
-    }
-  };
-});
+;

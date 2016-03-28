@@ -17,23 +17,9 @@
 	      Resource Language
 	    </div>
       
-	    <select ng-model="settings.language">
-		    <option ng-value='PORNLHN2DA' selected>Portuguese</option>
-			<option ng-value='ENGESVN2DA'>English</option>
-			<option ng-value='SWKBSMN2DA'>Sena</option>
-			<option ng-value='NDCBSZN2DA'>Ndau</option>
-			<option ng-value='NGLBSSN2DA'>Lomwe</option>
-			<option ng-value='NYJBLVN2DA'>Chichewa</option>
-			<option ng-value='RNGSBMN2DA'>Ronga</option>
-			<option ng-value='SHDIBSN2DA'>Shona</option>
-			<option ng-value='VMWBSMN2DA'>Makuwa</option>
-			<option ng-value='YAOBSMN2DA'>Yao</option>
-			<option ng-value='CCESBMN2DA'>Chopi</option>
-			<option ng-value='KDNBSZN2DA'>Kunda</option>
-			<option ng-value='WMWWYIN2DA'>Mwani</option>
-			<option ng-value='SWAHNVN2DA'>Swahili</option>
-			<option ng-value='TSCBSMN2DA'>Tswa</option>
-	    </select>
+      <select ng-model="settings.languages" ng-controller="languagePicker">
+        <option ng-repeat="lang in settings.languages" ng-value='{{lang.IDNT}}'>{{lang.en_language}}</option>
+      </select>
 	  </label>
 	  
     </ion-list>
