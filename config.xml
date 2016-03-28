@@ -26,8 +26,9 @@
 
      <!-- Icons -->
    <platform name="android">
-      <icon src="images/icon-96x96.png" width="62" height="62" platform="android" gap:role="default" />
+      <icon src="images/icon-96x96.png" width="96" height="96" platform="android" gap:role="default" />
       <icon src="images/icon-72x72.png" width="72" height="72" platform="android" gap:density="hdpi" />
+      <icon src="images/ios-icon-120.png" platform="android" />
    </platform>
 
    <platform name="ios">
