@@ -30,7 +30,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     // Allow same origin resource loads.
     'self',
     // Allow loading from our assets domain.  Notice the difference between * and **.
-    'https://storage.googleapis.com/jonandc1-europe/**'
+    'https://storage.googleapis.com/jonandc1-europe/**',
+    'http://cloud.faithcomesbyhearing.com/**'
   ]);
 
   $translateProvider.translations('en', {
@@ -61,6 +62,26 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
   });
   $translateProvider.preferredLanguage('en');
 })
+
+.filter("orgFilter", ['settings', function(settings) {
+  return function(items) {
+  var filtered = [];
+  orgs = settings.orgList;
+  angular.forEach(orgs, function(org){
+    if(org.checked) {
+      //console.log(org);
+      angular.forEach(items, function(item) {
+        //console.log("org.id: ", org.id);
+        //console.log("item.Organization", item);
+        if(org.id == item.orgId) {
+        filtered.push(item);
+        };
+      });
+    };
+  });
+  return filtered;
+  };
+}])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -121,12 +142,30 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
         }
       }
     })
+  .state('tab.orgdetail', {
+      url: '/sermons/org-:orgId',
+      views: {
+        'tab-sermons': {
+          templateUrl: 'templates/sermons-orgdetail.html',
+          controller: 'SermonsCtrl'
+        }
+      }
+    })
+    .state('tab.speakerdetail', {
+      url: '/sermons/speaker-:speakerId',
+      views: {
+        'tab-sermons': {
+          templateUrl: 'templates/sermons-speakerdetail.html',
+          controller: 'SermonsCtrl'
+        }
+      }
+    })
   .state('tab.resources', {
     url: '/resources',
     views: {
       'tab-resources': {
         templateUrl: 'templates/tab-resources.html',
-        controller: 'ResourceCtrl'
+        controller: 'ResourceCtrl',
       }
     }
   })

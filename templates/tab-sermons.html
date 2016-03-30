@@ -1,4 +1,3 @@
-
 <ion-view view-title="Listen to Sermons">
 <ion-content>
     <div class="bar item-input-inset bar-light">
@@ -6,14 +5,29 @@
             <i class="icon ion-search placeholder-icon"></i>
             <input type="search" placeholder="search" ng-model="query">
         </label>
+        <label class="item item-input col-6 item-select">
+            <div class="input-label">
+            Sort by:
+            </div>
+            <select>
+                <option ng-click="order('popularity')">Hits</option>
+                <option ng-click="order('title')">Title</option>
+                <option ng-click="order('preacher')">Preacher</option>
+                <option ng-click="order('organization')">Organization</option>
+                <option ng-click="order('recent')">Most Recent</option>
+            </select>
+        <!--<button class="button-small">Sort by Popularity</button>-->
         </div>
     <ion-list>
-        <ion-item ng-repeat="sermon in preachingList | filter:query | orderBy:'-hits'" ng-click="playNow({{sermon}})" data-tap-disabled="true" class="item-thumbnail-left amazingaudioplayer-card" data-artist="{{sermon.artist}}" data-title="{{sermon.title}}" data-album="" data-info="" data-image="{{sermon.image}}" data-duration="{{sermon.duration}}" data-src="{{sermon.src}}" data-type="audio/mpeg">
-            <img src="audios/Ap-Mario.jpg">
-            <h2>{{sermon.title}}</h2>
-            <h3>{{sermon.artist}}</h3>
-            <p>{{sermon.Organization}}</p>
+        <!--<ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | orderBy:sortingBy" ng-click="playNow({{sermon}})" data-tap-disabled="true" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">-->
+        <ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | orderBy:sortingBy" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">
+            <img  ng-click="playNow({{sermon}})" data-tap-disabled="true" src="{{settings.speakerList[sermon.artistId].image}}">
+            <i class="icon ion-android-download"></i>
+            <h2  ng-click="playNow({{sermon}})" data-tap-disabled="true">{{sermon.en_title}}</h2>
+            <a href="#/tab/sermons/speaker-{{sermon.artistId}}"><h3>{{settings.speakerList[sermon.artistId].en_name}}</h3></a>
+            <a href="#/tab/sermons/org-{{sermon.orgId}}"><p>{{settings.orgList[sermon.orgId].en_orgName}}</p></a>
             <p>Hits: {{sermon.hits}}</p>
+            <li style="display:none" data-artist="{{settings.speakerList[sermon.artistId].en_name}}" data-title="{{sermon.en_title}}" data-album data-info data-image="{{settings.speakerList[sermon.artistId].image}}" data-duration="{{sermon.duration}}"><div class="amazingaudioplayer-source" data-src="{{sermon.src}}" data-type="audio/mpeg" /></div></li>
         </ion-item>
 
     </ion-list>
@@ -31,7 +45,7 @@
         </div>
     </div>-->
 </ion-content>
-    <div id="amazingaudioplayer-1" class="teaching-player-div player-div" style="display:none;position:fixed;bottom:0px;width:100%;height:170px;margin:0px auto 0px;">
+    <div id="aap-1" class="player-div" style="display:none;position:fixed;bottom:0px;width:100%;height:170px;margin:0px auto 0px;">
         <ul class="amazingaudioplayer-audios" style="display:none;">     
         </ul>
 
