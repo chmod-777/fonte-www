@@ -68,7 +68,6 @@ var AmazingAudioPlatforms = {
             this.id = id;
             this.volumeSaved = 1;
             var instance = this;
-            //console.log("PlayerSkin called with instance: ", instance);
             var isTouch = "ontouchstart" in window;
             var eStart = isTouch ? "touchstart" : "mousedown";
             var eMove = isTouch ? "touchmove" : "mousemove";
@@ -541,7 +540,6 @@ var AmazingAudioPlatforms = {
         };
         FlashHTML5Player.prototype = {
             initFlash: function() {
-                //console.log("flashHTML initFlash called");
                 var objectId = "amazingflashaudioplayer-" + this.id;
                 var flashCodes = "<div class='amazingaudioplayer-flash-container' style='position:absolute;top:0px;left:0px;'><div id='" +
                     objectId + "' style='position:absolute;top:0px;left:0px;'></div></div>";
@@ -554,7 +552,6 @@ var AmazingAudioPlatforms = {
                 this.html5AudioLoaded = false
             },
             initHtml5: function() {
-                //console.log("flashHTML inithtml called");
                 var html5Object = $("<audio preload='" +
                     (this.amazingPlayer.options.preloadaudio ? "auto" : "none") + "'></audio>");
                 html5Object.appendTo(this.container);
@@ -567,7 +564,6 @@ var AmazingAudioPlatforms = {
                 return html5Object
             },
             load: function(audioItem) {
-                //console.log("flashHTML load called");
                 this.audioItem = audioItem;
                 var audioSource = audioItem.source;
                 var i;
@@ -604,7 +600,6 @@ var AmazingAudioPlatforms = {
                 }
             },
             html5LoadAudio: function() {
-                //console.log("flashHTML html5LoadAudio called");
                 this.html5AudioLoaded = true;
                 this.html5Object.get(0).load();
                 var html5Audio = this.html5Object.get(0);
@@ -620,7 +615,6 @@ var AmazingAudioPlatforms = {
                 }, 100)
             },
             flashLoadAudio: function(mp3Src, playAudio) {
-                //console.log("flashHTML flashloadaudio called");
                 this.flashAudioLoaded = true;
                 var instance = this;
                 if (!AmazingFlashAudioPlayerReady[this.id]) { this.loadFlashTimeout += 100;
@@ -672,7 +666,6 @@ var AmazingAudioPlatforms = {
                 else if (this.flashObject) this.flashObject.setVolume(val) }
         };
         var AmazingAudioPlayer = function(container, options, id) {
-            ///console.log("aap: ", container, options, id);
             this.container =
                 container;
             this.options = options;
@@ -689,11 +682,8 @@ var AmazingAudioPlatforms = {
                 onSuccess(this) },
             readTags: function() {
                 var instance = this;
-                //console.log("readTags instance, this.container: ", instance, this.container);
                 $("ul.amazingaudioplayer-audios", this.container).find("li").each(function() {
-                    
                     var $this = $(this);
-                    //console.log("adding to aapPlayList: ", $this);
                     var audioSource =
                         new Array;
                     $this.find("div.amazingaudioplayer-source").each(function() { audioSource.push({ src: $(this).data("src"), type: $(this).data("type").toLowerCase() }) });
@@ -713,7 +703,6 @@ var AmazingAudioPlatforms = {
                 instance.elemLength = instance.elemArray.length
             },
             init: function(instance) {
-                //console.log("aap-init called", instance, instance.elemLength);
                 var i;
                 if (instance.elemLength <= 0) return;
                 if (instance.elemLength > 3 && instance.options.addwm && window.location.href.indexOf(instance.options.fvm) < 0) { instance.elemLength = 3;
@@ -933,6 +922,7 @@ var AmazingAudioPlatforms = {
                 amazingaudioplayerId++ }
             var object = new AmazingAudioPlayer($(this), this.options, audioplayerid);
             $(this).data("object", object);
+            console.log("AAP loading object: ", object);
             $(this).data("id", audioplayerid);
             amazingAudioPlayerObjects.addObject(object)
         })
@@ -1205,7 +1195,6 @@ function AmazingSWFObjectFunc() {
     }
 
     function createSWF(attObj, parObj, id) {
-        //console.log("createSWF called");
         var r, el = getElementById(id);
         if (ua.wk && ua.wk < 312) return r;
         if (el) {

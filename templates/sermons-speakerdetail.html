@@ -1,11 +1,13 @@
 
-<ion-view view-title="About this Speaker">
+<ion-view view-title="{{'SERMONS_ABOUT_SPEAKER' | translate}}">
 <ion-content>
     <ion-list class="list-inset fonte-description">
         <ion-item class="item-text-wrap">
             <img ng-src="{{settings.speakerList[whichSpeaker].image}}"/>
-            <h2>{{settings.speakerList[whichSpeaker].en_name}}</h2>
-            <p>{{settings.speakerList[whichSpeaker].en_description}}</p>
+            <h2 ng-if="settings.lang =='en'">{{settings.speakerList[whichSpeaker].en_name}}</h2>
+            <h2 ng-if="settings.lang =='pt'">{{settings.speakerList[whichSpeaker].pt_name}}</h2>
+            <p ng-if="settings.lang =='en'">{{settings.speakerList[whichSpeaker].en_description}}</p>
+            <p ng-if="settings.lang =='pt'">{{settings.speakerList[whichSpeaker].pt_description}}</p>
         </ion-item>
     </ion-list>
 </ion-content>

@@ -1,12 +1,36 @@
 /* Empty. Add your own CSS if you like */
 
 .splash {
-	background: url(../img/P6z1qnt.jpg) no-repeat center center fixed;
+	background: url(../img/P6z1qnt.jpg) no-repeat fixed;
+	background-position: 75% 50%;
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
 	-o-background-size:cover;
 	background-size: cover;
+
 }
+
+.player-close-button {
+	float:right;
+	position:relative;
+	padding:5px;
+	z-index: 1000;
+}
+
+.tab-overlay, .ion-tabs {
+	z-index: 20000;
+	position: fixed;
+}
+.aapplayer-div {
+	z-index:5;
+	display: none; 
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	height: 170px;
+	margin: 0px auto;
+}
+
 
 .branding {
 	width:80%;
@@ -30,4 +54,13 @@
 
 .fonte-description h2 {
 	font-size:130%;
+}
+
+.sermon-page h2{
+	font-size:120%;
+
+}
+
+.sermon-page button {
+	margin: 2px;
 }

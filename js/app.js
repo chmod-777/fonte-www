@@ -45,7 +45,12 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     SETTINGS_EN: 'English',
     SETTINGS_PT: 'Portuguese',
     SETTINGS_INFORMATION: 'Information',
-    SETTINGS_CLANGUAGE: 'Choose the App language:'
+    SETTINGS_CLANGUAGE: 'Choose the App language:',
+    SERMONS_SEARCH: 'Search',
+    SERMONS_TITLE: 'Listen to Sermons',
+    SERMONS_ABOUT_SPEAKER: 'About This Speaker',
+    MENU_BACK: 'Back',
+    SERMONS_ABOUT_ORG: 'About This Organization'
   });
   $translateProvider.translations('pt', {
     TAB_HOME: 'Casa',
@@ -58,11 +63,17 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     SETTINGS_EN: 'Inglês',
     SETTINGS_PT: 'Portugûes',
     SETTINGS_INFORMATION: 'Informação',
-    SETTINGS_CLANGUAGE: 'Escole a lingua de Applicativo:'
+    SETTINGS_CLANGUAGE: 'Escole a lingua de Applicativo:',
+    SERMONS_SEARCH: 'Pescisa',
+    SERMONS_TITLE: 'Escute os Sermoés',
+    SERMONS_ABOUT_SPEAKER: 'Sobre o Pregador',
+    MENU_BACK: 'Para Atras',
+    SERMONS_ABOUT_ORG: 'Sobre o Organização'
   });
   $translateProvider.preferredLanguage('en');
 })
 
+//Filter list by organization listed in settings
 .filter("orgFilter", ['settings', function(settings) {
   return function(items) {
   var filtered = [];
@@ -82,6 +93,13 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
   return filtered;
   };
 }])
+
+.config(function($ionicConfigProvider) {
+  $ionicConfigProvider.views.maxCache(5);
+
+  // Moving Android tabs to the bottom
+  $ionicConfigProvider.tabs.position('bottom');
+})
 
 .config(function($stateProvider, $urlRouterProvider) {
 
