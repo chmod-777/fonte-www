@@ -136,18 +136,10 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       }
     })
   .state('tab.bible-book', {
-      url: '/bible/:bookId',
+      url: '/bible/:bookId/:bookName/:bookCode',
       views: {
         'tab-bible': {
           templateUrl: 'templates/bible-book.html'
-        }
-      }
-    })
-  .state('tab.bible-chapter', {
-      url: '/bible/:bookId/:chapterId',
-      views: {
-        'tab-bible': {
-          templateUrl: 'templates/bible-chapter.html'
         }
       }
     })

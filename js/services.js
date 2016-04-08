@@ -1,6 +1,5 @@
 angular.module('starter.services', [])
 .value('settings', {
-  damId: "ENGESVN2DA",
   dbtKey: 'd634c26f06be1dae73edfb08d7290f52',
   orgList: [    
     {"id": 0,
@@ -32,15 +31,10 @@ angular.module('starter.services', [])
     "en_description": "Pastor Dr. Mario Casquinha is the leader of the International Peniel Worship Center. He was born in the city of Marromeu in the central-Mozambican province of Sofala. He converted and became a Christian in the city of Beira in 1987. In 2000 he began the Peniel church with only 15 children, and today the church has 5,000 members and is still growing. Peniel has planted daughter churches in 8 of the provincial capitals throughout Mozambique, each with a full-time pastor serving the Lord.<br/>Pastor Mario divides his time between many pursuits: his devotional life with God is his highest priority followed by his family. His lovely wife, Zaida, has accompanied him through their marriage of 17 years to date, and she has provided much-needed support for Mario’s ministry. They have 6 children, 4 girls and 2 boys.<br/>Pastor Mario has dedicated his life to preaching, teaching, and planting churches. In recent years he has even been invited to preach in other countries, and has traveled extensively as a result. His main focus is to preach the message of the Kingdom of God and preparing the church for the second coming of the Lord Jesus Christ.",
     "pt_description":"Apóstolo Dr. Mário Casquinha é  o presidente da Igreja  Peniel Internacional. Nasceu em  Marromeu província de Sofala Centro de moçambique. Converteu-se à Cristo na cidade da Beira em 1987.<br/>No ano 2000, começou com a igreja Peniel, com 15 Crianças, e hoje a igreja está a crescer acima de 7000 mil membros, e conta com  igrejas em 8 capitais províncias de Moçambique   Com pastores ao tempo inteiro servindo ao Senhor. <br/>O Apóstolo divide o seu tempo de várias formas a vida com Deus é a sua Prioridade, em seguida a sua família. Ele tem uma Linda família sua espos-a Bispa Zaida Casquinha tem o  acompanhado. Ao longo destes anos dando todo apoio necessário. Eles estão casados a 17 anos e tem 7 filhos  5 meninas e 2 rapazes.",
     "image": "images/speakers/apMario.jpg"}],
-  rLanguage: "Portuguese",
   rootURL: 'http://cloud.faithcomesbyhearing.com/mp3audiobibles2/',
-  bibleBook: "",
-  bibleBookId: 1,
-  bibleBookNumChapters: 5,
-  bibleChapterId: 0,
-  languages: "",
   aapNum: 0,
-  lang: 'en'
+  lang: 'en',
+  testament: "IDNT"
 })
 
 .service('fonteFns', ['settings', '$translate', '$http', function(settings, $translate, $http) {
@@ -52,6 +46,7 @@ angular.module('starter.services', [])
       });
     };
     getLanguages();
+    settings.rLanguage = settings.languages[0];
 
     //Dependencies for startPlayer
     this.languages = settings.languages;
@@ -154,12 +149,14 @@ angular.module('starter.services', [])
       //Testing statements
       console.log("scope.playNow called");
       console.log("selectedAudio variable passed: ", selectedAudio);
-      
+      $(".player-close-button").click(function(){
+        fonteFns.closePlayer("#amazingaudioplayer-1");
+      });
       //clean out the old list div for the audio player
       function cleanDiv(toClean){
         console.log("cleanDiv function called");
         $("#" + toClean).remove();
-        $("ion-tabs").before('<div id="' + toClean + '" class="aapplayer-div" style="position:fixed;bottom:0px;width:100%;height:170px;margin:0px auto 0px;"><a class="player-close-button"><img width="25px" src="images/close.png"/></a><ul class="amazingaudioplayer-audios" style="display:none"></ul></div>');
+        $("ion-tabs").before('<div id="' + toClean + '" class="aapplayer-div" style="position:fixed;bottom:45px;width:100%;height:170px;margin:0px auto 0px;"><a class="player-close-button"><img width="25px" src="images/close.png"/></a><ul class="amazingaudioplayer-audios" style="display:none"></ul></div>');
         $(".player-close-button").click(function(){
           closePlayer("#" + toClean);
           console.log("close-click called");
@@ -226,6 +223,8 @@ angular.module('starter.services', [])
        }
       startPlayer(keyDivHash);
     }; //end playNow Function
+
+
     logMe = function() {
       console.log("logMe function called");
     }

@@ -5,19 +5,22 @@
             <i class="icon ion-search placeholder-icon"></i>
             <input type="search" placeholder="{{'SERMONS_SEARCH' | translate}}" ng-model="query">
         </label>
-        <label class="item item-input col-6 item-select">
+    </div>
+    <div class="bar item-input-inset bar-light">
+        <label class="item item-input item-select item-input-wrapper">
             <div class="input-label">
             Sort by:
             </div>
-            <select>
-                <option ng-click="order('popularity')">Hits</option>
-                <option ng-click="order('title')">Title</option>
-                <option ng-click="order('preacher')">Preacher</option>
-                <option ng-click="order('organization')">Organization</option>
-                <option ng-click="order('recent')">Most Recent</option>
+            <select ng-model="sortingBy">
+                <option value="hits">Popularity</option>
+                <option value="en_title">Title</option>
+                <option value="artistId">Preacher</option>
+                <option value="orgId">Organization</option>
+                <option value="recent">Most Recent</option>
             </select>
-        <!--<button class="button-small">Sort by Popularity</button>-->
-        </div>
+        <!-- <button class="button-small">Sort by Popularity</button> -->
+        </label>
+    </div>
     <ion-list>
         <!--<ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | orderBy:sortingBy" ng-click="playNow({{sermon}})" data-tap-disabled="true" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">-->
         <ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | orderBy:sortingBy" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">
@@ -29,6 +32,7 @@
             <a href="#/tab/sermons/speaker-{{sermon.artistId}}" ng-if="settings.lang =='en'"><button class="button button-stable button-small button-outline">{{settings.speakerList[sermon.artistId].en_name}}</button></a><br/>
             <a href="#/tab/sermons/org-{{sermon.orgId}}" ng-if="settings.lang =='en'"><button class="button button-stable button-small button-outline">{{settings.orgList[sermon.orgId].en_orgName}}</button></a>
             <a href="#/tab/sermons/org-{{sermon.orgId}}" ng-if="settings.lang =='pt'"><button class="button button-stable button-small button-outline">{{settings.orgList[sermon.orgId].pt_orgName}}</button></a>
+            <p>{{sermon.hits}}</p>
             
             <li ng-if="settings.lang =='pt'" style="display:none" data-artist="{{settings.speakerList[sermon.artistId].pt_name}}" data-title="{{sermon.pt_title}}" data-album data-info data-image="{{settings.speakerList[sermon.artistId].image}}" data-duration="{{sermon.duration}}"><div class="amazingaudioplayer-source" data-src="{{sermon.src}}" data-type="audio/mpeg" /></div></li><li ng-if="settings.lang =='en'" style="display:none" data-artist="{{settings.speakerList[sermon.artistId].en_name}}" data-title="{{sermon.en_title}}" data-album data-info data-image="{{settings.speakerList[sermon.artistId].image}}" data-duration="{{sermon.duration}}"><div class="amazingaudioplayer-source" data-src="{{sermon.src}}" data-type="audio/mpeg" /></div></li>
         </ion-item>

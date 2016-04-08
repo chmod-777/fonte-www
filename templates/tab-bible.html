@@ -1,20 +1,25 @@
-<ion-view view-title="Listen to the Bible - Choose a Book">
+<ion-view view-title="Listen to the Bible">
   <ion-content ng-controller="BibleCtrl">
-  <label class="item item-input item-select">
-      <div class="input-label">
-        Bible Language
-      </div>
-      <select ng-model="settings.language">
-        <option ng-repeat="lang in language" ng-value='{{lang.IDNT}}'>{{lang.en_language}}</option>
-      </select>
+  <div class="padding small">
+    <label class="item item-input item-select">
+        <div class="input-label">
+          Your Current Language:
+        </div>
+        <select ng-model="settings.rLanguage" ng-options="language.en_language for language in languages" ng-value='{{language.id}}'>
+        </select>
     </label>
-    <ion-list>
+    <ion-list ng-if="settings.rLanguage.IDOT != 0">
+        <ion-radio ng-model="settings.testament" ng-value="'IDNT'">New Testament</ion-radio>
+        <ion-radio ng-model="settings.testament" ng-value="'IDOT'">Old Testament</ion-radio>
+    </ion-list>
+  </div>
+  <ion-list>
     <h3 class="padding">Books of the Bible</h3>
-      <ion-item ng-repeat='books in books' class="item-icon-right" type="item-text-wrap" href="#/tab/bible/{{books.Index}}" ng-click="changeBookId(settings, books.Index, books.en_language)">
+      <ion-item ng-repeat='books in books' class="item-icon-right" type="item-text-wrap" href="#/tab/bible/{{books.Index}}/{{books.bookEN}}/{{books.bookCode}}">
         <h2 ng-if="lang === 'en'">{{books.bookEN}}</h2>
         <h2 ng-if="lang === 'pt'">{{books.bookPT}}</h2>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
-    </ion-list>
+  </ion-list>
   </ion-content>
 </ion-view>
