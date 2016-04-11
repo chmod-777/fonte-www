@@ -5,8 +5,8 @@
     <form name="settingsForm" ng-submit="SettingsCtrl.set">
     <h4 class="padding">{{'SETTINGS_CLANGUAGE' | translate}}</h4>
       <div class="button-bar bar-calm padding language-picker">
-	      <a ng-model="appLanguage" class="button button-positive" ng-click="languageChange('en')">{{'SETTINGS_EN' | translate}}</a>
-	      <a ng-model="appLanguage" class="button button-calm" ng-click="languageChange('pt')">{{'SETTINGS_PT' | translate}}</a>
+	      <button ng-model="appLanguage" class="button button-positive" ng-click="languageChange('en')">{{'SETTINGS_EN' | translate}}</a>
+	      <button ng-model="appLanguage" class="button button-calm" ng-click="languageChange('pt')">{{'SETTINGS_PT' | translate}}</a>
       </div>
       <!--Keeping these for the time being to help me understand how these variables work!
       <p>{{appLanguage}}</p>
