@@ -33,7 +33,7 @@ angular.module('starter.services', [])
     "image": "images/speakers/apMario.jpg"}],
   rootURL: 'http://cloud.faithcomesbyhearing.com/mp3audiobibles2/',
   aapNum: 0,
-  lang: 'en',
+  lang: 'pt',
   testament: "IDNT"
 })
 
@@ -150,7 +150,7 @@ angular.module('starter.services', [])
       console.log("scope.playNow called");
       console.log("selectedAudio variable passed: ", selectedAudio);
       $(".player-close-button").click(function(){
-        fonteFns.closePlayer("#amazingaudioplayer-1");
+        closePlayer("#amazingaudioplayer-1");
       });
       //clean out the old list div for the audio player
       function cleanDiv(toClean){

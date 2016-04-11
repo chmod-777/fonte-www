@@ -1,23 +1,31 @@
-<ion-view view-title="Listen to the Bible">
+<ion-view view-title="{{'BIBLE_HEADER' | translate}}">
   <ion-content ng-controller="BibleCtrl">
   <div class="padding small">
     <label class="item item-input item-select">
         <div class="input-label">
-          Your Current Language:
+          {{'BIBLE_CLANG' | translate}}
         </div>
-        <select ng-model="settings.rLanguage" ng-options="language.en_language for language in languages" ng-value='{{language.id}}'>
+        <select ng-model="settings.rLanguage" ng-options="language.{{lang}}_language for language in languages" ng-value='{{language.id}}'>
         </select>
     </label>
-    <ion-list ng-if="settings.rLanguage.IDOT != 0">
-        <ion-radio ng-model="settings.testament" ng-value="'IDNT'">New Testament</ion-radio>
-        <ion-radio ng-model="settings.testament" ng-value="'IDOT'">Old Testament</ion-radio>
+    <ion-list class="" ng-if="settings.rLanguage.IDOT != 0">
+        
+        <ion-radio ng-model="settings.testament" ng-value="'IDNT'">{{'BIBLE_NT' | translate}}</ion-radio>
+        <ion-radio ng-model="settings.testament" ng-value="'IDOT'">{{'BIBLE_OT' | translate}}</ion-radio>
     </ion-list>
   </div>
   <ion-list>
-    <h3 class="padding">Books of the Bible</h3>
-      <ion-item ng-repeat='books in books' class="item-icon-right" type="item-text-wrap" href="#/tab/bible/{{books.Index}}/{{books.bookEN}}/{{books.bookCode}}">
-        <h2 ng-if="lang === 'en'">{{books.bookEN}}</h2>
-        <h2 ng-if="lang === 'pt'">{{books.bookPT}}</h2>
+    <h3 class="padding">{{'BIBLE_BOOKS' | translate}}</h3>
+      <ion-item ng-if="lang === 'en'" ng-repeat='books in books' class="item-icon-right item-thumbnail-left" type="item-text-wrap" href="#/tab/bible/{{books.Index}}/{{books.bookEN}}/{{books.bookCode}}">
+        <img src="images/speakers/bible.png" />
+        <h2>{{books.bookEN}}</h2>
+        
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+      <ion-item ng-if="lang === 'pt'" ng-repeat='books in books' class="item-icon-right item-thumbnail-left" type="item-text-wrap" href="#/tab/bible/{{books.Index}}/{{books.bookPT}}/{{books.bookCode}}">
+        <img src="images/speakers/bible.png" />
+        <h2>{{books.bookPT}}</h2>
+        
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
   </ion-list>

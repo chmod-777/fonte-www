@@ -21,8 +21,10 @@
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
   <feature name="StatusBar">
-    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+    <param name="ios-package" value="CDVStatusBar" onload="false"/>
   </feature>
+  <plugin spec="https://github.com/danwilson/google-analytics-plugin.git" />
+  <plugin spec="https://github.com/apache/cordova-plugin-splashscreen.git" />
 
      <!-- Icons -->
    <platform name="android">

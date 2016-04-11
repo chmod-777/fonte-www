@@ -1,10 +1,12 @@
-<ion-view view-title="Choose a Chapter" ng-controller="BibleBookCtrl">
+<ion-view view-title="{{'BOOK_HEADER' | translate}}" ng-controller="BibleBookCtrl">
   <ion-content>
     <h1></h1>
-    <ion-item class="item-icon-right" type="item-text-wrap" ng-repeat="chapters in api.data" ng-click="playNow({{chapters}})">
-	    <h2 class="padding">{{bookName}} Chapter {{chapters.chapter_id}}</h2>
-	    <p class="padding">{{settings.rLanguage.en_language}}</p>
-	    <li style="display:none" data-artist="Chapter {{chapters.chapter_id}}" data-title="{{bookName}}" data-album data-info data-image="" data-duration=""><div class="amazingaudioplayer-source" data-src="{{settings.rootURL + chapters.path}}" data-type="audio/mpeg" /></div></li>
+    <ion-item class="item-avatar" type="item-text-wrap" ng-repeat="chapters in api.data" ng-click="playNow({{chapters}})">
+	    <img src="images/speakers/bible.png" />
+      <h2 class="padding">{{bookName}} {{'BOOK_CHAPTER' | translate}} {{chapters.chapter_id}}</h2>
+	    <p ng-if="lang === 'pt'" class="padding">{{settings.rLanguage.pt_language}}</p>
+	    <p ng-if="lang === 'en'" class="padding">{{settings.rLanguage.en_language}}</p>
+      <li style="display:none" data-artist="{{'BOOK_CHAPTER' | translate}} {{chapters.chapter_id}}" data-title="{{bookName}}" data-album data-info data-image="images/speakers/bible.png" data-duration=""><div class="amazingaudioplayer-source" data-src="{{settings.rootURL + chapters.path}}" data-type="audio/mpeg" /></div></li>
     </ion-item>
   </ion-content>
 </ion-view>

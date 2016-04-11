@@ -6,6 +6,10 @@ app.controller('DashCtrl', function($scope) {})
 
 .controller('SermonsCtrl', ['settings', '$scope', 'fonteFns', '$state', function(settings, $scope, fonteFns, $state, $stateParams) {
   console.log("loadPlayer called");
+  if(typeof analytics !== "undefined") {
+    analytics.trackView("Sermons");
+  }
+  
   //Info for Org Description Page:
   $scope.whichOrg = $state.params.orgId;
   $scope.whichSpeaker = $state.params.speakerId;
@@ -74,6 +78,10 @@ $scope.toggleRightSideMenu = function() {
 
 .controller('BibleCtrl', ['$scope', '$http', 'settings', '$translate', 'fonteFns', function($scope, $http, settings, $translate, fonteFns) {
   console.log("BibleCtrl called");
+  if(typeof analytics !== "undefined") {
+    analytics.trackView("Bible");
+  }
+
   $scope.settings = settings;
   $scope.languages = fonteFns.languages;
   
@@ -96,11 +104,13 @@ $scope.toggleRightSideMenu = function() {
 
 }])
 
-.controller('BibleBookCtrl', ['$scope', '$http', 'settings', '$state', 'fonteFns', function($scope, $http, settings, $state, fonteFns) {
+.controller('BibleBookCtrl', ['$scope', '$http', 'settings', '$translate', '$state', 'fonteFns', function($scope, $http, settings, $translate, $state, fonteFns) {
   console.log("BibleBookCtrl called");
   $scope.settings = settings;
   settings.bibleBookId = $state.params.bookId;
   $scope.bookName = $state.params.bookName;
+  $scope.lang = $translate.use();
+  
   bookCode = $state.params.bookCode;
   if (settings.testament == "IDOT"){
     damId = settings.rLanguage.IDOT;

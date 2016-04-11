@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analytics', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analytics', 'starter.controllers', 'starter.services', 'ngTouch'])
 
 .run(function($ionicPlatform, $ionicAnalytics, $rootScope) {
   $ionicPlatform.ready(function() {
@@ -21,8 +21,14 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
+    if(typeof analytics !== "undefined") {
+      analytics.startTrackedWithId("UA-53163653-2");
+    } else {
+      console.log("analytics not started");
+    }
+  
   });
+
 })
 
 .config(function ($sceDelegateProvider, $translateProvider) {
@@ -41,36 +47,66 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     TAB_RESOURCES: 'Resources',
     TAB_SETTINGS: 'Settings',
     TAG_LINE: 'Bibles, Sermons, and Resources in your language!',
+    BIBLE_CLANG: 'Your current Language',
+    BIBLE_NT: 'New Testament',
+    BIBLE_OT: 'Old Testament',
+    BIBLE_BOOKS: 'Books of the Bible',
+    BIBLE_HEADER: 'Listen to the Bible',
+    BOOK_HEADER: 'Choose a Book',
+    BOOK_CHAPTER: 'Chapter',
     SETTINGS_TITLE: 'Settings',
     SETTINGS_EN: 'English',
     SETTINGS_PT: 'Portuguese',
     SETTINGS_INFORMATION: 'Information',
     SETTINGS_CLANGUAGE: 'Choose the App language:',
+    SETTINGS_ORGANIZATIONS: 'Show me Resources from the following organizations:',
     SERMONS_SEARCH: 'Search',
     SERMONS_TITLE: 'Listen to Sermons',
     SERMONS_ABOUT_SPEAKER: 'About This Speaker',
     MENU_BACK: 'Back',
-    SERMONS_ABOUT_ORG: 'About This Organization'
+    SERMONS_ABOUT_ORG: 'About This Organization',
+    SEARCH_SORT: 'Sort by:',
+    SEARCH_POPULARITY: 'Popularity',
+    SEARCH_RECENT: 'Most Recent',
+    SEARCH_HITS: 'hits',
+    SEARCH_ORGANIZATION: 'Organization',
+    SEARCH_TITLE: 'Title',
+    SEARCH_PREACHER: 'Preacher'
   });
   $translateProvider.translations('pt', {
     TAB_HOME: 'Casa',
-    TAB_BIBLES: 'Biblias',
-    TAB_SERMONS: 'Sermoés',
-    TAB_RESOURCES: 'Recoursos',
+    TAB_BIBLES: 'Bíblias',
+    TAB_SERMONS: 'Sermões',
+    TAB_RESOURCES: 'Recursos',
     TAB_SETTINGS: 'Configuração',
-    TAG_LINE: 'A Biblia, Sermoés, e Recoursos Cristão no seu lingua!',
+    TAG_LINE: 'A Bíblia, Sermões, e Recursos Cristão na sua lingua!',
+    BIBLE_CLANG: 'A Sua Língua',
+    BIBLE_NT: 'Novo Testamento',
+    BIBLE_OT: 'Velho Testamento',
+    BIBLE_BOOKS: 'Livros da Bíblia',
+    BIBLE_HEADER: 'Escutando a Bíblia',
+    BOOK_HEADER: 'Escolhe um Livro',
+    BOOK_CHAPTER: 'Capítulo',
     SETTINGS_TITLE: 'Configuração',
     SETTINGS_EN: 'Inglês',
     SETTINGS_PT: 'Portugûes',
     SETTINGS_INFORMATION: 'Informação',
-    SETTINGS_CLANGUAGE: 'Escole a lingua de Applicativo:',
-    SERMONS_SEARCH: 'Pescisa',
-    SERMONS_TITLE: 'Escute os Sermoés',
+    SETTINGS_CLANGUAGE: 'Escolhe a lingua do Applicativo:',
+    SETTINGS_ORGANIZATIONS: 'Mostra-me os recursos das seguintes organizações:',
+    SERMONS_SEARCH: 'Pesquisa',
+    SERMONS_TITLE: 'Escute os Sermões',
     SERMONS_ABOUT_SPEAKER: 'Sobre o Pregador',
     MENU_BACK: 'Para Atras',
-    SERMONS_ABOUT_ORG: 'Sobre o Organização'
+    SERMONS_ABOUT_ORG: 'Sobre a Organização',
+    SEARCH_SORT: 'Ordenar por:',
+    SEARCH_POPULARITY: 'Popularidade',
+    SEARCH_RECENT: 'Mais Recente',
+    SEARCH_HITS: 'Visitas',
+    SEARCH_ORGANIZATION: 'Organização',
+    SEARCH_TITLE: 'Titulo',
+    SEARCH_PREACHER: 'Pregador'
   });
-  $translateProvider.preferredLanguage('en');
+  $translateProvider.preferredLanguage('pt');
 })
 
 //Filter list by organization listed in settings
