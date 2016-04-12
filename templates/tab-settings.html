@@ -17,13 +17,15 @@
 	      Resource Language
 	    </div>
       
-      <select ng-model="settings.languages" ng-controller="languagePicker">
-        <option ng-repeat="lang in settings.languages" ng-value='{{lang.IDNT}}'>{{lang.en_language}}</option>
+      <select ng-model="settings.rlanguage" ng-controller="languagePicker">
+        <option ng-repeat="lang in settings.languages" ng-value='{{lang.id}}'>{{lang.en_language}}</option>
       </select>
 	  </label>
+
 	  
     </ion-list>
-    <h4 class="padding">{{'SETTINGS_ORGANIZATIONS' | translate}}</h4>
+
+    <h4 class="padding">settings.rlanguage {{'SETTINGS_ORGANIZATIONS' | translate}}</h4>
     <ion-list>
     	  <ion-checkbox ng-repeat="item in orgList" ng-model="item.checked" ng-checked="item.checked">{{item.en_orgName}}</ion-checkbox>
     </ion-list>

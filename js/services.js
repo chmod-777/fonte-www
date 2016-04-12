@@ -34,19 +34,24 @@ angular.module('starter.services', [])
   rootURL: 'http://cloud.faithcomesbyhearing.com/mp3audiobibles2/',
   aapNum: 0,
   lang: 'pt',
-  testament: "IDNT"
+  testament: "IDNT",
+  rlanguage: 0
 })
-
 .service('fonteFns', ['settings', '$translate', '$http', function(settings, $translate, $http) {
-    getLanguages = function (){
+    this.getLanguages = function (){
       console.log("fonteFns.getLanguages called");
-      $http.get('ajax/languages.json').success(function(data) {
+      $http.get('ajax/languages.json').then(function(data) {
         settings.languages = data;
-        console.log('languages.json called successfully from fonteFns');
+        console.log('languages.json called successfully from fonteFns', settings.languages);
+        settings.rLanguage = settings.languages[0];
+        return data;
+      }, function(){
+        console.log("unable to return languages");
       });
+
     };
-    getLanguages();
-    settings.rLanguage = settings.languages[0];
+    this.getLanguages();
+    
 
     //Dependencies for startPlayer
     this.languages = settings.languages;

@@ -67,9 +67,11 @@ app.controller('DashCtrl', function($scope) {})
 
 //***not yet functioning
 .controller('menuCtrl', ['$scope', '$ionicSideMenuDelegate', function($scope, $ionicSideMenuDelegate){
-$scope.toggleRightSideMenu = function() {
-    $ionicSideMenuDelegate.toggleRight();
+  $scope.toggleLeft = function() {
+    console.log("toggleRightSideMenu called");
+    $ionicSideMenuDelegate.toggleLeft();
   };
+  console.log("menuCtrl called");
 }])
 
 .controller('ResourceCtrl', ['settings', '$scope', function(settings, $scope){
@@ -132,45 +134,17 @@ $scope.toggleRightSideMenu = function() {
 
 }])
 
-.controller('languagePicker', ['$scope', 'settings', '$http', function($scope, settings, $http) {
+
+.controller('SettingsCtrl', ['$scope', 'settings', '$translate', 'fonteFns', function($scope, settings, $translate, fonteFns) {
+  $scope.languages = fonteFns.getLanguages();
+  /*$scope.languages = settings.languages;*/
+  console.log("$scope.languages: ", fonteFns.getLanguages());
   $scope.settings = settings;
-  getLanguages = function (){
-      console.log("getLanguages called");
-      $http.get('ajax/languages.json').success(function(data) {
-        settings.languages = data;
-        console.log('languages.json called successfully from languagePicker');
-      });
-    $scope.languages = settings.languages;
-    };
-    getLanguages();
-    $scope.rLanguageChange = function (settings){
-      settings.rLanguage.dam = $(this).attr("ng-value");
-      console.log(settings.rLanguage.dam);
-    }
-}])
-
-
-.controller('SettingsCtrl', ['$scope', 'settings', '$translate', function($scope, settings, $translate) {
-  //$scope.settings = settings;
   console.log("Organization Information: ", settings.orgList);
   $scope.orgList = settings.orgList;
-
   console.log("settings.languages: ", settings.languages);
-  $scope.languageChange = function(lang) {
-    console.log("languageChange function called");
-    if(this.appLanguage === lang) {}
-      else {
-        $(".language-picker a.button-positive").removeClass("button-positive").addClass("button-middle");
-        $(".language-picker a.button-calm").removeClass("button-calm").addClass("button-positive");
-        $(".language-picker a.button-middle").removeClass("button-middle").addClass("button-calm");
-      };
-    this.appLanguage = lang;
-    $translate.use(lang);
-    settings.lang = lang;
-    console.log(lang);
-    
-  };
-  this.set = function() {
-    $scope.settings.push(this);
+  $scope.lang = settings.lang;
+  $scope.changeLanguage = function(newLang) {
+    $translate.use(newLang);
   };
 }]);
