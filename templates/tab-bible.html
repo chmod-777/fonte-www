@@ -1,12 +1,13 @@
 <ion-view view-title="{{'BIBLE_HEADER' | translate}}">
-  <ion-content ng-controller="BibleCtrl">
+  <ion-content>
   <div class="padding small">
     <label class="item item-input item-select">
         <div class="input-label">
           {{'BIBLE_CLANG' | translate}}
         </div>
-        <select ng-model="settings.rLanguage" ng-options="language.{{lang}}_language for language in languages" ng-value='{{language.id}}'>
-        </select>
+
+              <select ng-model="settings.rLanguage" ng-options="language.en_language for language in languages" ng-value='{{language.id}}'>
+              </select>
     </label>
     <ion-list class="" ng-if="settings.rLanguage.IDOT != 0">
         

@@ -37,7 +37,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     'self',
     // Allow loading from our assets domain.  Notice the difference between * and **.
     'https://storage.googleapis.com/jonandc1-europe/**',
-    'http://cloud.faithcomesbyhearing.com/**'
+    'http://cloud.faithcomesbyhearing.com/**',
+    'http://www.inspirationalfilms.com/audio/**'
   ]);
 
   $translateProvider.translations('en', {
@@ -106,7 +107,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     SEARCH_TITLE: 'Titulo',
     SEARCH_PREACHER: 'Pregador'
   });
-  $translateProvider.preferredLanguage('pt');
+  $translateProvider.preferredLanguage('en');
 })
 
 //Filter list by organization listed in settings
@@ -119,9 +120,11 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       //console.log(org);
       angular.forEach(items, function(item) {
         //console.log("org.id: ", org.id);
-        //console.log("item.Organization", item);
+        //console.log("item.Organization", item);lang_main: 2,
         if(org.id == item.orgId) {
-        filtered.push(item);
+          if(item.lang_main == settings.rLanguage.id || item.lang_translated == settings.rLanguage.id) {
+            filtered.push(item);
+          };
         };
       });
     };
@@ -168,6 +171,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       views: {
         'tab-bible': {
           templateUrl: 'templates/tab-bible.html',
+          controller: 'BibleCtrl'
         }
       }
     })

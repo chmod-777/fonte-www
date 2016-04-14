@@ -19,6 +19,8 @@ app.controller('DashCtrl', function($scope) {})
       en_title: "Three Types of Curses",
       pt_title: "Tres Tipos de Maldição",
       duration: "5604",
+      lang_main: 0,
+      lang_translated: 1,
       hits: 921,
       orgId: 0,
       src: "https://storage.googleapis.com/jonandc1-europe/teachings/peniel/apmariocasquinha/2016-01-06%20-%20Ap%20Mario%20Tres%20Tipos%20de%20Maldicao.mp3"},
@@ -26,6 +28,7 @@ app.controller('DashCtrl', function($scope) {})
       en_title: "Finding your Role in the Church",
       pt_title: "Descobrindo a sua Função",
       duration: "4189",
+      lang_main: 0,
       hits: 219,
       orgId: 0,
       src: "https://storage.googleapis.com/jonandc1-europe/teachings/peniel/apmariocasquinha/2013-10-30%20PT.%20AP.Mario%20Descobrindo%20a%20sua%20Funcao.mp3"},
@@ -33,13 +36,25 @@ app.controller('DashCtrl', function($scope) {})
       en_title: "The Judgment of the Messiah",
       pt_title: "O Tribunal de Cristo",
       duration: "4189",
+      lang_main: 0,
+      lang_translated: 1,
       hits: 10,
       orgId: 0,
       src: "https://storage.googleapis.com/jonandc1-europe/teachings/peniel/apmariocasquinha/2013-04-30%20PT.EN%20AP.Mario%20O%20tribunal%20de%20Cristo-.mp3"},
       {artistId: 0,
+      en_title: "The Story of Jesus",
+      pt_title: "A Historia do Jesus",
+      duration: "4189",
+      lang_main: 2,
+      hits: 21,
+      orgId: 0,
+      src: "http://www.inspirationalfilms.com/audio/The_Story_of_Jesus_Sena_84308.mp3"},
+      {artistId: 0,
       en_title: "Knowing What Kind of Believers we are",
       pt_title: "Conciencia do tipo de Crente que nos Somos",
       duration: "4189",
+      lang_main: 0,
+      lang_translated: 1,
       hits: 50,
       orgId: 0,
       src: "https://storage.googleapis.com/jonandc1-europe/teachings/peniel/apmariocasquinha/2015-28-08%20PT.EN%20Ap.%20Mario%20Casquinha_Conciencia%20do%20tipo%20de%20crente%20que%20nos%20somos.mp3"},
@@ -47,6 +62,8 @@ app.controller('DashCtrl', function($scope) {})
       en_title: "Annointing",
       pt_title: "Unção",
       duration: "4189",
+      lang_main: 0,
+      lang_translated: 1,
       hits: 1921,
       orgId: 2,      
       src: "https://storage.googleapis.com/jonandc1-europe/teachings/peniel/apmariocasquinha/2016-01-10%20-%20Ap%20Mario%20Domingo%20a%20Noite%20Uncao.mp3"}
@@ -66,13 +83,13 @@ app.controller('DashCtrl', function($scope) {})
 }])
 
 //***not yet functioning
-.controller('menuCtrl', ['$scope', '$ionicSideMenuDelegate', function($scope, $ionicSideMenuDelegate){
+/*.controller('menuCtrl', ['$scope', '$ionicSideMenuDelegate', function($scope, $ionicSideMenuDelegate){
   $scope.toggleLeft = function() {
     console.log("toggleRightSideMenu called");
     $ionicSideMenuDelegate.toggleLeft();
   };
   console.log("menuCtrl called");
-}])
+}])*/
 
 .controller('ResourceCtrl', ['settings', '$scope', function(settings, $scope){
   $scope.organizationList = settings.orgList;
@@ -85,7 +102,8 @@ app.controller('DashCtrl', function($scope) {})
   }
 
   $scope.settings = settings;
-  $scope.languages = fonteFns.languages;
+  console.log("setting: ", settings);
+  //$scope.languages = fonteFns.getLanguages();
   
   $scope.lang = $translate.use();
   listBooks = function(){
@@ -133,16 +151,40 @@ app.controller('DashCtrl', function($scope) {})
   $scope.playNow = fonteFns.playNow;
 
 }])
+.controller('LanguageCtrl', ['$scope', 'settings', '$http', function($scope, settings, $http) {
+        $http.get('ajax/languages.json').then(function(result) {
+        settings.languages = result.data;
+        $scope.languages = result.data;
+        console.log('languages.json called successfully from SettingsCtrl', $scope.languages);
+        if (settings.rLanguage == 0) {
+          settings.rLanguage = settings.languages[0];
+          console.log("rLanguage 0");
+        } else {
+          console.log("rLanguage not 0", settings);
+        };
+        //$scope.rLanguage = settings.rLanguage;
+        return result.data;
+      }, function(){
+        console.log("unable to return languages");
+      });
+        $scope.$watch('settings.rLanguage', function(a, b){
+          console.log("rLanguage changed from to:", b, a);
+        });
+
+}])
+
+.controller('SettingsCtrl', ['$scope', 'settings', '$http', '$translate', 'fonteFns', function($scope, settings, $http, $translate, fonteFns) {
 
 
-.controller('SettingsCtrl', ['$scope', 'settings', '$translate', 'fonteFns', function($scope, settings, $translate, fonteFns) {
-  $scope.languages = fonteFns.getLanguages();
+    //Firing before getLanguages completes.
+     //settings.languages;
+      //settings.languages = fonteFns.getLanguages();
   /*$scope.languages = settings.languages;*/
-  console.log("$scope.languages: ", fonteFns.getLanguages());
+  console.log("SettingsCtrl $scope.languages: ");
   $scope.settings = settings;
-  console.log("Organization Information: ", settings.orgList);
+  console.log("SettingsCtrl Organization Information: ", settings);
   $scope.orgList = settings.orgList;
-  console.log("settings.languages: ", settings.languages);
+  console.log("SettingsCtrl settings.languages: ", settings.languages);
   $scope.lang = settings.lang;
   $scope.changeLanguage = function(newLang) {
     $translate.use(newLang);

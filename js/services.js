@@ -33,28 +33,16 @@ angular.module('starter.services', [])
     "image": "images/speakers/apMario.jpg"}],
   rootURL: 'http://cloud.faithcomesbyhearing.com/mp3audiobibles2/',
   aapNum: 0,
-  lang: 'pt',
+  lang: 'en',
   testament: "IDNT",
-  rlanguage: 0
+  rLanguage: 0,
+  languages: ""
 })
 .service('fonteFns', ['settings', '$translate', '$http', function(settings, $translate, $http) {
-    this.getLanguages = function (){
-      console.log("fonteFns.getLanguages called");
-      $http.get('ajax/languages.json').then(function(data) {
-        settings.languages = data;
-        console.log('languages.json called successfully from fonteFns', settings.languages);
-        settings.rLanguage = settings.languages[0];
-        return data;
-      }, function(){
-        console.log("unable to return languages");
-      });
 
-    };
-    this.getLanguages();
-    
 
     //Dependencies for startPlayer
-    this.languages = settings.languages;
+    //this.languages = settings.languages;
     var scripts = document.getElementsByTagName("script");
     var jsFolder = "audioplayerengine/";
     for (var i= 0; i< scripts.length; i++)
@@ -154,6 +142,7 @@ angular.module('starter.services', [])
       //Testing statements
       console.log("scope.playNow called");
       console.log("selectedAudio variable passed: ", selectedAudio);
+      selectedAudio.hits += 1;
       $(".player-close-button").click(function(){
         closePlayer("#amazingaudioplayer-1");
       });

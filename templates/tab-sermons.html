@@ -1,10 +1,17 @@
 <ion-view view-title="{{'SERMONS_TITLE' | translate}}">
 <ion-content class="sermon-page">
-    <div class="bar item-input-inset bar-light">
+    <div class="row">
+    <div class="bar item-input-inset  col bar-light">
         <label class="item-input-wrapper">
             <i class="icon ion-search placeholder-icon"></i>
             <input type="search" placeholder="{{'SERMONS_SEARCH' | translate}}" ng-model="query">
         </label>
+    </div>
+ <!--    <div class="input-label col">
+          {{'BIBLE_CLANG' | translate}}
+        </div> -->
+    <select class="col" ng-model="settings.rLanguage" ng-options="language.en_language for language in languages" ng-value='{{language.id}}'>
+              </select>
     </div>
     <div class="bar item-input-inset bar-light">
         <label class="item item-input item-select item-input-wrapper">
@@ -32,7 +39,7 @@
             <a href="#/tab/sermons/speaker-{{sermon.artistId}}" ng-if="settings.lang =='en'"><button class="button button-stable button-small button-outline">{{settings.speakerList[sermon.artistId].en_name}}</button></a><br/>
             <a href="#/tab/sermons/org-{{sermon.orgId}}" ng-if="settings.lang =='en'"><button class="button button-stable button-small button-outline">{{settings.orgList[sermon.orgId].en_orgName}}</button></a>
             <a href="#/tab/sermons/org-{{sermon.orgId}}" ng-if="settings.lang =='pt'"><button class="button button-stable button-small button-outline">{{settings.orgList[sermon.orgId].pt_orgName}}</button></a>
-            <p>{{sermon.hits}}</p>
+            <p>{{settings.languages[sermon.lang_main].en_language}}/{{settings.languages[sermon.lang_translated].en_language}} {{sermon.hits}}</p>
             
             <li ng-if="settings.lang =='pt'" style="display:none" data-artist="{{settings.speakerList[sermon.artistId].pt_name}}" data-title="{{sermon.pt_title}}" data-album data-info data-image="{{settings.speakerList[sermon.artistId].image}}" data-duration="{{sermon.duration}}"><div class="amazingaudioplayer-source" data-src="{{sermon.src}}" data-type="audio/mpeg" /></div></li><li ng-if="settings.lang =='en'" style="display:none" data-artist="{{settings.speakerList[sermon.artistId].en_name}}" data-title="{{sermon.en_title}}" data-album data-info data-image="{{settings.speakerList[sermon.artistId].image}}" data-duration="{{sermon.duration}}"><div class="amazingaudioplayer-source" data-src="{{sermon.src}}" data-type="audio/mpeg" /></div></li>
         </ion-item>
