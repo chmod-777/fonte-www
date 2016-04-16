@@ -6,9 +6,9 @@ app.controller('DashCtrl', function($scope) {})
 
 .controller('SermonsCtrl', ['settings', '$scope', 'fonteFns', '$state', function(settings, $scope, fonteFns, $state, $stateParams) {
   console.log("loadPlayer called");
-  if(typeof analytics !== "undefined") {
+/*  if(typeof analytics !== "undefined") {
     analytics.trackView("Sermons");
-  }
+  }*/
   
   //Info for Org Description Page:
   $scope.whichOrg = $state.params.orgId;
@@ -119,10 +119,14 @@ app.controller('DashCtrl', function($scope) {})
     if ($scope.settings.testament == "IDOT") {
       $http.get('ajax/ot_books.json').success(function(data) {
         $scope.books = data;
+      }).error(function(error) {
+        alert("ot_books unable to be called");
       });
     } else {
       $http.get('ajax/nt_books.json').success(function(data) {
         $scope.books = data;
+      }).error(function(error) {
+        alert("nt_books unable to be called");
       });
     };
   };
@@ -154,8 +158,8 @@ app.controller('DashCtrl', function($scope) {})
       $scope.api = data;
       console.log($scope.api);
   }, function errorCallback(response){
-    console.log(response);
-    console.log($scope);
+    console.log(JSON.stringify(response));
+    console.log("dbt.io api error");
   });
   $scope.playNow = fonteFns.playNow;
 

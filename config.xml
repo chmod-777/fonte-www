@@ -12,6 +12,7 @@
       Jon Reinagel
     </author>
   <content src="index.html"/>
+  <allow-navigation href="http://*/*" />
   <preference name="target-device" value="universal" />
   <preference name="fullscreen" value="true" />
   <preference name="phonegap-version" value="cli-5.2.0" />

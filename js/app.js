@@ -39,7 +39,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     // Allow loading from our assets domain.  Notice the difference between * and **.
     'https://storage.googleapis.com/jonandc1-europe/**',
     'http://cloud.faithcomesbyhearing.com/**',
-    'http://www.inspirationalfilms.com/audio/**'
+    'http://www.inspirationalfilms.com/audio/**',
+    'http://dbt.io/**'
   ]);
 
   $translateProvider.translations('en', {
