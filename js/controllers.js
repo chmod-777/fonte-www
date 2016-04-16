@@ -146,7 +146,7 @@ app.controller('DashCtrl', function($scope) {})
       console.log($scope.api);
   }, function errorCallback(response){
     console.log(response);
-    console.log(scope);
+    console.log($scope);
   });
   $scope.playNow = fonteFns.playNow;
 

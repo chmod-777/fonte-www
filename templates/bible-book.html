@@ -1,7 +1,7 @@
 <ion-view view-title="{{'BOOK_HEADER' | translate}}" ng-controller="BibleBookCtrl">
   <ion-content>
     <h1></h1>
-    <ion-item class="item-avatar" type="item-text-wrap" ng-repeat="chapters in api.data" ng-click="playNow({{chapters}})">
+    <ion-item class="item-avatar" type="item-text-wrap" ng-repeat="chapters in api.data | limitTo:20" ng-click="playNow({{chapters}})">
 	    <img src="images/speakers/bible.png" />
       <h2 class="padding">{{bookName}} {{'BOOK_CHAPTER' | translate}} {{chapters.chapter_id}}</h2>
 	    <p ng-if="lang === 'pt'" class="padding">{{settings.rLanguage.pt_language}}</p>

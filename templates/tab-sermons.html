@@ -30,7 +30,7 @@
     </div>
     <ion-list>
         <!--<ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | orderBy:sortingBy" ng-click="playNow({{sermon}})" data-tap-disabled="true" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">-->
-        <ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | orderBy:sortingBy" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">
+        <ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | limitTo: 15 | orderBy:sortingBy" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">
             <img ng-click="playNow(sermon)" src="{{settings.speakerList[sermon.artistId].image}}" />
             <i ng-click="playNow(sermon)" class="icon ion-ios-play"></i>
             <button class="button" ng-click="playNow(sermon)"  ng-if="settings.lang =='en'"><h2 ng-click="playNow(sermon)">{{sermon.en_title}}</h2></button>

@@ -39,8 +39,8 @@ angular.module('starter.services', [])
   languages: ""
 })
 .service('fonteFns', ['settings', '$translate', '$http', function(settings, $translate, $http) {
-
-
+    //For GA_LocalStorage. If not using, remove
+    //ga_storage._trackPageview('/fonteFns', 'FonteFns Called');
     //Dependencies for startPlayer
     //this.languages = settings.languages;
     var scripts = document.getElementsByTagName("script");

@@ -21,11 +21,12 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    if(typeof analytics !== "undefined") {
+    //GA
+/*    if(typeof analytics !== "undefined") {
       analytics.startTrackedWithId("UA-53163653-2");
     } else {
       console.log("analytics not started");
-    }
+    }*/
   
   });
 

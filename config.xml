@@ -24,7 +24,7 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="false"/>
   </feature>
-  <plugin spec="https://github.com/danwilson/google-analytics-plugin.git" />
+
   <plugin spec="https://github.com/apache/cordova-plugin-splashscreen.git" />
 
      <!-- Icons -->
