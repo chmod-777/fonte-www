@@ -937,7 +937,7 @@ var AmazingAudioPlatforms = {
             amazingAudioPlayerObjects.addObject(object)
         })
     }
-})($);
+})(jQuery);
 if (typeof amazingaudioplayerId === "undefined") var amazingaudioplayerId = 0;
 if (typeof amazingAudioPlayerObjects === "undefined") var amazingAudioPlayerObjects = new function() { this.objects = [];
     this.addObject = function(obj) { this.objects.push(obj) } };
