@@ -12,11 +12,7 @@
       Jon Reinagel
     </author>
   <content src="index.html"/>
-  <access origin="https://storage.googleapis.com/jonandc1-europe/" subdomains="true" />
-  <access origin="ttp://cloud.faithcomesbyhearing.com/" subdomains="true" />
-  <access origin="http://dbt.io" subdomains="true" />
-  <access origin="http://www.inspirationalfilms.com/" subdomains="true" />
-  <access origin="*" subdomains="true" />
+  <access origin="*" />
   <allow-navigation href="http://*/*" />
   <preference name="target-device" value="universal" />
   <preference name="fullscreen" value="true" />
