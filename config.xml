@@ -12,6 +12,7 @@
       Jon Reinagel
     </author>
   <content src="index.html"/>
+  <access origin="*" />
   <allow-navigation href="http://*/*" />
   <preference name="target-device" value="universal" />
   <preference name="fullscreen" value="true" />
