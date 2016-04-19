@@ -9,9 +9,12 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
 
 .run(function($ionicPlatform, $ionicAnalytics, $rootScope) {
   $ionicPlatform.ready(function() {
-    $ionicAnalytics.register();
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+    if (typeof analytics !== 'undefined'){
+      analytics.startTrackerWithId('UA-53163653-2');
+      analytics.trackView('App Started');
+    }
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);

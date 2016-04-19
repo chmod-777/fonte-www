@@ -26,9 +26,8 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="false"/>
   </feature>
-
   <plugin spec="https://github.com/apache/cordova-plugin-splashscreen.git" />
-
+  <plugin name="com.danielcwilson.plugins.googleanalytics" spec="0.6.1" source="pgb" />
      <!-- Icons -->
    <platform name="android">
       <icon src="images/icon-96x96.png" width="96" height="96" platform="android" gap:role="default" />

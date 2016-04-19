@@ -6,9 +6,10 @@ app.controller('DashCtrl', function($scope) {})
 
 .controller('SermonsCtrl', ['settings', '$scope', 'fonteFns', '$state', function(settings, $scope, fonteFns, $state, $stateParams) {
   console.log("loadPlayer called");
-/*  if(typeof analytics !== "undefined") {
+  analytics.trackView('loadPlayer called');
+  if(typeof analytics !== "undefined") {
     analytics.trackView("Sermons");
-  }*/
+  }
   
   //Info for Org Description Page:
   $scope.whichOrg = $state.params.orgId;
@@ -108,6 +109,9 @@ app.controller('DashCtrl', function($scope) {})
   console.log("BibleCtrl called");
   if(typeof analytics !== "undefined") {
     analytics.trackView("Bible");
+    console.log("GA Bible tag called successfully");
+  } else {
+    console.log("GA Bible tag not called");
   }
 
   $scope.settings = settings;
