@@ -138,7 +138,9 @@ angular.module('starter.services', [])
     };
     closePlayer = this.closePlayer;
     this.playNow = function(selectedAudio){
-      
+      if(typeof analytics !== "undefined") {
+        analytics.trackEvent('Player Started', selectedAudio.en_title, 'Language', settings.rLanguage.id);
+      };        
       //Testing statements
       console.log("scope.playNow called");
       console.log("selectedAudio variable passed: ", selectedAudio);
@@ -216,12 +218,8 @@ angular.module('starter.services', [])
          });
        }
       startPlayer(keyDivHash);
+
     }; //end playNow Function
-
-
-    logMe = function() {
-      console.log("logMe function called");
-    }
 }])
 
 

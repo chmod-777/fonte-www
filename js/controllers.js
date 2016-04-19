@@ -5,8 +5,6 @@ app.controller('DashCtrl', function($scope) {})
 
 
 .controller('SermonsCtrl', ['settings', '$scope', 'fonteFns', '$state', function(settings, $scope, fonteFns, $state, $stateParams) {
-  console.log("loadPlayer called");
-  analytics.trackView('loadPlayer called');
   if(typeof analytics !== "undefined") {
     analytics.trackView("Sermons");
   }
@@ -25,15 +23,6 @@ app.controller('DashCtrl', function($scope) {})
       hits: 921,
       orgId: 0,
       src: "https://storage.googleapis.com/jonandc1-europe/teachings/peniel/apmariocasquinha/2016-01-06%20-%20Ap%20Mario%20Tres%20Tipos%20de%20Maldicao.mp3"},
-      {artistId: 0,
-      en_title: "We Believe",
-      pt_title: "Tres Tipos de Maldição",
-      duration: "",
-      lang_main: 0,
-      lang_translated: 1,
-      hits: 921,
-      orgId: 0,
-      src: "audios/we-believe.mp3"},
       {artistId: 0,
       en_title: "Finding your Role in the Church",
       pt_title: "Descobrindo a sua Função",
@@ -92,17 +81,11 @@ app.controller('DashCtrl', function($scope) {})
     console.log(settings.orgList);
 }])
 
-//***not yet functioning
-/*.controller('menuCtrl', ['$scope', '$ionicSideMenuDelegate', function($scope, $ionicSideMenuDelegate){
-  $scope.toggleLeft = function() {
-    console.log("toggleRightSideMenu called");
-    $ionicSideMenuDelegate.toggleLeft();
-  };
-  console.log("menuCtrl called");
-}])*/
-
 .controller('ResourceCtrl', ['settings', '$scope', function(settings, $scope){
   $scope.organizationList = settings.orgList;
+  if(typeof analytics !== "undefined") {
+    analytics.trackView("Resources");
+  }
 }])
 
 .controller('BibleCtrl', ['$scope', '$http', 'settings', '$translate', 'fonteFns', function($scope, $http, settings, $translate, fonteFns) {
@@ -143,11 +126,15 @@ app.controller('DashCtrl', function($scope) {})
 
 .controller('BibleBookCtrl', ['$scope', '$http', 'settings', '$translate', '$state', 'fonteFns', function($scope, $http, settings, $translate, $state, fonteFns) {
   console.log("BibleBookCtrl called");
+
   $scope.settings = settings;
   settings.bibleBookId = $state.params.bookId;
   $scope.bookName = $state.params.bookName;
   $scope.lang = $translate.use();
-  
+  if(typeof analytics !== "undefined") {
+    analytics.trackEvent('Click', 'Book Click', 'Bible Book', settings.testament + settings.bibleBookId);  
+    analytics.trackEvent('Click', 'Book Click', 'Bible Language', settings.rLanguage.id);
+  };  
   bookCode = $state.params.bookCode;
   if (settings.testament == "IDOT"){
     damId = settings.rLanguage.IDOT;
@@ -191,7 +178,9 @@ app.controller('DashCtrl', function($scope) {})
 }])
 
 .controller('SettingsCtrl', ['$scope', 'settings', '$http', '$translate', 'fonteFns', function($scope, settings, $http, $translate, fonteFns) {
-
+  if(typeof analytics !== "undefined") {
+    analytics.trackView("Settings");
+  };
 
     //Firing before getLanguages completes.
      //settings.languages;
