@@ -373,7 +373,8 @@ var AmazingAudioPlatforms = {
                     $time.html(t)
                 });
                 this.container.bind("amazingaudioplayer.played", function(event, currentItem) {
-                    if (instance.options.showloading) $time.html(instance.options.loadingformat) })
+                    //if (instance.options.showloading) $(time.html(instance.options.loadingformat)) })
+                    if (instance.options.showloading) $(".waitingPlayer").show(); }) //Jon Edit to change waiting
             }
             if (this.options.showprogress) {
                 var $progress = $("<div class='amazingaudioplayer-progress'></div>");
@@ -400,6 +401,7 @@ var AmazingAudioPlatforms = {
                 this.container.bind("amazingaudioplayer.playprogress", function(event,
                     data) {
                     if (data.live) return;
+                    $(".waitingPlayer").hide();
                     var progress = 0;
                     if (!isNaN(data.duration) && isFinite(data.duration) && data.duration > 0) progress = Math.ceil(data.current * 100 / data.duration);
                     $progressPlayed.css({ width: progress + "%" }) })

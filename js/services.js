@@ -33,7 +33,7 @@ angular.module('starter.services', [])
     "image": "images/speakers/apMario.jpg"}],
   rootURL: 'http://cloud.faithcomesbyhearing.com/mp3audiobibles2/',
   aapNum: 0,
-  lang: 'en',
+  lang: 'pt',
   testament: "IDNT",
   rLanguage: 0,
   languages: ""
@@ -50,8 +50,17 @@ angular.module('starter.services', [])
         if( scripts[i].src && scripts[i].src.match(/initaudioplayer-1\.js/i))
             jsFolder = scripts[i].src.substr(0, scripts[i].src.lastIndexOf("/") + 1);
     }
-
-
+    /*this.download = function(downloadURL, title) {
+      console.log("download function called successfully");
+      $cordovaFile.copyFile(downloadURL, title, cordova.file.dataDirectory, title)
+          .then(function (success) {
+              // success
+              console.log("successfully downloaded file");
+            }, function (error) {
+              // error
+              console.log("File download error");
+            }); 
+     }*/
     function startPlayer (playerList){
       console.log("startPlayer from SermonsCtrl: ", playerList);
       console.log($(playerList));
@@ -139,7 +148,7 @@ angular.module('starter.services', [])
     closePlayer = this.closePlayer;
     this.playNow = function(selectedAudio){
       if(typeof analytics !== "undefined") {
-        analytics.trackEvent('Player Started', selectedAudio.en_title, 'Language', settings.rLanguage.id);
+        analytics.trackEvent('Player Started', selectedAudio.en_title, settings.rLanguage.en_language);
       };        
       //Testing statements
       console.log("scope.playNow called");

@@ -1,5 +1,6 @@
 <ion-view view-title="{{'BIBLE_HEADER' | translate}}">
-  <ion-content>
+  <ion-content on-swipe-right="goBack()" on-swipe-left="goForward()">
+  <div class="waiting"><ion-spinner></ion-spinner></div>
   <div class="padding small">
     <label class="item item-input item-select">
         <div class="input-label">
@@ -17,6 +18,7 @@
   </div>
   <ion-list>
     <h3 class="padding">{{'BIBLE_BOOKS' | translate}}</h3>
+      
       <ion-item ng-if="lang === 'en'" ng-repeat='books in books' class="item-icon-right item-thumbnail-left" type="item-text-wrap" href="#/tab/bible/{{books.Index}}/{{books.bookEN}}/{{books.bookCode}}">
         <img src="images/speakers/bible.png" />
         <h2>{{books.bookEN}}</h2>

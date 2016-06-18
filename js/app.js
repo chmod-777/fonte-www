@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analytics', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analytics', 'starter.controllers', 'starter.services', 'ngCordova'])
 
 .run(function($ionicPlatform, $ionicAnalytics, $rootScope) {
   $ionicPlatform.ready(function() {
@@ -24,6 +24,10 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    document.addEventListener("deviceready", onDeviceReady, false);
+      function onDeviceReady() {
+        console.log(cordova.file);
+      }
     //GA
 /*    if(typeof analytics !== "undefined") {
       analytics.startTrackedWithId("UA-53163653-2");
@@ -43,22 +47,25 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     'https://storage.googleapis.com/jonandc1-europe/**',
     'http://cloud.faithcomesbyhearing.com/**',
     'http://www.inspirationalfilms.com/audio/**',
-    'http://dbt.io/**'
+    'http://dbt.io/**',
+    'http://146.148.29.150/**',
+    'http://146.148.29.150/fonte/api/html/web/nt-book/api'
   ]);
 
   $translateProvider.translations('en', {
+    ABOUT_TITLE: 'About the App',
     TAB_HOME: 'Home',
     TAB_BIBLES: 'Bibles',
     TAB_SERMONS: 'Sermons',
     TAB_RESOURCES: 'Resources',
-    TAB_SETTINGS: 'Settings',
+    TAB_ABOUT: 'About the App',
     TAG_LINE: 'Bibles, Sermons, and Resources in your language!',
     BIBLE_CLANG: 'Your current Language',
     BIBLE_NT: 'New Testament',
     BIBLE_OT: 'Old Testament',
     BIBLE_BOOKS: 'Books of the Bible',
     BIBLE_HEADER: 'Listen to the Bible',
-    BOOK_HEADER: 'Choose a Book',
+    BOOK_HEADER: 'Choose a Chapter',
     BOOK_CHAPTER: 'Chapter',
     SETTINGS_TITLE: 'Settings',
     SETTINGS_EN: 'English',
@@ -80,18 +87,19 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     SEARCH_PREACHER: 'Preacher'
   });
   $translateProvider.translations('pt', {
+    ABOUT_TITLE: 'Sobre o Applicativo',
     TAB_HOME: 'Casa',
     TAB_BIBLES: 'Bíblias',
     TAB_SERMONS: 'Sermões',
     TAB_RESOURCES: 'Recursos',
-    TAB_SETTINGS: 'Configuração',
+    TAB_ABOUT: 'Sobre o Applicativo',
     TAG_LINE: 'A Bíblia, Sermões, e Recursos Cristão na sua lingua!',
     BIBLE_CLANG: 'A Sua Língua',
     BIBLE_NT: 'Novo Testamento',
     BIBLE_OT: 'Velho Testamento',
     BIBLE_BOOKS: 'Livros da Bíblia',
     BIBLE_HEADER: 'Escutando a Bíblia',
-    BOOK_HEADER: 'Escolhe um Livro',
+    BOOK_HEADER: 'Escolhe um Capítulo',
     BOOK_CHAPTER: 'Capítulo',
     SETTINGS_TITLE: 'Configuração',
     SETTINGS_EN: 'Inglês',
@@ -112,7 +120,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     SEARCH_TITLE: 'Titulo',
     SEARCH_PREACHER: 'Pregador'
   });
-  $translateProvider.preferredLanguage('en');
+  $translateProvider.preferredLanguage('pt');
 })
 
 //Filter list by organization listed in settings
@@ -157,7 +165,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'templates/tabs.html'
+    templateUrl: 'templates/tabs.html',
+    controller: 'MainCtrl'
   })
 
   // Each tab has its own nav history stack:
@@ -167,7 +176,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+        controller: 'MainCtrl'
       }
     }
   })
@@ -184,7 +193,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       url: '/bible/:bookId/:bookName/:bookCode',
       views: {
         'tab-bible': {
-          templateUrl: 'templates/bible-book.html'
+          templateUrl: 'templates/bible-book.html',
+          controller: 'MainCtrl'
         }
       }
     })
@@ -220,16 +230,16 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     views: {
       'tab-resources': {
         templateUrl: 'templates/tab-resources.html',
-        controller: 'ResourceCtrl',
+        controller: 'ResourceCtrl'
       }
     }
   })
-  .state('tab.settings', {
-    url: '/settings',
+  .state('tab.about', {
+    url: '/about',
     views: {
-      'tab-settings': {
-        templateUrl: 'templates/tab-settings.html',
-        controller: 'SettingsCtrl'
+      'tab-about': {
+        templateUrl: 'templates/tab-about.html',
+        controller: 'MainCtrl',
       }
     }
   });

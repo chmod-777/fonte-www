@@ -1,5 +1,6 @@
 <ion-view view-title="Listen to the Bible" ng-controller="BibleBookCtrl">
   <ion-content>
+
     <h1>{{this.book}}</h1>
 
     <ion-item class="item-icon-right" type="item-text-wrap" ng-repeat="chapters in api.data" href="#/tab/bible/{{settings.bibleBookId}}/{{chapters.chapter_id}}">
@@ -7,6 +8,7 @@
     </ion-item>
   </ion-content>
       <div id="amazingaudioplayer-1" class="aapplayer-div" style="display:none;position:fixed;bottom:0px;width:100%;height:170px;margin:0px auto 0px;">
+        <div class="waitingPlayer"><ion-spinner></ion-spinner></div>
         <a class="player-close-button"><img width="25px" src="images/close.png"/></a>
         <ul class="amazingaudioplayer-audios" style="display:none;">     
         </ul>

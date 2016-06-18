@@ -1,5 +1,6 @@
 <ion-view view-title="{{'SERMONS_TITLE' | translate}}">
-<ion-content class="sermon-page">
+<ion-content class="sermon-page" on-swipe-right="goBack()" on-swipe-left="goForward()">
+    <div class="waiting"><ion-spinner></ion-spinner></div>
     <div class="row">
     <div class="bar item-input-inset  col bar-light">
         <label class="item-input-wrapper">
@@ -32,10 +33,11 @@
         <!--<ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | orderBy:sortingBy" ng-click="playNow({{sermon}})" data-tap-disabled="true" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">-->
         <ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | limitTo: 15 | orderBy:sortingBy" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">
             <img ng-click="playNow(sermon)" src="{{settings.speakerList[sermon.artistId].image}}" />
+            <i ng-click="download(sermon, sermon)" class="icon ion-ios-download" style="padding-right:30px"></i>
             <i ng-click="playNow(sermon)" class="icon ion-ios-play"></i>
             <button class="button" ng-click="playNow(sermon)"  ng-if="settings.lang =='en'"><h2 ng-click="playNow(sermon)">{{sermon.en_title}}</h2></button>
             <button class="button" ng-click="playNow(sermon)"><h2 ng-click="playNow(sermon)" ng-if="settings.lang =='pt'">{{sermon.pt_title}}</h2></button>
-            <a href="#/tab/sermons/speaker-{{sermon.artistId}}" ng-if="settings.lang =='pt'"><button class="button button-stable button-small button-outline">{{settings.speakerList[sermon.artistId].pt_name}}</button></a>
+            <a href="#/tab/sermons/speaker-{{sermon.artistId}}" ng-if="settings.lang =='pt'" style="float:left">{{settings.speakerList[sermon.artistId].pt_name}}</a><br/>
             <a href="#/tab/sermons/speaker-{{sermon.artistId}}" ng-if="settings.lang =='en'"><button class="button button-stable button-small button-outline">{{settings.speakerList[sermon.artistId].en_name}}</button></a><br/>
             <a href="#/tab/sermons/org-{{sermon.orgId}}" ng-if="settings.lang =='en'"><button class="button button-stable button-small button-outline">{{settings.orgList[sermon.orgId].en_orgName}}</button></a>
             <a href="#/tab/sermons/org-{{sermon.orgId}}" ng-if="settings.lang =='pt'"><button class="button button-stable button-small button-outline">{{settings.orgList[sermon.orgId].pt_orgName}}</button></a>

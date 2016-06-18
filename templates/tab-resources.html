@@ -1,5 +1,5 @@
 <ion-view view-title="Resources">
-  <ion-content>
+  <ion-content on-swipe-right="goBack()" on-swipe-left="goForward()">
     <h3>Organizations that work with Us</h3>
     <ion-checkbox ng-repeat="org in organizationList" ng-model="org.checked" ng-checked="org.checked">
     {{org.orgName}}

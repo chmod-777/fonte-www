@@ -4,6 +4,7 @@ Each tab's child <ion-nav-view> directive will have its own
 navigation history that also transitions its views in and out.
 -->
  <div id="amazingaudioplayer-1" class="aapplayer-div" style="display:none;position:fixed;bottom:45px;width:100%;height:170px;margin:0px auto 0px;z-index:5">
+    <div class="waitingPlayer"><ion-spinner></ion-spinner></div>
     <a class="player-close-button"><img width="25px" src="images/close.png"/></a>
     <ul class="amazingaudioplayer-audios" style="display:none;"></ul>
 </div>   
@@ -32,8 +33,8 @@ navigation history that also transitions its views in and out.
 
 
   <!-- Settings Tab -->
-  <ion-tab title="{{'TAB_SETTINGS' | translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/settings">
-    <ion-nav-view name="tab-settings"></ion-nav-view>
+  <ion-tab title="{{'TAB_ABOUT' | translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/about">
+    <ion-nav-view name="tab-about"></ion-nav-view>
   </ion-tab>
 
   </div>

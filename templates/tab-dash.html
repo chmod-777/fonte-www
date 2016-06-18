@@ -1,5 +1,6 @@
 <ion-view hide-nav-bar="true">
-  <ion-content class="splash padding">
+  <ion-content class="splash padding" on-swipe-right="goBack()" on-swipe-left="goForward()">
+
     <div class="branding">
       <img src="img/logo-white.png" alt="Fonte da Vida Logo">
       <div class="tagline" style="color:white">{{'TAG_LINE' | translate}}</div>

@@ -2,7 +2,28 @@ var app = angular.module('starter.controllers', ['pascalprecht.translate']);
 
 app.controller('DashCtrl', function($scope) {})
 
+.controller('MainCtrl', function ($scope, $ionicTabsDelegate) {
+  $scope.goForward = function () {
+        var selected = $ionicTabsDelegate.selectedIndex();
+        if (selected != -1) {
+            $ionicTabsDelegate.select(selected + 1);
+        }
+    }
 
+    $scope.goBack = function () {
+        var selected = $ionicTabsDelegate.selectedIndex();
+        if (selected != -1 && selected != 0) {
+            $ionicTabsDelegate.select(selected - 1);
+        }
+    }
+
+    $scope.goToStart = function () {
+        var selected = $ionicTabsDelegate.selectedIndex();
+        if (selected != -1 && selected != 0) {
+            $ionicTabsDelegate.select(0);
+        }
+    }
+})
 
 .controller('SermonsCtrl', ['settings', '$scope', 'fonteFns', '$state', function(settings, $scope, fonteFns, $state, $stateParams) {
   if(typeof analytics !== "undefined") {
@@ -67,9 +88,10 @@ app.controller('DashCtrl', function($scope) {})
       orgId: 2,      
       src: "https://storage.googleapis.com/jonandc1-europe/teachings/peniel/apmariocasquinha/2016-01-10%20-%20Ap%20Mario%20Domingo%20a%20Noite%20Uncao.mp3"}
     ];
+    $(".waiting").hide();
 
     $scope.playNow = fonteFns.playNow;
-
+    $scope.download = fonteFns.download;
       //jQuery on Click Events to remove the Android issues with clicking
       //$("amazingaudioplayer-card h2, amazingaudioplayer-card i").click(playNow  ())
 
@@ -103,15 +125,18 @@ app.controller('DashCtrl', function($scope) {})
   
   $scope.lang = $translate.use();
   listBooks = function(){
+    $(".waiting").show();
     if ($scope.settings.testament == "IDOT") {
-      $http.get('ajax/ot_books.json').success(function(data) {
+      $http.get('http://146.148.29.150/fonte/api/html/web/ot-book/api').success(function(data) {
         $scope.books = data;
+        $(".waiting").hide();
       }).error(function(error) {
         alert("ot_books unable to be called");
       });
     } else {
-      $http.get('ajax/nt_books.json').success(function(data) {
+      $http.get('http://146.148.29.150/fonte/api/html/web/nt-book/api').success(function(data) {
         $scope.books = data;
+        $(".waiting").hide();
       }).error(function(error) {
         alert("nt_books unable to be called");
       });
@@ -126,14 +151,15 @@ app.controller('DashCtrl', function($scope) {})
 
 .controller('BibleBookCtrl', ['$scope', '$http', 'settings', '$translate', '$state', 'fonteFns', function($scope, $http, settings, $translate, $state, fonteFns) {
   console.log("BibleBookCtrl called");
-
+  //$ionicLoading.show();
   $scope.settings = settings;
   settings.bibleBookId = $state.params.bookId;
   $scope.bookName = $state.params.bookName;
   $scope.lang = $translate.use();
   if(typeof analytics !== "undefined") {
-    analytics.trackEvent('Click', 'Book Click', 'Bible Book', settings.testament + settings.bibleBookId);  
-    analytics.trackEvent('Click', 'Book Click', 'Bible Language', settings.rLanguage.id);
+    analytics.trackEvent('Click', 'Book Click', settings.testament + settings.bibleBookId);  
+    analytics.trackEvent('Click', 'Book Click', settings.rLanguage.en_language);
+    console.log('Click', 'Book Click', settings.rLanguage.en_language);
   };  
   bookCode = $state.params.bookCode;
   if (settings.testament == "IDOT"){
@@ -148,11 +174,41 @@ app.controller('DashCtrl', function($scope) {})
     console.log("api success!", settings.bibleBookId);
       $scope.api = data;
       console.log($scope.api);
+      $(".waiting").hide();
   }, function errorCallback(response){
+    /* *** To do: make this work for NDau etc
+          $http({
+                async: true,
+                url: 'http://dbt.io/audio/path',
+                type:'GET',
+                data:'v=2&key=' + dbtKey + '&dam_id=' + escape(dam_books) + '&book_id=' + escape(bookId),
+                success:function(data){
+                  if (data) {
+                    $("#chapters span").html('');
+                    for (var i = 0 ; i < data.length ; ++i) {
+                      var zero = "0";
+                      if (i>8) {
+                        zero="";
+                      }
+                      var chapter = data[i];
+                      /* Jon Note: Since the API is not working for the majority of the languages I need, I had to hack the API a bit. 
+                      */
+                      /*
+                      var bookNum = chapter.path.substring(12, 14);
+                      var bookName = chapter.path.substring(20, 32);
+                      console.log("Pull suceeded");
+                      $("#chapters span").append("<a href='#' onclick='loadChapter(\"" + damId + "/B" + bookNum + "___" + zero + chapter.chapter_id + "_" + bookName + damId + ".mp3" +
+                       "\");return false;'>" + chapter.chapter_id + "</a>");
+                      }
+                    }
+                  }
+                });*/
     console.log(JSON.stringify(response));
     console.log("dbt.io api error");
   });
   $scope.playNow = fonteFns.playNow;
+  $scope.download = fonteFns.download;
+
 
 }])
 .controller('LanguageCtrl', ['$scope', 'settings', '$http', function($scope, settings, $http) {

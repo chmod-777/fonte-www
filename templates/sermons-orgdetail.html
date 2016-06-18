@@ -1,8 +1,8 @@
 
 <ion-view view-title="{{'SERMONS_ABOUT_ORG' | translate}}">
 <ion-content>
-    <ion-list class="list-inset">
-        <ion-item class="item-text-wrap item-thumbnail-left">
+    <ion-list class="list-inset fonte-description">
+        <ion-item class="item-text-wrap">
             <img ng-src="{{settings.orgList[whichOrg].image}}" />
             <h2 ng-if="settings.lang =='en'">{{settings.orgList[whichOrg].en_orgName}}</h2>
             <p ng-if="settings.lang =='en'">{{settings.orgList[whichOrg].en_description}}</p>
