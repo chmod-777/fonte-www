@@ -1,11 +1,58 @@
 <ion-view hide-nav-bar="true">
-  <ion-content class="splash padding" on-swipe-right="goBack()" on-swipe-left="goForward()">
-
-    <div class="branding">
+  <ion-content class="splash padding" on-swipe-right="goBack()" on-swipe-left="goForward()" ng-controller="SettingsCtrl">
+  <div class="branding">
       <img src="img/logo-white.png" alt="Fonte da Vida Logo">
       <div class="tagline" style="color:white">{{'TAG_LINE' | translate}}</div>
+  </div>
+  <div id="fp-div">
+  <div id="fp-regular" class="fp">
+    <div class="fp-wrap" style="display:none">
+      <div class="row">
+      <div class="col col-50">
+        <a class="button icon ion-ios-book" href="#/tab/bible"></a><h2>{{'TAB_BIBLES' | translate}}</h2>
+      </div>
+      <div class="col col-50">
+        <a class="button icon ion-mic-b" href="#/tab/sermons"></a><h2>{{'TAB_SERMONS' | translate}}</h2>
+      </div>
+      </div>
+      <div class="row">
+      <div class="col col-50">
+        <a class="button icon ion-ios-folder" href="#/tab/resources"></a><h2>{{'TAB_RESOURCES' | translate}}</h2>
+      </div>
+      <div class="col col-50">
+        <a class="button icon ion-ios-gear" href="#/tab/bible"></a><h2>{{'TAB_ABOUT' | translate}}</h2>
+      </div>
+    </div></div>
+  </div>
+  <div id="fp-1" class="fp">
+    <div class="fp-wrap">
+          <form name="languageForm">
+            <h3 class="padding">{{'SETTINGS_CLANGUAGE' | translate}}</h3>
+            <ion-radio type="radio" ng-model="lang" ng-change="changeLanguage(lang)" ng-selected="lang == 'pt'" value="pt">
+              {{'SETTINGS_PT' | translate}}
+            </ion-radio>
+            <ion-radio type="radio" ng-model="lang" ng-change="changeLanguage(lang)" ng-selected="lang == 'en'" value="en">
+              {{'SETTINGS_EN' | translate}}
+            </ion-radio>
+            <a class="button icon-right ion-chevron-right button-clear button-dark" ng-click="next(1)">Next</a>
+          </form>
+    </div>
+  </div>
 
+  <div id="fp-2" class="fp">
+    <div class="fp-wrap">
+        <form name="organizationform">
+          <h4 class="padding">{{'SETTINGS_ORGANIZATIONS' | translate}}</h4>
+          <ion-list>
+              <ion-checkbox ng-repeat="item in orgList" ng-model="item.checked" ng-checked="item.checked">{{item.en_orgName}}</ion-checkbox>
+          </ion-list>
+          <a class="button icon-right ion-chevron-right button-clear button-dark" ng-click="next(2)">Next</a>
 
+        </form>
+    </div>
+  </div>
+  </div>
+  
 <!--
     <h2 class="title">List</h2>
       <ion-list>

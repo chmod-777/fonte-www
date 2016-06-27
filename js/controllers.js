@@ -103,11 +103,17 @@ app.controller('DashCtrl', function($scope) {})
     console.log(settings.orgList);
 }])
 
-.controller('ResourceCtrl', ['settings', '$scope', function(settings, $scope){
+.controller('ResourceCtrl', ['settings', '$scope', '$http', function(settings, $scope, $http){
   $scope.organizationList = settings.orgList;
   if(typeof analytics !== "undefined") {
     analytics.trackView("Resources");
   }
+  $http.get('http://146.148.29.150/fonte/api/html/web/ot-book/api').success(function(data) {
+        $scope.books = data;
+        $(".waiting").hide();
+      }).error(function(error) {
+        alert("ot_books unable to be called");
+      });
 }])
 
 .controller('BibleCtrl', ['$scope', '$http', 'settings', '$translate', 'fonteFns', function($scope, $http, settings, $translate, fonteFns) {
@@ -237,7 +243,16 @@ app.controller('DashCtrl', function($scope) {})
   if(typeof analytics !== "undefined") {
     analytics.trackView("Settings");
   };
-
+  next = function(number) {
+    console.log("Next function called");
+    $(".splash").animate({
+      'background-position-x': number * 20 + 40 + "%"
+    }, 400, 'linear');
+    $("#fp-div").animate({
+      'left': number * -1000 + "px"
+    }, 400, 'linear');
+  }
+  $scope.next = next;
     //Firing before getLanguages completes.
      //settings.languages;
       //settings.languages = fonteFns.getLanguages();
@@ -250,5 +265,8 @@ app.controller('DashCtrl', function($scope) {})
   $scope.lang = settings.lang;
   $scope.changeLanguage = function(newLang) {
     $translate.use(newLang);
+    settings.lang = newLang;
+    $scope.lang = newLang;
+    console.log("Language changed - $scope.lang = ", $scope.lang);
   };
 }]);

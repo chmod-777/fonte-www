@@ -6,6 +6,9 @@
             <img ng-src="{{settings.speakerList[whichSpeaker].image}}"/>
             <h2 ng-if="settings.lang =='en'">{{settings.speakerList[whichSpeaker].en_name}}</h2>
             <h2 ng-if="settings.lang =='pt'">{{settings.speakerList[whichSpeaker].pt_name}}</h2>
+            <a href="#/tab/sermons/org-{{settings.speakerList[whichSpeaker].orgId}}" ng-if="settings.lang =='en'"><button><h3>{{settings.orgList[whichSpeaker].en_orgName}}</h3></button></a>
+            <a href="#/tab/sermons/org-{{settings.speakerList[whichSpeaker].orgId}}" ng-if="settings.lang =='pt'"><button><h3>{{settings.orgList[whichSpeaker].pt_orgName}}</h3></button></a>
+            <br /><br />
             <p ng-if="settings.lang =='en'">{{settings.speakerList[whichSpeaker].en_description}}</p>
             <p ng-if="settings.lang =='pt'">{{settings.speakerList[whichSpeaker].pt_description}}</p>
         </ion-item>

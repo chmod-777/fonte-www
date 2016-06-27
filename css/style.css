@@ -2,7 +2,7 @@
 
 .splash {
 	background: url(../img/P6z1qnt.jpg) no-repeat fixed;
-	background-position: 80% 50%;
+	background-position: 40% 50%;
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
 	-o-background-size:cover;
@@ -44,7 +44,7 @@
 	padding:50% 0%;
 	margin: 0 auto;
 }
-
+/* Front Page Branding */
 .branding {
 	width:80%;
 	margin: 0 auto;
@@ -69,6 +69,47 @@
 	font-size:130%;
 }
 
+/* Front Page first view branding */
+#fp-regular {
+	left:2000px;
+}
+
+#fp-first-run {
+	width:60%;
+	margin: 15px auto;
+}
+.fp-wrap {
+	background-color: rgba(255,255,255,.7);
+	padding:20px;
+	margin:20px;
+	border-radius: 15px;
+}
+#fp-regular .fp-wrap a:before {
+	font-size:130px;
+
+}
+#fp-regular .fp-wrap h2 {
+	font-size: xx-large;
+	bottom: 0px;
+	position:relative;
+}
+.fp-wrap a {
+	height:150px;
+	width:150px;
+	border-radius:25px;
+}
+#fp-2 {
+	left:1000px;
+}
+.fp {
+	position:absolute;
+	width:100%; /*change back to 100% after done messing */
+}
+#fp-div {
+	position:relative;
+	/*left:-2000px;*/
+}
+
 .sermon-page h2{
 	font-size:120%;
 
@@ -76,4 +117,18 @@
 
 .sermon-page button {
 	margin: 2px;
+}
+
+.org-img {
+	float: right;
+	position: absolute;
+	width:45px;
+	bottom:17px;
+}
+
+.preacher-img {
+	height:100px;
+	float:left;
+	width:100px;
+	margin-right:10px;
 }
