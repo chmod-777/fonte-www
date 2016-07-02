@@ -29,7 +29,15 @@ app.controller('DashCtrl', function($scope) {})
   if(typeof analytics !== "undefined") {
     analytics.trackView("Sermons");
   }
-  
+  /*
+  $http.get('http://146.148.29.150/fonte/api/html/web/teachings/api').success(function(data) {
+        $scope.resourceList = data;
+        $(".waiting").hide();
+        console.log("Resource API called with success", data);
+      }).error(function(error) {
+        alert("ot_books unable to be called");
+      });*/
+
   //Info for Org Description Page:
   $scope.whichOrg = $state.params.orgId;
   $scope.whichSpeaker = $state.params.speakerId;
@@ -88,6 +96,8 @@ app.controller('DashCtrl', function($scope) {})
       orgId: 2,      
       src: "https://storage.googleapis.com/jonandc1-europe/teachings/peniel/apmariocasquinha/2016-01-10%20-%20Ap%20Mario%20Domingo%20a%20Noite%20Uncao.mp3"}
     ];
+    
+
     $(".waiting").hide();
 
     $scope.playNow = fonteFns.playNow;
@@ -108,9 +118,12 @@ app.controller('DashCtrl', function($scope) {})
   if(typeof analytics !== "undefined") {
     analytics.trackView("Resources");
   }
-  $http.get('http://146.148.29.150/fonte/api/html/web/ot-book/api').success(function(data) {
-        $scope.books = data;
+  $scope.settings = settings;
+  console.log("ResourceCtrl called");
+  $http.get('http://146.148.29.150/fonte/api/html/web/resource/api').success(function(data) {
+        $scope.resourceList = data;
         $(".waiting").hide();
+        console.log("Resource API called with success", data);
       }).error(function(error) {
         alert("ot_books unable to be called");
       });
