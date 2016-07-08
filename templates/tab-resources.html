@@ -1,22 +1,25 @@
 <ion-view view-title="Resources">
   <ion-content on-swipe-right="goBack()" on-swipe-left="goForward()">
+
 <ion-list>
+        
+
         <!--<ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | orderBy:sortingBy" ng-click="playNow({{sermon}})" data-tap-disabled="true" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">-->
-        <h2>Heading Test</h2>
-        <ion-item ng-repeat="resource in resourceList" class="item-icon-right amazingaudioplayer-card">
-            <div class="preacher-img" ng-click="playNow(sermon)" style="background-image:url({{settings.speakerList[resource.teacher_id].image}})"/>
-                <img ng-click="playNow(resource)" src="{{settings.orgList[resource.organization_id].image}}" class="org-img"/>
+        <ion-item ng-repeat="resource in resourceList |  filter:query | orgFilter " class="item-icon-right resource-card">
+            <div class="preacher-img" style="background-image:url({{settings.speakerList[resource.teacher_id -1].image}})"/>
+                <img src="{{settings.orgList[resource.organization_id -1].image}}" class="org-img"/>
             </div>
             <i ng-click="download(resource, resource)" class="icon ion-ios-download" style="padding-right:30px"></i>
-            <i ng-click="playNow(resource)" class="icon ion-ios-play"></i>
-            <a href="{{resource.resource_url}}"><button class="button"  ng-if="settings.lang =='en'"><h2 ng-click="playNow(resource)">{{resource.en_name}}</h2></button></a>
-            <a href="{{resource.resource_url}}"><button class="button" ng-if="settings.lang =='pt'"><h2 ng-click="" >{{resource.pt_name}}</h2></button></a>
-            <a href="#/tab/resources/resource_type-{{resource.resource_type}}" ng-if="settings.lang =='pt'" style="float:left">{{settings.resourceList[resource.resource_type].pt_name}}</a><br/>
-            <a href="#/tab/resources/resource_type-{{resource.resource_type}}" ng-if="settings.lang =='en'"><button class="button button-stable button-small button-outline">{{settings.resourceList[resource.resource_type].en_name}}</button></a><br/>
-            <a href="#/tab/resources/organization_id-{{resource.organization_id}}" ng-if="settings.lang =='en'"><button class="button button-stable button-small button-outline">{{settings.orgList[resource.organization_id].en_orgName}}</button></a>
-            <a href="#/tab/resources/organization_id-{{resource.organization_id}}" ng-if="settings.lang =='pt'"><button class="button button-stable button-small button-outline">{{settings.orgList[resource.organization_id].pt_orgName}}</button></a>
-            <p>{{settings.languages[resource.lang_main].en_language}} <i ng-if="resource.lang_translated">/</i> {{settings.languages[resource.lang_translated].en_language}} <!--{{resource.hits}}--></p>
-            
+            <h2 ng-if="settings.lang =='en'" ng-click="resourceOpen(resource)">{{resource.en_name}}</h2>
+            <h2 ng-if="settings.lang =='pt'" ng-click="resourceOpen(resource)">{{resource.pt_name}}</h2>
+            <!--Author Line -->
+            <a href="#/tab/sermons/speaker-{{sermon.teacher_id -1}}" ng-if="settings.lang =='pt'" style="float:left">Autor: {{settings.speakerList[resource.teacher_id -1].pt_name}}</a><br/>
+            <a href="#/tab/sermons/speaker-{{sermon.teacher_id -1}}" ng-if="settings.lang =='en'" style="float:left">Author: {{settings.speakerList[resource.teacher_id -1].en_name}}</a><br/>
+            <p class="language-display">{{settings.languages[resource.primary_language_id].en_language}} <i ng-if="sermon.secondary_language_id">/</i> {{settings.languages[resource.secondary_language_id].en_language}} <!--{{sermon.hits}}--></p>
+
+
+            <div class="resource-description item-text-wrap item-icon-right" ng-if="settings.lang == 'en'"><p>{{resource.en_description}}</p></div>
+			<div class="resource-description item-text-wrap item-icon-right" ng-if="settings.lang == 'pt'"><p>{{resource.pt_description}}</p></div>
         
         </ion-item>
     </ion-list>

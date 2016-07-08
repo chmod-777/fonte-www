@@ -12,7 +12,7 @@ navigation history that also transitions its views in and out.
 
   <div class="tab-overlay">
   <!-- Dashboard Tab -->
-  <ion-tab title="{{'TAB_HOME' | translate}}" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" href="#/tab/dash">
+  <ion-tab class="ng-hide" title="{{'TAB_HOME' | translate}}" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" href="#/tab/dash">
     <ion-nav-view name="tab-dash"></ion-nav-view>
   </ion-tab>
 
@@ -31,6 +31,9 @@ navigation history that also transitions its views in and out.
     <ion-nav-view name="tab-resources"></ion-nav-view>
   </ion-tab>
 
+  <ion-tab title="{{'TAB_DOWNLOADS' | translate}}" icon-off="ion-ios-cloud-download-outline" icon-on="ion-ios-cloud-download" href="#/tab/download">
+    <ion-nav-view name="tab-download"></ion-nav-view>
+  </ion-tab>
 
   <!-- Settings Tab -->
   <ion-tab title="{{'TAB_ABOUT' | translate}}" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/about">

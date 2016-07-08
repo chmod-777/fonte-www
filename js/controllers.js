@@ -25,77 +25,24 @@ app.controller('DashCtrl', function($scope) {})
     }
 })
 
-.controller('SermonsCtrl', ['settings', '$scope', 'fonteFns', '$state', function(settings, $scope, fonteFns, $state, $stateParams) {
+.controller('SermonsCtrl', ['settings', '$scope', '$http', 'fonteFns', '$state', function(settings, $scope, $http, fonteFns, $state, $stateParams) {
   if(typeof analytics !== "undefined") {
     analytics.trackView("Sermons");
   }
-  /*
-  $http.get('http://146.148.29.150/fonte/api/html/web/teachings/api').success(function(data) {
-        $scope.resourceList = data;
+
+  $(".waiting").show();
+  $http.get('http://146.148.29.150/fonte/api/html/web/teaching/api').success(function(data) {
+        $scope.teachingList = data;
         $(".waiting").hide();
-        console.log("Resource API called with success", data);
+        console.log("Teachings API called with success", data);
       }).error(function(error) {
-        alert("ot_books unable to be called");
-      });*/
+        alert("Teachings API unable to be called");
+      });
 
   //Info for Org Description Page:
   $scope.whichOrg = $state.params.orgId;
   $scope.whichSpeaker = $state.params.speakerId;
   $scope.settings = settings;
-  $scope.preachingList = [
-      {artistId: 0,
-      en_title: "Three Types of Curses",
-      pt_title: "Tres Tipos de Maldição",
-      duration: "5604",
-      lang_main: 0,
-      lang_translated: 1,
-      hits: 921,
-      orgId: 0,
-      src: "https://storage.googleapis.com/jonandc1-europe/teachings/peniel/apmariocasquinha/2016-01-06%20-%20Ap%20Mario%20Tres%20Tipos%20de%20Maldicao.mp3"},
-      {artistId: 0,
-      en_title: "Finding your Role in the Church",
-      pt_title: "Descobrindo a sua Função",
-      duration: "4189",
-      lang_main: 0,
-      hits: 219,
-      orgId: 0,
-      src: "https://storage.googleapis.com/jonandc1-europe/teachings/peniel/apmariocasquinha/2013-10-30%20PT.%20AP.Mario%20Descobrindo%20a%20sua%20Funcao.mp3"},
-      {artistId: 0,
-      en_title: "The Judgment of the Messiah",
-      pt_title: "O Tribunal de Cristo",
-      duration: "4189",
-      lang_main: 0,
-      lang_translated: 1,
-      hits: 10,
-      orgId: 0,
-      src: "https://storage.googleapis.com/jonandc1-europe/teachings/peniel/apmariocasquinha/2013-04-30%20PT.EN%20AP.Mario%20O%20tribunal%20de%20Cristo-.mp3"},
-      {artistId: 0,
-      en_title: "The Story of Jesus",
-      pt_title: "A Historia do Jesus",
-      duration: "4189",
-      lang_main: 2,
-      hits: 21,
-      orgId: 0,
-      src: "http://www.inspirationalfilms.com/audio/The_Story_of_Jesus_Sena_84308.mp3"},
-      {artistId: 0,
-      en_title: "Knowing What Kind of Believers we are",
-      pt_title: "Conciencia do tipo de Crente que nos Somos",
-      duration: "4189",
-      lang_main: 0,
-      lang_translated: 1,
-      hits: 50,
-      orgId: 0,
-      src: "https://storage.googleapis.com/jonandc1-europe/teachings/peniel/apmariocasquinha/2015-28-08%20PT.EN%20Ap.%20Mario%20Casquinha_Conciencia%20do%20tipo%20de%20crente%20que%20nos%20somos.mp3"},
-      {artistId: 0,
-      en_title: "Annointing",
-      pt_title: "Unção",
-      duration: "4189",
-      lang_main: 0,
-      lang_translated: 1,
-      hits: 1921,
-      orgId: 2,      
-      src: "https://storage.googleapis.com/jonandc1-europe/teachings/peniel/apmariocasquinha/2016-01-10%20-%20Ap%20Mario%20Domingo%20a%20Noite%20Uncao.mp3"}
-    ];
     
 
     $(".waiting").hide();
@@ -113,20 +60,42 @@ app.controller('DashCtrl', function($scope) {})
     console.log(settings.orgList);
 }])
 
-.controller('ResourceCtrl', ['settings', '$scope', '$http', function(settings, $scope, $http){
+.controller('ResourceCtrl', ['settings', '$scope', '$http', '$cordovaFileOpener2', function(settings, $scope, $http, $cordovaFileOpener2){
   $scope.organizationList = settings.orgList;
   if(typeof analytics !== "undefined") {
     analytics.trackView("Resources");
   }
   $scope.settings = settings;
+
   console.log("ResourceCtrl called");
+  $(".waiting").show();
   $http.get('http://146.148.29.150/fonte/api/html/web/resource/api').success(function(data) {
         $scope.resourceList = data;
         $(".waiting").hide();
         console.log("Resource API called with success", data);
+        console.log("resourceList: ", $scope.resourceList);
       }).error(function(error) {
-        alert("ot_books unable to be called");
+        alert("resource API unable to be called");
       });
+
+  $scope.resourceOpen = function(resource) {
+    $http.get('http://146.148.29.150/fonte/api/html/web/resource/hit?id=' + resource.id).success(function(data) {
+        console.log("hit added, ID = ", resource.id);
+      }).error(function(error) {
+        console.log("unable to count hit");
+      });
+    $cordovaFileOpener2.open(
+      resource.resource_url,
+      'application/pdf'
+    ).then(function() {
+        // file opened successfully
+        console.log("file opened successfully");
+    }, function(err) {
+        // An error occurred. Show a message to the user
+        console.log("file not opened successfully");
+    });
+  }
+
 }])
 
 .controller('BibleCtrl', ['$scope', '$http', 'settings', '$translate', 'fonteFns', function($scope, $http, settings, $translate, fonteFns) {
@@ -157,7 +126,8 @@ app.controller('DashCtrl', function($scope) {})
         $scope.books = data;
         $(".waiting").hide();
       }).error(function(error) {
-        alert("nt_books unable to be called");
+        alert("nt_books unable to be called", error);
+        console.log("nt_books api error: ", error);
       });
     };
   };
@@ -252,7 +222,17 @@ app.controller('DashCtrl', function($scope) {})
 
 }])
 
-.controller('SettingsCtrl', ['$scope', 'settings', '$http', '$translate', 'fonteFns', function($scope, settings, $http, $translate, fonteFns) {
+.controller('DownloadCtrl', ['settings', '$scope', '$cordovaFileOpener2', function(settings, $scope, $cordovaFileOpener2){
+  $scope.organizationList = settings.orgList;
+  if(typeof analytics !== "undefined") {
+    analytics.trackView("Download");
+  }
+  $scope.settings = settings;
+
+
+}])
+
+.controller('SettingsCtrl', ['$scope', '$rootScope', 'settings', '$http', '$translate', 'fonteFns', function($scope, $rootScope, settings, $http, $translate, fonteFns) {
   if(typeof analytics !== "undefined") {
     analytics.trackView("Settings");
   };
@@ -265,6 +245,27 @@ app.controller('DashCtrl', function($scope) {})
       'left': number * -1000 + "px"
     }, 400, 'linear');
   }
+  console.log("Teacher API called");
+
+  /*
+  $http.get('http://146.148.29.150/fonte/api/html/web/teacher/api').success(function(data) {
+        settings.speakerList = data;
+        console.log("Teacher API called with success", data);
+        console.log("speakerList: ", settings.speakerList);
+      }).error(function(error) {
+        alert("Teacher API unable to be called");
+      });
+  console.log("Teacher API called");
+
+  $http.get('http://146.148.29.150/fonte/api/html/web/organization/api').success(function(data) {
+        settings.orgList = data;
+        console.log("Organization API called with success", data);
+        console.log("orgList: ", settings.orgList);
+      }).error(function(error) {
+        alert("Organization API unable to be called");
+      });
+  */
+
   $scope.next = next;
     //Firing before getLanguages completes.
      //settings.languages;
@@ -275,7 +276,6 @@ app.controller('DashCtrl', function($scope) {})
   console.log("SettingsCtrl Organization Information: ", settings);
   $scope.orgList = settings.orgList;
   console.log("SettingsCtrl settings.languages: ", settings.languages);
-  $scope.lang = settings.lang;
   $scope.changeLanguage = function(newLang) {
     $translate.use(newLang);
     settings.lang = newLang;

@@ -1,14 +1,7 @@
 <ion-view view-title="{{'SERMONS_TITLE' | translate}}">
 <ion-content class="sermon-page" on-swipe-right="goBack()" on-swipe-left="goForward()">
-    <div class="waiting"><ion-spinner></ion-spinner></div>
-            <label class="toggle toggle-assertive" style="float:right">
-       <input type="checkbox">
-       <div class="track">
-         <div class="handle"></div>
-       </div> 
-       </label>
+    <div class="waiting"><ion-spinner></ion-spinner></div> 
     <a class="button button-icon icon ion-search" style="float:right"></a>
-
     <a class="button button-icon icon ion-chatbubble-working" style="float:right"></a> 
 
     <div class="row">
@@ -44,22 +37,23 @@
         <!--</label>
     </div>-->
     <ion-list>
-        <!--<ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | orderBy:sortingBy" ng-click="playNow({{sermon}})" data-tap-disabled="true" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">-->
-        <ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | limitTo: 15 | orderBy:sortingBy" class="item-icon-right amazingaudioplayer-card">
-            <div class="preacher-img" ng-click="playNow(sermon)" style="background-image:url({{settings.speakerList[sermon.artistId].image}})"/>
-                <img ng-click="playNow(sermon)" src="{{settings.orgList[sermon.orgId].image}}" class="org-img"/>
-            </div>
+        <!--<ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | orderBy:sortingBy" ng-click="playNow({{sermon}})" data-tap-disabled="true" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">
+
+        ng-repeat options that we are removing for the time being:  | filter:query | orgFilter | limitTo: 15 | orderBy:sortingBy-->
+        <ion-item ng-repeat="sermon in teachingList | filter:query | orgFilter | orderBy:sortingBy" class="item-icon-right amazingaudioplayer-card">
+            <div class="preacher-img" ng-click="playNow(sermon)" style="background-image:url({{settings.speakerList[sermon.teacher_id -1].image}})">
+                <img ng-click="playNow(sermon)" src="{{settings.orgList[sermon.organization_id -1].image}}" class="org-img"/></div>
             <i ng-click="download(sermon, sermon)" class="icon ion-ios-download" style="padding-right:30px"></i>
             <i ng-click="playNow(sermon)" class="icon ion-ios-play"></i>
             <h2 ng-click="playNow(sermon)"  ng-if="settings.lang =='en'">"{{sermon.en_title}}"</h2>
             <h2 ng-click="playNow(sermon)" ng-if="settings.lang =='pt'">"{{sermon.pt_title}}"</h2>
-            <a href="#/tab/sermons/speaker-{{sermon.artistId}}" ng-if="settings.lang =='pt'" style="float:left">{{settings.speakerList[sermon.artistId].pt_name}}</a><br/>
-            <a href="#/tab/sermons/speaker-{{sermon.artistId}}" ng-if="settings.lang =='en'" style="float:left">{{settings.speakerList[sermon.artistId].en_name}}</a><br/>
+            <a href="#/tab/sermons/speaker-{{sermon.teacher_id -1}}" ng-if="settings.lang =='pt'" style="float:left">{{settings.speakerList[sermon.teacher_id -1].pt_name}}</a><br/>
+            <a href="#/tab/sermons/speaker-{{sermon.teacher_id -1}}" ng-if="settings.lang =='en'" style="float:left">{{settings.speakerList[sermon.teacher_id -1].en_name}}</a><br/>
             <!--<a href="#/tab/sermons/org-{{sermon.orgId}}" ng-if="settings.lang =='en'"><button class="button button-stable button-small button-outline">{{settings.orgList[sermon.orgId].en_orgName}}</button></a>
             <a href="#/tab/sermons/org-{{sermon.orgId}}" ng-if="settings.lang =='pt'"><button class="button button-stable button-small button-outline">{{settings.orgList[sermon.orgId].pt_orgName}}</button></a>-->
-            <p>{{settings.languages[sermon.lang_main].en_language}} <i ng-if="sermon.lang_translated">/</i> {{settings.languages[sermon.lang_translated].en_language}} <!--{{sermon.hits}}--></p>
+            <p class="language-display">{{settings.languages[sermon.primary_language_id].en_language}} <i ng-if="sermon.secondary_language_id">/</i> {{settings.languages[sermon.secondary_language_id].en_language}} <!--{{sermon.hits}}--></p>
             
-            <li ng-if="settings.lang =='pt'" style="display:none" data-artist="{{settings.speakerList[sermon.artistId].pt_name}}" data-title="{{sermon.pt_title}}" data-album data-info data-image="{{settings.speakerList[sermon.artistId].image}}" data-duration="{{sermon.duration}}"><div class="amazingaudioplayer-source" data-src="{{sermon.src}}" data-type="audio/mpeg" /></div></li><li ng-if="settings.lang =='en'" style="display:none" data-artist="{{settings.speakerList[sermon.artistId].en_name}}" data-title="{{sermon.en_title}}" data-album data-info data-image="{{settings.speakerList[sermon.artistId].image}}" data-duration="{{sermon.duration}}"><div class="amazingaudioplayer-source" data-src="{{sermon.src}}" data-type="audio/mpeg" /></div></li>
+            <li ng-if="settings.lang =='pt'" style="display:none" data-artist="{{settings.speakerList[sermon.teacher_id -1].pt_name}}" data-title="{{sermon.pt_title}}" data-album data-info data-image="{{settings.speakerList[sermon.teacher_id -1].image}}" data-duration="{{sermon.length}}"><div class="amazingaudioplayer-source" data-src="{{sermon.teaching_url}}" data-type="audio/mpeg" /></div></li><li ng-if="settings.lang =='en'" style="display:none" data-artist="{{settings.speakerList[sermon.teacher_id -1].en_name}}" data-title="{{sermon.en_title}}" data-album data-info data-image="{{settings.speakerList[sermon.teacher_id -1].image}}" data-duration="{{sermon.length}}"><div class="amazingaudioplayer-source" data-src="{{sermon.teaching_url}}" data-type="audio/mpeg" /></div></li>
         </ion-item>
     </ion-list>
 <!--     <div class="card">

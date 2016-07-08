@@ -119,17 +119,17 @@
 	margin: 2px;
 }
 
-.amazingaudioplayer-card h2 {
+.amazingaudioplayer-card h2, .resource-card a h2 {
 	font-style: italic;
 	font-weight: bold;
 }
 
-.amazingaudioplayer-card a {
+.amazingaudioplayer-card a, .resource-card a {
 	text-decoration: none;
 	font-weight: bold;
 }
 
-.amazingaudioplayer-card p {
+p.language-display {
 	text-decoration: none;
 	font-weight: bold;
 	background-color: #0c60ee;
@@ -139,7 +139,7 @@
 	color: #fff;
 }
 
-.amazingaudioplayer-card:nth-child(even) {
+.amazingaudioplayer-card:nth-child(even), .resource-card:nth-child(even) {
 	background: #c6daec;
 }
 
@@ -147,7 +147,7 @@
 	float: right;
 	position: absolute;
 	width:45px;
-	bottom:17px;
+	top:75px;
 }
 
 .preacher-img {
@@ -155,4 +155,18 @@
 	float:left;
 	width:100px;
 	margin-right:10px;
+}
+
+/* Styles for Downloads Page */
+
+.item-divider h1 {
+	font-size:140%;
+
+}
+.about-page h1 {
+	padding-top:0px;
+	margin-top: 5px;
+}
+.about-page p {
+	margin-bottom: 20px;
 }

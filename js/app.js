@@ -29,6 +29,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
         console.log(syslanguage.value);
         $translate.use((syslanguage.value).split("-")[0]).then(function(data) {
             console.log("Language-choice SUCCESS through OS settings: " + data);
+            $rootScope.lang = (syslanguage.value).split("-")[0];
           }, function(data) {
             console.log("Language-choice FAIL through OS settings" + data);
         });
@@ -59,14 +60,16 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     'http://cloud.faithcomesbyhearing.com/**',
     'http://www.inspirationalfilms.com/audio/**',
     'http://dbt.io/**',
-    'http://146.148.29.150/**',
-    'http://146.148.29.150/fonte/api/html/web/nt-book/api'
+    'http://146.148.29.150/fonte/api/html/web/nt-book/api',
+    'http://146.148.29.150/fonte/api/html/web/ot-book/api',
+    'http://146.148.29.150/fonte/api/html/web/teaching/api'
   ]);
 
   $translateProvider.translations('en', {
     ABOUT_TITLE: 'About the App',
     TAB_HOME: 'Home',
     TAB_BIBLES: 'Bibles',
+    TAB_DOWNLOADS: 'Downloads',
     TAB_SERMONS: 'Sermons',
     TAB_RESOURCES: 'Resources',
     TAB_ABOUT: 'About the App',
@@ -101,6 +104,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     ABOUT_TITLE: 'Sobre o Applicativo',
     TAB_HOME: 'Casa',
     TAB_BIBLES: 'Bíblias',
+    TAB_DOWNLOADS: 'Baixados',
     TAB_SERMONS: 'Sermões',
     TAB_RESOURCES: 'Recursos',
     TAB_ABOUT: 'Sobre o Applicativo',
@@ -145,8 +149,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       angular.forEach(items, function(item) {
         //console.log("org.id: ", org.id);
         //console.log("item.Organization", item);lang_main: 2,
-        if(org.id == item.orgId) {
-          if(item.lang_main == settings.rLanguage.id || item.lang_translated == settings.rLanguage.id) {
+        if(org.id == item.organization_id) {
+          if(item.primary_language_id == settings.rLanguage.id || item.secondary_language_id == settings.rLanguage.id) {
             filtered.push(item);
           };
         };
@@ -242,6 +246,15 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       'tab-resources': {
         templateUrl: 'templates/tab-resources.html',
         controller: 'ResourceCtrl'
+      }
+    }
+  })
+  .state('tab.download', {
+    url: '/download',
+    views: {
+      'tab-download': {
+        templateUrl: 'templates/tab-download.html',
+        controller: 'DownloadCtrl'
       }
     }
   })
