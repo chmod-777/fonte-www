@@ -1,51 +1,6 @@
 angular.module('starter.services', [])
 .value('settings', {
   dbtKey: 'd634c26f06be1dae73edfb08d7290f52',
-  orgList: [    
-    {"id": 1,
-    "en_orgName": "Peniel International",
-    "pt_orgName": "Peniel Internacional",
-    checked: true,
-    "en_description": "Peniel Worship Center started in the city of Beira, in the suburb Matacuane, in a small room of a house with about 15 children. After 3 months, the church moved to a room in a private school. In 6 months the church grew to 80 members, and for lack of space the services took place in a building owned by the National Teacher’s Organization in the Ponta Gea district. By the end of the first year, the church grew to 150 members.<br/>The following year we returned to Matacuane and met in a circus-style tent. Later that year, a cyclone destroyed the tent but a week afterward we put up an even bigger tent that could hold 400 people. In 2006 the church grew to 500 members, and in 2007 we moved our services to an outdoor basketball stadium that can hold our now 5,000 members.",
-    "pt_description":"Igreja Centro de Adoração Peniel começou em Matacuane numa pequena sala de uma casa tipo1, com aproximadamente 15 crianças. Depois de 3 meses a igreja passou para uma escola privada chamada Liceu Mira. Em 6 meses a igreja cresceu para 80 membros, por falta de espaço, os cultos passaram a ser realizados na ONP, em 6 meses o número de membros cresceu de 80 para 150 membros.<br/>No ano seguinte voltamos para Matacuane no liceu Mira, numa tenda provisória. Tempos depois passou um ciclone que derrubou a tenda. Uma semana depois, Construímos uma tenda para 400 pessoas. Até 2006 o número era de 500 membros. De 2007 à 2014 passamos a realizar os nossos cultos no pavilhão do Estrela onde a Igreja cresceu para mais de 5000 (cinco mil) membros.",
-    "image": "images/orgs/peniel.png"},
-    {"id": 0,
-    "en_orgName": "Assemblies of God",
-    "pt_orgName": "Assemblia de Deus",
-    checked: false,
-    "en_description": "The Assemblies of God is committed to fulfilling a four-fold mission. Its primary reason for being is:<br/>Evangelize the lost.<br/>Worship God.<br/>Disciple believers.<br/>Show compassion.",
-    "pt_description": "Descrição dos Assemblias de Deus",
-    "image": "images/orgs/aofg.gif"},
-    {"id": 2,
-    "en_orgName": "Baptist Church", 
-    "pt_orgName": "Igreja Batista",
-    checked: false,
-    "en_description": "Baptist churches are found in almost every country in the world. As part of the world-wide Christian church, Baptists form one of the largest families of faith, alongside other trinitarian Christian traditions such as Anglicans, Methodists, Reformed, etc.<br/>For Baptists the concept of a family is important. The church is not so much a particular place or building, but rather a family of believers, committed to Christ, to one another and to the service of God in the world.<br/>In this Baptist family everybody is equal, for everybody has a part to play in the service of God. There is no hierarchy of bishops or priests exercising authority over their members. Equality of status, however, does not mean that all have the same role.<br/>Each local Baptist church appoints its own leaders - or ministers - to have particular responsibility for preaching, teaching and pastoral care. Working alongside these ministers are also deacons, who together with the minister(s) form the leadership team of the local Baptist church.",
-    "pt_description": "Descrição da Igreja Batista",
-    "image": "images/orgs/baptist.png"},
-    {"id": 5,
-    "en_orgName": "United Church of Christ Ex American Board",
-    "pt_orgName": "Igreja de Cristo Unida em Moçambique, ex missão American Board",
-    checked: true,
-    "en_description": "The United Church of Christ in Mozambique traces it's history in this country back to 1905 when the American Board of Foreign Missions sent church planters to Mozambique from Zimbabwe. The mission focused on evangelizing the Ndau people in Manica and Sofala, the two provinces where the church is most prevalent to this day. For most of its history the ICUM has been led and promoted from within Mozambique by Mozambican pastors and missionaries.",
-    "pt_description":"",
-    "image": "images/orgs/ucc.png"},
-    {"id": 4,
-    "en_orgName": "Generic Christian Resources",
-    "pt_orgName": "Recursos Cristão",
-    checked: true,
-    "en_description": "",
-    "pt_description":"",
-    "image": "images/orgs/ucc.png"}
-    ],
-    speakerList: [      
-    {"id": 1,
-    "en_name": "Pastor Mario Casquinha",
-    "pt_name": "Apostolo Mário Casquinha",
-    "en_description": "Pastor Dr. Mario Casquinha is the leader of the International Peniel Worship Center. He was born in the city of Marromeu in the central-Mozambican province of Sofala. He converted and became a Christian in the city of Beira in 1987. In 2000 he began the Peniel church with only 15 children, and today the church has 5,000 members and is still growing. Peniel has planted daughter churches in 8 of the provincial capitals throughout Mozambique, each with a full-time pastor serving the Lord.<br/>Pastor Mario divides his time between many pursuits: his devotional life with God is his highest priority followed by his family. His lovely wife, Zaida, has accompanied him through their marriage of 17 years to date, and she has provided much-needed support for Mario’s ministry. They have 6 children, 4 girls and 2 boys.<br/>Pastor Mario has dedicated his life to preaching, teaching, and planting churches. In recent years he has even been invited to preach in other countries, and has traveled extensively as a result. His main focus is to preach the message of the Kingdom of God and preparing the church for the second coming of the Lord Jesus Christ.",
-    "pt_description":"Apóstolo Dr. Mário Casquinha é  o presidente da Igreja  Peniel Internacional. Nasceu em  Marromeu província de Sofala Centro de moçambique. Converteu-se à Cristo na cidade da Beira em 1987.<br/>No ano 2000, começou com a igreja Peniel, com 15 Crianças, e hoje a igreja está a crescer acima de 7000 mil membros, e conta com  igrejas em 8 capitais províncias de Moçambique   Com pastores ao tempo inteiro servindo ao Senhor. <br/>O Apóstolo divide o seu tempo de várias formas a vida com Deus é a sua Prioridade, em seguida a sua família. Ele tem uma Linda família sua espos-a Bispa Zaida Casquinha tem o  acompanhado. Ao longo destes anos dando todo apoio necessário. Eles estão casados a 17 anos e tem 7 filhos  5 meninas e 2 rapazes.",
-    "image": "images/speakers/apMario.jpg",
-    "orgId": "0"}],
   rootURL: 'http://cloud.faithcomesbyhearing.com/mp3audiobibles2/',
   aapNum: 0,
   lang: 'pt',
@@ -76,6 +31,25 @@ angular.module('starter.services', [])
               console.log("File download error");
             }); 
      }*/
+    $http.get('http://146.148.29.150/fonte/api/html/web/teacher/api').success(function(data) {
+        settings.speakerList = data;
+        console.log("Teacher API called with success", data);
+        console.log("speakerList: ", settings.speakerList);
+      }).error(function(error) {
+        alert("Teacher API unable to be called");
+    });
+
+    $http.get('http://146.148.29.150/fonte/api/html/web/organization/api').success(function(data) {
+        settings.orgList = data;
+        console.log("Organization API called with success", data);
+        console.log("orgList: ", settings.orgList);
+        console.log("settings_full: ", settings.speakerList);
+      }).error(function(error) {
+        alert("Organization API unable to be called");
+    });
+
+
+
     function startPlayer (playerList){
       console.log("startPlayer from SermonsCtrl: ", playerList);
       console.log($(playerList));
@@ -172,8 +146,6 @@ angular.module('starter.services', [])
       }).error(function(error) {
         console.log("unable to count hit");
       });
-      console.log("selectedAudio variable passed: ", selectedAudio);
-      selectedAudio.hits += 1;
       $(".player-close-button").click(function(){
         closePlayer("#amazingaudioplayer-1");
       });

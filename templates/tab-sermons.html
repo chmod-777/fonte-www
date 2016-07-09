@@ -15,7 +15,6 @@
      <div class="input-label col">
           {{'BIBLE_CLANG' | translate}}
         </div> -->
-    
 
 
     <!--<select class="col" ng-model="settings.rLanguage" ng-options="language.en_language for language in languages" ng-value='{{language.id}}'>
@@ -39,37 +38,23 @@
     <ion-list>
         <!--<ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | orderBy:sortingBy" ng-click="playNow({{sermon}})" data-tap-disabled="true" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">
 
-        ng-repeat options that we are removing for the time being:  | filter:query | orgFilter | limitTo: 15 | orderBy:sortingBy-->
-        <ion-item ng-repeat="sermon in teachingList | filter:query | orgFilter | orderBy:sortingBy" class="item-icon-right amazingaudioplayer-card">
-            <div class="preacher-img" ng-click="playNow(sermon)" style="background-image:url({{settings.speakerList[sermon.teacher_id -1].image}})">
-                <img ng-click="playNow(sermon)" src="{{settings.orgList[sermon.organization_id -1].image}}" class="org-img"/></div>
+        ng-repeat options that we are removing for the time being:  | filter:query | orgFilter | limitTo: 15 | orderBy:sortingBy           
+         | filter:query | orgFilter | orderBy:sortingBy
+        -->
+        <ion-item ng-repeat="sermon in teachingList" class="item-icon-right amazingaudioplayer-card">
+            <div class="preacher-img" ng-click="playNow(sermon)" style="background-image:url({{settings.speakerList[sermon.teacher_id -1].photo}})">
+                <img ng-click="playNow(sermon)" src="{{settings.orgList[sermon.organization_id -1].photo}}" class="org-img"/></div>
             <i ng-click="download(sermon, sermon)" class="icon ion-ios-download" style="padding-right:30px"></i>
             <i ng-click="playNow(sermon)" class="icon ion-ios-play"></i>
             <h2 ng-click="playNow(sermon)"  ng-if="settings.lang =='en'">"{{sermon.en_title}}"</h2>
             <h2 ng-click="playNow(sermon)" ng-if="settings.lang =='pt'">"{{sermon.pt_title}}"</h2>
-            <a href="#/tab/sermons/speaker-{{sermon.teacher_id -1}}" ng-if="settings.lang =='pt'" style="float:left">{{settings.speakerList[sermon.teacher_id -1].pt_name}}</a><br/>
-            <a href="#/tab/sermons/speaker-{{sermon.teacher_id -1}}" ng-if="settings.lang =='en'" style="float:left">{{settings.speakerList[sermon.teacher_id -1].en_name}}</a><br/>
-            <!--<a href="#/tab/sermons/org-{{sermon.orgId}}" ng-if="settings.lang =='en'"><button class="button button-stable button-small button-outline">{{settings.orgList[sermon.orgId].en_orgName}}</button></a>
-            <a href="#/tab/sermons/org-{{sermon.orgId}}" ng-if="settings.lang =='pt'"><button class="button button-stable button-small button-outline">{{settings.orgList[sermon.orgId].pt_orgName}}</button></a>-->
+            <a href="#/tab/sermons/speaker-{{sermon.teacher_id -1}}" ng-if="settings.lang =='pt'" style="float:left" class="speaker-name">{{settings.speakerList[sermon.teacher_id -1].pt_name}}<br/></a>
+            <a href="#/tab/sermons/speaker-{{sermon.teacher_id -1}}" ng-if="settings.lang =='en'" style="float:left">{{settings.speakerList[sermon.teacher_id -1].en_name}}<br/></a>
+            <br/>
             <p class="language-display">{{settings.languages[sermon.primary_language_id].en_language}} <i ng-if="sermon.secondary_language_id">/</i> {{settings.languages[sermon.secondary_language_id].en_language}} <!--{{sermon.hits}}--></p>
             
-            <li ng-if="settings.lang =='pt'" style="display:none" data-artist="{{settings.speakerList[sermon.teacher_id -1].pt_name}}" data-title="{{sermon.pt_title}}" data-album data-info data-image="{{settings.speakerList[sermon.teacher_id -1].image}}" data-duration="{{sermon.length}}"><div class="amazingaudioplayer-source" data-src="{{sermon.teaching_url}}" data-type="audio/mpeg" /></div></li><li ng-if="settings.lang =='en'" style="display:none" data-artist="{{settings.speakerList[sermon.teacher_id -1].en_name}}" data-title="{{sermon.en_title}}" data-album data-info data-image="{{settings.speakerList[sermon.teacher_id -1].image}}" data-duration="{{sermon.length}}"><div class="amazingaudioplayer-source" data-src="{{sermon.teaching_url}}" data-type="audio/mpeg" /></div></li>
+            <li ng-if="settings.lang =='pt'" style="display:none" data-artist="{{settings.speakerList[sermon.teacher_id -1].pt_name}}" data-title="{{sermon.pt_title}}" data-album data-info data-image="{{settings.speakerList[sermon.teacher_id -1].photo}}" data-duration="{{sermon.length}}"><div class="amazingaudioplayer-source" data-src="{{sermon.teaching_url}}" data-type="audio/mpeg" /></div></li><li ng-if="settings.lang =='en'" style="display:none" data-artist="{{settings.speakerList[sermon.teacher_id -1].en_name}}" data-title="{{sermon.en_title}}" data-album data-info data-image="{{settings.speakerList[sermon.teacher_id -1].photo}}" data-duration="{{sermon.length}}"><div class="amazingaudioplayer-source" data-src="{{sermon.teaching_url}}" data-type="audio/mpeg" /></div></li>
         </ion-item>
     </ion-list>
-<!--     <div class="card">
-        <div class="item item-divider">
-        Tres Tipos de Maldição
-        </div>
-        <div class="item item-image">
-            <img src="audios/Ap-Mario.jpg" />
-        
-        </div>
-        <div class="item item-text-wrap">
-        <i class="icon ion-home"></i>
-        Pastor Mario Casquinha 
-        </div>
-    </div>-->
 </ion-content>
-
-
 </ion-view>

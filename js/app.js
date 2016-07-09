@@ -240,6 +240,31 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
         }
       }
     })
+    .state('tab.rorgdetail', {
+      url: '/resources/org-:orgId',
+      views: {
+        'tab-resources': {
+          templateUrl: 'templates/sermons-orgdetail.html'
+        }
+      }
+    })
+    .state('tab.rspeakerdetail', {
+      url: '/resources/speaker-:speakerId',
+      views: {
+        'tab-resources': {
+          templateUrl: 'templates/sermons-speakerdetail.html'
+        }
+      }
+    })
+    .state('tab.resourcedetail', {
+      url: '/resources/resource-:resourceId',
+      views: {
+        'tab-resources': {
+          templateUrl: 'templates/resource-resourcedetail.html',
+          controller: 'ResourceCtrl'
+        }
+      }
+    })
   .state('tab.resources', {
     url: '/resources',
     views: {

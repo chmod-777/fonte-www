@@ -137,6 +137,11 @@ p.language-display {
 	padding:0px 10px;
 	border-radius: 10px;
 	color: #fff;
+	margin-top: 10px;
+}
+
+a.speaker-name {
+
 }
 
 .amazingaudioplayer-card:nth-child(even), .resource-card:nth-child(even) {
@@ -155,6 +160,7 @@ p.language-display {
 	float:left;
 	width:100px;
 	margin-right:10px;
+	background-size: 100% 100%;
 }
 
 /* Styles for Downloads Page */

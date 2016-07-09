@@ -52,8 +52,16 @@ app.controller('DashCtrl', function($scope) {})
       //jQuery on Click Events to remove the Android issues with clicking
       //$("amazingaudioplayer-card h2, amazingaudioplayer-card i").click(playNow  ())
 
-    //My attempt at sorting
+    //on click count. The problem is that this doesn't work with PlayNow yet ***
+    $(".amazingaudioplayer-next").click(function(){
+      $http.get('http://146.148.29.150/fonte/api/html/web/teaching/hit?id=' + sermon.id).success(function(data) {
+          console.log("hit added, ID = ", sermon.id);
+        }).error(function(error) {
+          console.log("unable to count hit");
+      });
+    });
 
+    //My attempt at sorting
     $scope.sortingBy = "hits";
 
     console.log("settings language from sermon page", settings.lang);
@@ -84,6 +92,7 @@ app.controller('DashCtrl', function($scope) {})
       }).error(function(error) {
         console.log("unable to count hit");
       });
+    console.log("resource URL: ", resource.resource_url);
     $cordovaFileOpener2.open(
       resource.resource_url,
       'application/pdf'
@@ -245,26 +254,8 @@ app.controller('DashCtrl', function($scope) {})
       'left': number * -1000 + "px"
     }, 400, 'linear');
   }
-  console.log("Teacher API called");
-
-  /*
-  $http.get('http://146.148.29.150/fonte/api/html/web/teacher/api').success(function(data) {
-        settings.speakerList = data;
-        console.log("Teacher API called with success", data);
-        console.log("speakerList: ", settings.speakerList);
-      }).error(function(error) {
-        alert("Teacher API unable to be called");
-      });
-  console.log("Teacher API called");
-
-  $http.get('http://146.148.29.150/fonte/api/html/web/organization/api').success(function(data) {
-        settings.orgList = data;
-        console.log("Organization API called with success", data);
-        console.log("orgList: ", settings.orgList);
-      }).error(function(error) {
-        alert("Organization API unable to be called");
-      });
-  */
+  
+ 
 
   $scope.next = next;
     //Firing before getLanguages completes.
