@@ -28,7 +28,9 @@
       </script> -->
 <script src="lib/ngCordova/dist/ng-cordova.js"></script>
 <script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
-    <script src="js/angular-translate.min.js"></script>
+<script src="js/angular-translate.min.js"></script>
+<link href="lib/ionic-filter-bar/dist/ionic.filter.bar.min.css" rel="stylesheet">  
+<script src="lib/ionic-filter-bar/dist/ionic.filter.bar.min.js"></script>  
     <!-- cordova script (this will be a 404 during development) -->
     <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
 <!-- <script src="cordova.js"></script> -->
@@ -49,7 +51,7 @@
       have templates inline in this html file if you'd like).
     -->
     
-    <ion-side-menus ng-controller="LanguageCtrl" >
+    <ion-side-menus ng-controller="rLanguageCtrl" >
     <ion-side-menu-content>
         <ion-nav-bar class="bar-positive">
       <ion-nav-back-button>
@@ -86,7 +88,8 @@
             </ion-list>
             <h4 class="padding">{{'SETTINGS_ORGANIZATIONS' | translate}}</h4>
             <ion-list>
-                <ion-checkbox ng-repeat="item in orgList" ng-model="item.checked" ng-checked="item.checked">{{item.en_orgName}}</ion-checkbox>
+                <ion-checkbox ng-if="settings.lang =='en'" ng-repeat="item in settings.orgList" ng-model="item.checked" ng-checked="item.checked">{{item.en_name}}</ion-checkbox>
+                <ion-checkbox ng-if="settings.lang =='pt'" ng-repeat="item in settings.orgList" ng-model="item.checked" ng-checked="item.checked">{{item.pt_name}}</ion-checkbox>
             </ion-list>
           </form>
           </ion-list>

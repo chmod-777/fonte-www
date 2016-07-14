@@ -110,23 +110,27 @@
 	/*left:-2000px;*/
 }
 
-.sermon-page h2{
-	font-size:120%;
-
-}
-
 .sermon-page button {
 	margin: 2px;
 }
 
-.amazingaudioplayer-card h2, .resource-card a h2 {
+.amazingaudioplayer-card h2, .resource-card h2 {
 	font-style: italic;
 	font-weight: bold;
+	font-size:120%;
+}
+
+.teacher-name {
+	float:left;
 }
 
 .amazingaudioplayer-card a, .resource-card a {
 	text-decoration: none;
 	font-weight: bold;
+}
+
+.resource-description {
+	margin-left: 110px;
 }
 
 p.language-display {
@@ -152,13 +156,13 @@ a.speaker-name {
 	float: right;
 	position: absolute;
 	width:45px;
-	top:75px;
+	top:70px;
 }
 
 .preacher-img {
 	height:100px;
-	float:left;
 	width:100px;
+	float:left;
 	margin-right:10px;
 	background-size: 100% 100%;
 }

@@ -3,11 +3,12 @@
 <ion-content>
     <ion-list class="list-inset fonte-description">
         <ion-item class="item-text-wrap">
-            <img ng-src="{{settings.orgList[whichOrg].photo}}" />
-            <h2 ng-if="settings.lang =='en'">{{settings.orgList[whichOrg].en_orgName}}</h2>
-            <p ng-if="settings.lang =='en'">{{settings.orgList[whichOrg].en_description}}</p>
-            <h2 ng-if="settings.lang =='pt'">{{settings.orgList[whichOrg].pt_orgName}}</h2>
-            <p ng-if="settings.lang =='pt'">{{settings.orgList[whichOrg].pt_description}}</p>
+        <div style="display:none">{{org = (settings.orgList | filter : {id: whichOrg})[0];}}</div>
+            <img ng-src="{{org.photo}}" />
+            <h2 ng-if="settings.lang =='en'">{{org.en_name}}</h2>
+            <p ng-if="settings.lang =='en'" ng-bind-html="org.en_description"></p>
+            <h2 ng-if="settings.lang =='pt'">{{org.pt_name}}</h2>
+            <p ng-if="settings.lang =='pt'" ng-bind-html="org.pt_description"></p>
         </ion-item>
     </ion-list>
 </ion-content>

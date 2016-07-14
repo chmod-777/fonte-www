@@ -161,6 +161,12 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
   };
 }])
 
+.filter("ashtml", ['$sce', function($sce) {
+  return function(htmlCode){
+    return $sce.trustAsHtml(htmlCode);
+  }
+}])
+
 .config(function($ionicConfigProvider) {
   $ionicConfigProvider.views.maxCache(5);
 
@@ -244,7 +250,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       url: '/resources/org-:orgId',
       views: {
         'tab-resources': {
-          templateUrl: 'templates/sermons-orgdetail.html'
+          templateUrl: 'templates/sermons-orgdetail.html',
+          controller: 'ResourceCtrl'
         }
       }
     })
@@ -252,7 +259,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       url: '/resources/speaker-:speakerId',
       views: {
         'tab-resources': {
-          templateUrl: 'templates/sermons-speakerdetail.html'
+          templateUrl: 'templates/sermons-speakerdetail.html',
+          controller: 'ResourceCtrl'
         }
       }
     })

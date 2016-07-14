@@ -1,5 +1,5 @@
 angular.module('starter.services', [])
-.value('settings', {
+.value('original_settings', {
   dbtKey: 'd634c26f06be1dae73edfb08d7290f52',
   rootURL: 'http://cloud.faithcomesbyhearing.com/mp3audiobibles2/',
   aapNum: 0,
@@ -8,6 +8,30 @@ angular.module('starter.services', [])
   rLanguage: 0,
   languages: ""
 })
+.service('settings', ['original_settings', function(original_settings) {
+    saveData = function(key, value) {
+      window.localStorage.setItem(key,value);
+      console.log("Data Save function called: ", key, value);
+    }
+    loadData = function(key) {
+      return window.localStorage.getItem(key);
+      console.log("Data Load function called: ", key);
+    }
+    var newSettings = 0;
+    syncData = function(){  
+      angular.forEach(original_settings, function(value, key){
+        newSettings.key = original_settings.key;
+      });
+      loaded_settings = loadData('settings');
+      angular.forEach(loaded_settings, function(value, key) {
+        settings[value] = loaded_settings[key];
+      });
+    }
+    this.lang = loadData("settings.lang");
+    this.rLanguage = original_settings.rLanguage;
+    
+}])
+
 .service('fonteFns', ['settings', '$translate', '$http', function(settings, $translate, $http) {
     //For GA_LocalStorage. If not using, remove
     //ga_storage._trackPageview('/fonteFns', 'FonteFns Called');
@@ -31,24 +55,43 @@ angular.module('starter.services', [])
               console.log("File download error");
             }); 
      }*/
-    $http.get('http://146.148.29.150/fonte/api/html/web/teacher/api').success(function(data) {
-        settings.speakerList = data;
-        console.log("Teacher API called with success", data);
-        console.log("speakerList: ", settings.speakerList);
-      }).error(function(error) {
-        alert("Teacher API unable to be called");
-    });
 
-    $http.get('http://146.148.29.150/fonte/api/html/web/organization/api').success(function(data) {
-        settings.orgList = data;
-        console.log("Organization API called with success", data);
-        console.log("orgList: ", settings.orgList);
-        console.log("settings_full: ", settings.speakerList);
-      }).error(function(error) {
-        alert("Organization API unable to be called");
-    });
+    /*
+    syncData = function(variables) {
+      var variable_new;
+      angular.forEach(settings, function(value, key){
+        console.log("Variables: ", key, value);
+        if(window.localStorage.getItem('settings.' + value).length != 0) {
+          variable_new.settings = window.localStorage.getItem('settings.' + value);
+        }
+      });
+      return variable_new;
+    }*/
 
 
+    function getTeachers(settings) {
+      $http.get('http://api.biblia.co.mz/teacher/api').success(function(data) {
+          settings.speakerList = data;
+          console.log("Teacher API called with success", data);
+          console.log("speakerList: ", settings.speakerList);
+          saveData("settings.speakerList", settings.speakerList);
+        }).error(function(error) {
+          alert("Teacher API unable to be called");
+      });
+    }
+
+    function getOrgs (settings) {
+      $http.get('http://api.biblia.co.mz/organization/api').success(function(data) {
+          settings.orgList = data;
+          console.log("Organization API called with success", data);
+          console.log("orgList: ", settings.orgList);
+          saveData("settings.orgList", settings.orgList);
+        }).error(function(error) {
+          alert("Organization API unable to be called");
+      });
+    }
+    getOrgs(settings);
+    getTeachers(settings);
 
     function startPlayer (playerList){
       console.log("startPlayer from SermonsCtrl: ", playerList);

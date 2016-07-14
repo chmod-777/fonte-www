@@ -1,8 +1,6 @@
-var app = angular.module('starter.controllers', ['pascalprecht.translate']);
+var app = angular.module('starter.controllers', ['pascalprecht.translate', 'jett.ionic.filter.bar']);
 
-app.controller('DashCtrl', function($scope) {})
-
-.controller('MainCtrl', function ($scope, $ionicTabsDelegate) {
+app.controller('MainCtrl', function ($scope, $ionicTabsDelegate) {
   $scope.goForward = function () {
         var selected = $ionicTabsDelegate.selectedIndex();
         if (selected != -1) {
@@ -24,7 +22,38 @@ app.controller('DashCtrl', function($scope) {})
         }
     }
 })
+.controller('filterCtrl', ['$ionicFilterBar', function($ionicFilterBar) {
+  function ItemController($ionicFilterBar) {  
+    var vm = this,
+        items = [],
+        filterBarInstance;
 
+    for (var i = 1; i <= 1000; i++) {
+        var itemDate = moment().add(i, 'days');
+
+        var item = {
+            description: 'Description for item ' + i,
+            date: itemDate.toDate()
+        };
+        items.push(item);
+    }
+
+    vm.items = items;
+
+    vm.showFilterBar = function () {
+      filterBarInstance = $ionicFilterBar.show({
+        items: vm.items,
+        update: function (filteredItems) {
+          vm.items = filteredItems;
+        },
+        filterProperties: 'description'
+      });
+    };
+
+    return vm;
+}
+}
+])
 .controller('SermonsCtrl', ['settings', '$scope', '$http', 'fonteFns', '$state', function(settings, $scope, $http, fonteFns, $state, $stateParams) {
   if(typeof analytics !== "undefined") {
     analytics.trackView("Sermons");
@@ -77,7 +106,7 @@ app.controller('DashCtrl', function($scope) {})
 
   console.log("ResourceCtrl called");
   $(".waiting").show();
-  $http.get('http://146.148.29.150/fonte/api/html/web/resource/api').success(function(data) {
+  $http.get('http://api.biblia.co.mz/resource/api').success(function(data) {
         $scope.resourceList = data;
         $(".waiting").hide();
         console.log("Resource API called with success", data);
@@ -87,7 +116,7 @@ app.controller('DashCtrl', function($scope) {})
       });
 
   $scope.resourceOpen = function(resource) {
-    $http.get('http://146.148.29.150/fonte/api/html/web/resource/hit?id=' + resource.id).success(function(data) {
+    $http.get('http://api.biblia.co.mz/resource/hit?id=' + resource.id).success(function(data) {
         console.log("hit added, ID = ", resource.id);
       }).error(function(error) {
         console.log("unable to count hit");
@@ -209,11 +238,11 @@ app.controller('DashCtrl', function($scope) {})
 
 
 }])
-.controller('LanguageCtrl', ['$scope', 'settings', '$http', function($scope, settings, $http) {
+.controller('rLanguageCtrl', ['$scope', 'settings', '$http', function($scope, settings, $http) {
         $http.get('ajax/languages.json').then(function(result) {
         settings.languages = result.data;
         $scope.languages = result.data;
-        console.log('languages.json called successfully from SettingsCtrl', $scope.languages);
+        console.log('languages.json called successfully from rLanguageCtrl', $scope.languages);
         if (settings.rLanguage == 0) {
           settings.rLanguage = settings.languages[0];
           console.log("rLanguage 0");
@@ -254,16 +283,22 @@ app.controller('DashCtrl', function($scope) {})
       'left': number * -1000 + "px"
     }, 400, 'linear');
   }
+  syncData(); //nonfunctional
   
  
 
-  $scope.next = next;
+  $scope.next = next; //make function next() accessible from the front page
+
     //Firing before getLanguages completes.
      //settings.languages;
       //settings.languages = fonteFns.getLanguages();
   /*$scope.languages = settings.languages;*/
+
+  //loadData and saveData Test
   console.log("SettingsCtrl $scope.languages: ");
+  settings.lang = loadData("settings.lang");
   $scope.settings = settings;
+
   console.log("SettingsCtrl Organization Information: ", settings);
   $scope.orgList = settings.orgList;
   console.log("SettingsCtrl settings.languages: ", settings.languages);
@@ -271,6 +306,9 @@ app.controller('DashCtrl', function($scope) {})
     $translate.use(newLang);
     settings.lang = newLang;
     $scope.lang = newLang;
+    saveData("settings.lang", newLang);
+    test = loadData("settings.lang");
+    console.log("loadData Test", test);
     console.log("Language changed - $scope.lang = ", $scope.lang);
   };
 }]);
