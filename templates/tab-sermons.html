@@ -53,13 +53,13 @@
          | filter:query | orgFilter | orderBy:sortingBy
         -->
     <div class="sermons-page">
-        <ion-item ng-repeat="teaching in teachingList" class="item-icon-right amazingaudioplayer-card">
+        <ion-item ng-repeat="teaching in settings.teachings" class="item-icon-right amazingaudioplayer-card" ng-controller="DlButtonCtrl as dl">
             <div style="display:none">{{teacher = (settings.speakerList | filter : {id: teaching.teacher_id})[0];
             org = (settings.orgList | filter : {id: teaching.organization_id})[0];}}</div>
             
             <div class="preacher-img" ng-click="playNow(teaching)" style="background-image:url({{teacher.photo}})">
                 <img ng-click="playNow(teaching)" src="{{org.photo}}" class="org-img"/></div>
-            <i ng-click="download(teaching, teaching)" class="icon ion-ios-download" style="padding-right:30px"></i>
+            <i ng-click="dl.addDownload(teaching, 'teaching')" class="icon ion-ios-download" style="padding-right:30px"></i>
             <i ng-click="playNow(teaching)" class="icon ion-ios-play"></i>
             <h2 ng-click="playNow(teaching)"  ng-if="settings.lang =='en'">"{{teaching.en_title}}"</h2>
             <h2 ng-click="playNow(teaching)" ng-if="settings.lang =='pt'">"{{teaching.pt_title}}"</h2>

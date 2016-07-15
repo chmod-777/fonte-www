@@ -30,7 +30,7 @@
 <script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
 <script src="js/angular-translate.min.js"></script>
 <link href="lib/ionic-filter-bar/dist/ionic.filter.bar.min.css" rel="stylesheet">  
-<script src="lib/ionic-filter-bar/dist/ionic.filter.bar.min.js"></script>  
+<script src="lib/ionic-filter-bar/dist/ionic.filter.bar.min.js"></script><script src="js/ngStorage.min.js"></script> 
     <!-- cordova script (this will be a 404 during development) -->
     <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
 <!-- <script src="cordova.js"></script> -->
@@ -51,7 +51,7 @@
       have templates inline in this html file if you'd like).
     -->
     
-    <ion-side-menus ng-controller="rLanguageCtrl" >
+    <ion-side-menus ng-controller="MainCtrl" >
     <ion-side-menu-content>
         <ion-nav-bar class="bar-positive">
       <ion-nav-back-button>
@@ -71,17 +71,17 @@
           <h2>{{ 'SETTINGS_INFORMATION' | translate}}</h2>
           <form name="settingsForm">
             <h4 class="padding">{{'SETTINGS_CLANGUAGE' | translate}}</h4>
-              <ion-radio type="radio" ng-model="lang" ng-change="changeLanguage(lang)" value="pt">
+              <ion-radio type="radio" ng-model="settings.lang" ng-change="changeLanguage(settings.lang)" value="pt">
                 {{'SETTINGS_PT' | translate}}
               </ion-radio>
-              <ion-radio type="radio" ng-model="lang" ng-change="changeLanguage(lang)" value="en">
+              <ion-radio type="radio" ng-model="settings.lang" ng-change="changeLanguage(settings.lang)" value="en">
                 {{'SETTINGS_EN' | translate}}
               </ion-radio>
             <label class="item item-input item-select">
               <div class="input-label">
                 <h2>Resource Language</h2>
               </div>
-              <select ng-model="settings.rLanguage" ng-options="language.en_language for language in languages" ng-value='{{language.id}}'>
+              <select ng-model="settings.rLanguage" ng-options="language.en_language for language in settings.languages" ng-value='{{settings.language.id}}'>
               </select>
             </label>
             

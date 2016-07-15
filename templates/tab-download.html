@@ -1,12 +1,55 @@
 <ion-view view-title="Downloads">
   <ion-content on-swipe-right="goBack()" on-swipe-left="goForward()">
 
-  <div class="item item-divider"><h1>Bible Downloads</h1></div>
+  <div class="item item-divider bar bar-positive"><h1>Bible Downloads</h1></div>
     <ion-list></ion-list>
-    <div class="item item-divider"><h1>Sermon Downloads</h1></div>
-    <ion-list></ion-list>
-    <div class="item item-divider"><h1>Resource Downloads</h1></div>
-    <ion-list></ion-list>
+    <div class="item item-divider bar bar-positive"><h1>Sermon Downloads</h1></div>
+    <ion-list>
+        <ion-item ng-repeat="teaching in downloads.teaching" class="item-icon-right amazingaudioplayer-card">
+            <div style="display:none">{{teacher = (settings.speakerList | filter : {id: teaching.teacher_id})[0];
+            org = (settings.orgList | filter : {id: teaching.organization_id})[0];}}</div>
+            
+            <div class="preacher-img" ng-click="playNow(teaching)" style="background-image:url({{teacher.photo}})">
+                <img ng-click="playNow(teaching)" src="{{org.photo}}" class="org-img"/></div>
+            <i ng-click="downloadThis(teaching.pt_title, teaching.teaching_url, teaching.type, teaching.teaching_id, '.mp3')" class="icon ion-ios-download" style="padding-right:30px"></i>
+            <i ng-click="playNow(teaching)" class="icon ion-ios-play"></i>
+            <h2 ng-click="playNow(teaching)"  ng-if="settings.lang =='en'">"{{teaching.en_title}}"</h2>
+            <h2 ng-click="playNow(teaching)" ng-if="settings.lang =='pt'">"{{teaching.pt_title}}"</h2>
+            <a href="#/tab/sermons/speaker-{{teaching.teacher_id}}" ng-if="settings.lang =='pt'" style="float:left" class="speaker-name">{{teacher.pt_name}}<br/></a>
+            <a href="#/tab/sermons/speaker-{{teaching.teacher_id}}" ng-if="settings.lang =='en'" style="float:left">{{teacher.en_name}}<br/></a>
+            <br/>
+            <p class="language-display" ng-if="settings.lang == 'en'" class="language-display">{{settings.languages[teaching.primary_language_id].en_language}} <i ng-if="teaching.secondary_language_id">/</i> {{settings.languages[teaching.secondary_language_id].en_language}} <!--{{teaching.hits}}--></p>
+            <p class="language-display" ng-if="settings.lang == 'pt'" class="language-display">{{settings.languages[teaching.primary_language_id].pt_language}} <i ng-if="teaching.secondary_language_id">/</i> {{settings.languages[teaching.secondary_language_id].pt_language}} <!--{{teaching.hits}}--></p>
+
+            <li ng-if="settings.lang =='pt'" style="display:none" data-artist="{{teacher.pt_name}}" data-title="{{teaching.pt_title}}" data-album data-info data-image="{{teacher.photo}}" data-duration="{{teaching.length}}"><div class="amazingaudioplayer-source" data-src="{{teaching.teaching_url}}" data-type="audio/mpeg" /></div></li><li ng-if="settings.lang =='en'" style="display:none" data-artist="{{teacher.en_name}}" data-title="{{teaching.en_title}}" data-album data-info data-image="{{teacher.photo}}" data-duration="{{teaching.length}}"><div class="amazingaudioplayer-source" data-src="{{teaching.teaching_url}}" data-type="audio/mpeg" /></div></li>
+        </ion-item>
+    </ion-list>
+    <div class="item item-divider bar bar-positive"><h1>Resource Downloads</h1></div>
+    <ion-list>
+    	<ion-item ng-repeat="resource in downloads.resource" class="item-icon-right resource-card" ng-controller="DlButtonCtrl as dl">
+            <div style="display:none">{{teacher = (settings.speakerList | filter : {id: resource.teacher_id})[0];
+            org = (settings.orgList | filter : {id: resource.organization_id})[0];}}</div>
+	        <row>
+	            <div class="preacher-img col-25" style="background-image:url({{teacher.photo}})"/>
+	                <img src="{{org.photo}}" class="org-img"/>
+	            </div>
+	            <i ng-click="downloadThis(resource.pt_name, resource.resource_url, resource.type, resource.teacher_id, '.pdf')" class="icon ion-ios-download" style="padding-right:30px"></i>
+	            <h2 ng-if="settings.lang =='en'" ng-click="resourceOpen(resource)">{{resource.en_name}}</h2>
+	            <h2 ng-if="settings.lang =='pt'" ng-click="resourceOpen(resource)">{{resource.pt_name}}</h2>
+	            <!--Author Line -->
+	            <a class="teacher-name" href="#/tab/resources/speaker-{{resource.teacher_id}}" ng-if="settings.lang =='pt'">{{teacher.pt_name}}<br/></a>
+	            <a class="teacher-name" href="#/tab/resources/speaker-{{resource.teacher_id}}" ng-if="settings.lang =='en'">{{teacher.en_name}}<br/></a>
+	            <br/>
+
+	            <!--Language Line-->
+	            <p class="language-display" ng-if="settings.lang == 'en'">{{settings.languages[resource.primary_language_id].en_language}} <i ng-if="sermon.secondary_language_id">/</i> {{settings.languages[resource.secondary_language_id].en_language}} <!--{{sermon.hits}}--></p>
+	            <p class="language-display" ng-if="settings.lang == 'pt'">{{settings.languages[resource.primary_language_id].pt_language}} <i ng-if="sermon.secondary_language_id">/</i> {{settings.languages[resource.secondary_language_id].pt_language}} <!--{{sermon.hits}}--></p>
+
+	            <div class="resource-description item-text-wrap item-icon-right" ng-if="settings.lang == 'en'"><p>{{resource.en_description | limitTo: 200}}{{resource.en_description.length > 200 ? '...' : ''}}</p></div>
+				<div class="resource-description item-text-wrap item-icon-right" ng-if="settings.lang == 'pt'"><p>{{resource.pt_description | limitTo: 200}}{{resource.pt_description.length > 200 ? '...' : ''}}</p></div>
+        	</row>
+        </ion-item>
+    </ion-list>
 
 
   </ion-content>

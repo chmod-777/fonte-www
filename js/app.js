@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analytics', 'starter.controllers', 'starter.services', 'ngCordova', 'pascalprecht.translate'])
+angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analytics', 'starter.controllers', 'starter.services', 'ngCordova', 'pascalprecht.translate', 'ngStorage'])
 
-.run(function($ionicPlatform, $ionicAnalytics, $rootScope, $translate) {
+.run(function($ionicPlatform, $ionicAnalytics, $rootScope, $translate, settingsFns, $interval) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -24,7 +24,9 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       StatusBar.styleDefault();
     }
     //Globalization plugin for changing the app language through the OS system language.
-    if(typeof navigator.globalization !== "undefined") {
+    //If on a phone and this is the first run, use the Mobile language settings
+    //Otherwise use the saved settings
+    if(typeof navigator.globalization !== "undefined" && $rootScope.settings.firstRun == 1) {
       navigator.globalization.getPreferredLanguage(function(syslanguage) {
         console.log(syslanguage.value);
         $translate.use((syslanguage.value).split("-")[0]).then(function(data) {
@@ -34,12 +36,19 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
             console.log("Language-choice FAIL through OS settings" + data);
         });
       }, null);
+    } else {
+      $translate.use($rootScope.settings.lang);
+        $interval(function() {
+          console.log("teaching.length after 5 seconds", $rootScope.settings.speakerList.length);
+        }, 5000, 1);
     }
 
     document.addEventListener("deviceready", onDeviceReady, false);
       function onDeviceReady() {
-        console.log(cordova.file);
+        console.log("Cordova file log: ", cordova.file);
+               
       }
+
     //GA
 /*    if(typeof analytics !== "undefined") {
       analytics.startTrackedWithId("UA-53163653-2");
@@ -62,7 +71,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     'http://dbt.io/**',
     'http://146.148.29.150/fonte/api/html/web/nt-book/api',
     'http://146.148.29.150/fonte/api/html/web/ot-book/api',
-    'http://146.148.29.150/fonte/api/html/web/teaching/api'
+    'http://146.148.29.150/fonte/api/html/web/teaching/api',
+    'http://api.biblia.co.mz/**'
   ]);
 
   $translateProvider.translations('en', {
@@ -186,8 +196,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'templates/tabs.html',
-    controller: 'MainCtrl'
+    templateUrl: 'templates/tabs.html'
   })
 
   // Each tab has its own nav history stack:
@@ -196,8 +205,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     url: '/dash',
     views: {
       'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'MainCtrl'
+        templateUrl: 'templates/tab-dash.html'
       }
     }
   })
@@ -205,8 +213,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       url: '/bible',
       views: {
         'tab-bible': {
-          templateUrl: 'templates/tab-bible.html',
-          controller: 'BibleCtrl'
+          templateUrl: 'templates/tab-bible.html'
         }
       }
     })
@@ -214,8 +221,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       url: '/bible/:bookId/:bookName/:bookCode',
       views: {
         'tab-bible': {
-          templateUrl: 'templates/bible-book.html',
-          controller: 'MainCtrl'
+          templateUrl: 'templates/bible-book.html'
         }
       }
     })
@@ -295,8 +301,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     url: '/about',
     views: {
       'tab-about': {
-        templateUrl: 'templates/tab-about.html',
-        controller: 'MainCtrl',
+        templateUrl: 'templates/tab-about.html'
       }
     }
   });
