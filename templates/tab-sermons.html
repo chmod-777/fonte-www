@@ -1,65 +1,15 @@
 <ion-view view-title="{{'SERMONS_TITLE' | translate}}">
-<ion-content class="sermon-page" on-swipe-right="goBack()" on-swipe-left="goForward()">
+    <header-bar></header-bar>
+    <ion-content class="sermon-page" on-swipe-right="goBack()" on-swipe-left="goForward()">
     <div class="waiting"><ion-spinner></ion-spinner></div> 
-
-
-    <ion-header-bar class="row bar bar-positive" ng-controller="filterCtrl as vm">
-<!--
-    <div class="bar item-input-inset  col bar-light">
-        <label class="item-input-wrapper">
-            <i class="icon ion-search placeholder-icon"></i>
-            <input type="search" placeholder="{{'teachingS_SEARCH' | translate}}" ng-model="query">
-        </label>
-    </div>
-     <div class="input-label col">
-          {{'BIBLE_CLANG' | translate}}
-        </div> -->
-
-        <select class="col" ng-model="settings.rLanguage" ng-options="language.en_language for language in languages" ng-value='{{language.id}}'>
-                  </select>
-        
-        <div class="col-25">
-            <label class="item item-input">
-                <div class="input-label">
-                {{'SEARCH_SORT' | translate}}
-                </div>
-                <select ng-model="sortingBy">
-                    <option value="hits">{{'SEARCH_POPULARITY' | translate}}</option>
-                    <option value="en_title">{{'SEARCH_TITLE' | translate}}</option>
-                    <option value="artistId">{{'SEARCH_PREACHER' | translate}}</option>
-                    <option value="orgId">{{'SEARCH_ORGANIZATION' | translate}}</option>
-                    <option value="recent">{{'SEARCH_RECENT' | translate}}</option>
-                </select>
-            </label>
-        </div>
-        <div class="col-50">
-            <button class="button button-icon ion-android-search" 
-                ng-click="vm.showFilterBar()"></button>
-            <!--<a class="button button-icon icon ion-search" style="float:right"></a>-->
-            <ion-searchbar
-              ngModel="myInput"
-              showCancelButton]="shouldShowCancel"
-              (ionInput)="onInput($event)"
-              (ionCancel)="onCancel($event)">
-            </ion-searchbar>
-            <a class="button button-icon icon ion-android-funnel" style="float:right"></a>
-        </div> 
-    </ion-header-bar>
-    <!--<ion-list>
-        <ion-item ng-repeat="teaching in preachingList | filter:query | orgFilter | orderBy:sortingBy" ng-click="playNow({{teaching}})" data-tap-disabled="true" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">
-
-        <!--
-        ng-repeat options that we are removing for the time being:  | filter:query | orgFilter | limitTo: 15 | orderBy:sortingBy           
-         | filter:query | orgFilter | orderBy:sortingBy
-        -->
     <div class="sermons-page">
-        <ion-item ng-repeat="teaching in settings.teachings" class="item-icon-right amazingaudioplayer-card" ng-controller="DlButtonCtrl as dl">
+
+        <ion-item ng-repeat="teaching in settings.teachings | filter : search_query | rLangFilter:settings | orgFilter " class="item-icon-right amazingaudioplayer-card"">
             <div style="display:none">{{teacher = (settings.speakerList | filter : {id: teaching.teacher_id})[0];
             org = (settings.orgList | filter : {id: teaching.organization_id})[0];}}</div>
             
             <div class="preacher-img" ng-click="playNow(teaching)" style="background-image:url({{teacher.photo}})">
-                <img ng-click="playNow(teaching)" src="{{org.photo}}" class="org-img"/></div>
-            <i ng-click="dl.addDownload(teaching, 'teaching')" class="icon ion-ios-download" style="padding-right:30px"></i>
+                <img ng-click="playNow(teaching)" ng-src="{{org.photo}}" class="org-img"/></div>
             <i ng-click="playNow(teaching)" class="icon ion-ios-play"></i>
             <h2 ng-click="playNow(teaching)"  ng-if="settings.lang =='en'">"{{teaching.en_title}}"</h2>
             <h2 ng-click="playNow(teaching)" ng-if="settings.lang =='pt'">"{{teaching.pt_title}}"</h2>
@@ -69,7 +19,7 @@
             <p class="language-display" ng-if="settings.lang == 'en'" class="language-display">{{settings.languages[teaching.primary_language_id].en_language}} <i ng-if="teaching.secondary_language_id">/</i> {{settings.languages[teaching.secondary_language_id].en_language}} <!--{{teaching.hits}}--></p>
             <p class="language-display" ng-if="settings.lang == 'pt'" class="language-display">{{settings.languages[teaching.primary_language_id].pt_language}} <i ng-if="teaching.secondary_language_id">/</i> {{settings.languages[teaching.secondary_language_id].pt_language}} <!--{{teaching.hits}}--></p>
 
-            <li ng-if="settings.lang =='pt'" style="display:none" data-artist="{{teacher.pt_name}}" data-title="{{teaching.pt_title}}" data-album data-info data-image="{{teacher.photo}}" data-duration="{{teaching.length}}"><div class="amazingaudioplayer-source" data-src="{{teaching.teaching_url}}" data-type="audio/mpeg" /></div></li><li ng-if="settings.lang =='en'" style="display:none" data-artist="{{teacher.en_name}}" data-title="{{teaching.en_title}}" data-album data-info data-image="{{teacher.photo}}" data-duration="{{teaching.length}}"><div class="amazingaudioplayer-source" data-src="{{teaching.teaching_url}}" data-type="audio/mpeg" /></div></li>
+            <li ng-if="settings.lang =='pt'" style="display:none" data-artist="{{teacher.pt_name}}" data-title="{{teaching.pt_title}}" data-album data-info data-image="{{teacher.photo}}" data-duration="{{teaching.length}}"><div class="amazingaudioplayer-source" data-src="{{trustSrc(teaching.teaching_url)}}" data-type="audio/mpeg" /></div></li><li ng-if="settings.lang =='en'" style="display:none" data-artist="{{teacher.en_name}}" data-title="{{teaching.en_title}}" data-album data-info data-image="{{teacher.photo}}" data-duration="{{teaching.length}}"><div class="amazingaudioplayer-source" data-src="{{trustSrc(teaching.teaching_url)}}" data-type="audio/mpeg" /></div></li>
         </ion-item>
     </div>
 </ion-content>

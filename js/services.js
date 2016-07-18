@@ -1,15 +1,4 @@
 angular.module('starter.services', [])
-.value('settings', {
-  dbtKey: 'd634c26f06be1dae73edfb08d7290f52',
-  rootURL: 'http://cloud.faithcomesbyhearing.com/mp3audiobibles2/',
-  aapNum: 0,
-  lang: 'pt',
-  testament: "IDNT",
-  rLanguage: 0,
-  languages: "",
-  firstRun: 1,
-  timers: [] //*** add timers
-})
 
 .factory('ApiServe', ['$http', function($http) {
     
@@ -36,40 +25,10 @@ angular.module('starter.services', [])
       getAPIS: getAPIS,
       getLanguages: getLanguages
     };
-    /*
-        this.getTeaching = function() {
-      $http.get('http://146.148.29.150/fonte/api/html/web/teaching/api').success(function(data) {
-        $(".waiting").hide();
-        console.log("Teachings API called with success", data);
-        return data;
-      }).error(function(error) {
-        alert("Teachings API unable to be called");
-      });
-    }
-
-    this.getBooks = function() {
-    $(".waiting").show();
-    if ($scope.settings.testament == "IDOT") {
-      $http.get('http://146.148.29.150/fonte/api/html/web/ot-book/api').success(function(data) {
-        $scope.books = data;
-        $(".waiting").hide();
-      }).error(function(error) {
-        alert("ot_books unable to be called");
-      });
-    } else {
-      $http.get('http://146.148.29.150/fonte/api/html/web/nt-book/api').success(function(data) {
-        $scope.books = data;
-        $(".waiting").hide();
-      }).error(function(error) {
-        alert("nt_books unable to be called", error);
-        console.log("nt_books api error: ", error);
-        });
-      };
-    };*/
 
 }])
 
-.service('settingsFns', ['$cordovaFile', '$localStorage', 'settings', '$rootScope', 'ApiServe', '$window', '$http', function($cordovaFile, $localStorage, settings, $rootScope, ApiServe, $window, $http) {
+.service('settingsFns', ['$cordovaFile', '$localStorage', '$rootScope', 'ApiServe', '$window', '$http', function($cordovaFile, $localStorage, $rootScope, ApiServe, $window, $http) {
     //Save data to persistent storage
     this.saveData = function(variable) {
       $localStorage.settings = variable;
@@ -81,13 +40,6 @@ angular.module('starter.services', [])
       return $localStorage.settings;
       console.log("Data Load function called: ");
     }
-    
-
-
-
-
-
-
 
     /*sync data back and forth - untested
     var newSettings = 0;
@@ -159,25 +111,12 @@ angular.module('starter.services', [])
 
   }
        
-    
-      /*
-    if(typeof cordova.exec !== "undefined") {
-      cordova.exec(function(result) {
-          console.log("Free Disk Space: " + result);
-        }, function(error) {
-          console.log("Error: " + error);
-        }, "File", "getFreeDiskSpace", []);
-        } else {
-          console.log("cordova not installed");
-        }*/
-
-    //***Expand in case of saved settings
-    this.initial = settings;
+    */
 
     console.log("settingsFns service called");
     
 }])
-.factory('downloadService', ['settings', function(settings) {
+.factory('downloadService', function() {
     console.log("downloadService");
     
 
@@ -206,12 +145,10 @@ angular.module('starter.services', [])
       downloadz: downloadz,
       downloads: downloads
     };
-}])
-.service('fonteFns', ['settings', '$translate', '$http', function(settings, $translate, $http) {
-    //For GA_LocalStorage. If not using, remove
-    //ga_storage._trackPageview('/fonteFns', 'FonteFns Called');
-    //Dependencies for startPlayer
+})
+.service('fonteFns', ['$translate', '$http', '$rootScope', function($translate, $http, $rootScope) {
     //this.languages = settings.languages;
+    settings = $rootScope.settings;
     
     //needed for Amazing Audio Player
     var scripts = document.getElementsByTagName("script");
@@ -221,59 +158,6 @@ angular.module('starter.services', [])
         if( scripts[i].src && scripts[i].src.match(/initaudioplayer-1\.js/i))
             jsFolder = scripts[i].src.substr(0, scripts[i].src.lastIndexOf("/") + 1);
     }
-
-
-    /*this.download = function(downloadURL, title) {
-      console.log("download function called successfully");
-      $cordovaFile.copyFile(downloadURL, title, cordova.file.dataDirectory, title)
-          .then(function (success) {
-              // success
-              console.log("successfully downloaded file");
-            }, function (error) {
-              // error
-              console.log("File download error");
-            }); 
-     }*/
-
-    /*
-    syncData = function(variables) {
-      var variable_new;
-      angular.forEach(settings, function(value, key){
-        console.log("Variables: ", key, value);
-        if(window.localStorage.getItem('settings.' + value).length != 0) {
-          variable_new.settings = window.localStorage.getItem('settings.' + value);
-        }
-      });
-      return variable_new;
-    }*/
-    /*
-    function getTeachers(settings) {
-      $http.get('http://api.biblia.co.mz/teacher/api').success(function(data) {
-          settings.speakerList = data;
-          console.log("Teacher API called with success from FonteFns", data);
-          //console.log("speakerList: ", settings.speakerList);
-          //saveData("settings.speakerList", settings.speakerList);
-        }).error(function(error) {
-          alert("Teacher API unable to be called");
-      });
-    }
-
-    function getOrgs (settings) {
-      $http.get('http://api.biblia.co.mz/organization/api').success(function(data) {
-          settings.orgList = data;
-          console.log("Organization API called with success from FonteFns", data);
-          //console.log("orgList: ", settings.orgList);
-          //saveData("settings.orgList", settings.orgList);
-        }).error(function(error) {
-          alert("Organization API unable to be called");
-      });
-    }
-
-    
-    getOrgs(settings);
-    getTeachers(settings);
-    */
-
 
     function startPlayer (playerList){
       console.log("startPlayer from SermonsCtrl: ", playerList);
@@ -356,10 +240,13 @@ angular.module('starter.services', [])
 
     //Closes the audio player and increases the size of the screen by taking out the margin
     this.closePlayer = function(keyDivHash){
-      amazingAudioPlayerObjects.objects[settings.aapNum - 1].pauseAudio();
+      console.log("closePlayer called");
+      for(var v=0;v<settings.aapNum;v++) {
+        amazingAudioPlayerObjects.objects[v].pauseAudio();
+      }
       $(keyDivHash).hide();
       $("ion-content").css("margin-bottom", "0px");
-      console.log("closePlayer called");
+      
     };
     closePlayer = this.closePlayer;
     this.playNow = function(selectedAudio){
@@ -369,14 +256,25 @@ angular.module('starter.services', [])
       //Testing statements
       console.log("scope.playNow called");
       
-      //count hit on the teaching
-      //***make this nonfunctional for Bible audio
-      $http.get('http://146.148.29.150/fonte/api/html/web/teaching/hit?id=' + selectedAudio.id).success(function(data) {
-        console.log("hit added, ID = ", selectedAudio.id);
-      }).error(function(error) {
-        console.log("unable to count hit");
-      });
+      
 
+      //count hits funtion
+      countHit = function(id) {
+        $http.get('http://146.148.29.150/fonte/api/html/web/teaching/hit?id=' + id).success(function(data) {
+          console.log("hit added, ID = ", id);
+        }).error(function(error) {
+          console.log("unable to count hit: ", id);
+        });
+      }
+
+      //count hit on the teaching and not the Bibles
+      if(selectedAudio.id !== undefined) {
+        countHit(selectedAudio.id);  
+      } else {
+        console.log("ID'd as Bible: no hit counted");
+      }
+
+      //selectedAudio.$watch('id', countHit);
       //functionality for the red x in the corner of the player
       $(".player-close-button").click(function(){
         closePlayer("#amazingaudioplayer-1");
@@ -396,18 +294,11 @@ angular.module('starter.services', [])
           console.log("close-click called");
         });
       }
-      
-      //Change play/pause button
-      //$(".sermon-page .amazingaudioplayer-card .icon").toggleClass("ion-ios-play ion-ios-pause").click(function(){
-      //    console.log("toggle called");
-      //});
         
       //keyDiv is the ID of the special div found between </ion-content> and </ion-view> that has a list item added to it per playlist item.
       keyDiv = "amazingaudioplayer-1";
       settings.aapNum += 1;
       keyDivHash = "#" + keyDiv;
-
-
 
       //If there is already a player div, destroy the old one:
       if (settings.aapNum > 1) {
@@ -432,15 +323,18 @@ angular.module('starter.services', [])
 
       //change order of the aap playlist to the started chapter
       //*** selectedAudio.en_title works for sermons but not bible audio
-      playList = $("#" + keyDiv + " li");
-      keepgoing = 1;
-      console.log("selectedAudio: ", selectedAudio);
+      sortPlaylist = function(){
+        playList = $("#" + keyDiv + " li");
+        keepgoing = 1;
+        console.log("selectedAudio: ", JSON.stringify(selectedAudio));
 
       //if a Bible verse, use the top method; if a sermon, the bottom:
+      
       if(selectedAudio.en_title == null) {
          angular.forEach(playList, function(item){
             if($(item).children().attr("data-src") == (settings.rootURL + selectedAudio.path)) {
               keepgoing = 0;
+              startPlayer(keyDivHash);
             } else if (keepgoing == 1) {
               console.log(selectedAudio.path, settings.rootURL, " type ID'd as Bible: moved");
               $(item).appendTo("#" + keyDiv + " ul");
@@ -448,15 +342,21 @@ angular.module('starter.services', [])
          });
        } else {
         angular.forEach(playList, function(item){
-            if($(item).attr("data-title") == selectedAudio.en_title) {
+            if(($(item).attr("data-title") == selectedAudio.en_title) || ($(item).attr("data-title") == selectedAudio.pt_title)) {
               keepgoing = 0;
+              startPlayer(keyDivHash);
             } else if (keepgoing == 1) {
-              console.log(selectedAudio.en_title, " type ID'd as sermon: moved");
+              console.log($(item).attr("data-title"), " type ID'd as sermon: moved");
               $(item).appendTo("#" + keyDiv + " ul");
             };
          });
-       }
-      startPlayer(keyDivHash);
+        }}
+        sortPlaylist();
+
+        if($rootScope.settings.android !== undefined) {
+          $(".amazingaudioplayer-play").click();
+          console.log("Android play button clicked");
+        };
 
     }; //end playNow Function
 }])

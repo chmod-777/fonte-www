@@ -45,9 +45,14 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
       ApiServe.getAPIS(url).then(function(response) {
         if(url == "organization") {
           $rootScope.settings.orgList = response.data;
+      
+      //Setting defaults for organizations: new ones default to true 
           angular.forEach($rootScope.settings.orgList, function(value, key) {
-
-          })
+            if(value.checked == undefined) {
+              console.log("Org not checked: defaulting to true");
+              value.checked = true;
+            }       
+          });
         }
         else if(url == "teacher") {
           $rootScope.settings.speakerList = response.data;
@@ -62,9 +67,7 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
     }
 
     //get languages: only local test
-    ApiServe.getLanguages().then(function(response) {
-      $rootScope.settings.languages = response.data;
-    });
+
 
     //Get the selected information from the server
     //getAPI('organization');
@@ -80,26 +83,84 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
       rLanguage: 0,
       languages: "",
       firstRun: 1,
-      timers: [], //*** add timers
+      timers: [{
+        teacher: 0,
+        teaching: 0,
+        orgList: 0,
+        organization: 0
+      }],
       teachings: [],
+      orgList: [],
       speakerList: []
-    })
-    if($rootScope.settings.speakerList.length) {
-        console.log("teachers already loaded");
-      } else {
-        getAPI('teacher');
-      };
-    if($rootScope.settings.orgList.length) {
-        console.log("organizations already loaded");
-      } else {
-        getAPI('organization');
-        };
-    if($rootScope.settings.teachings.length) {
-        console.log("teachings already loaded");
-      } else {
-        getAPI('teaching');  
-      };
+    })  
 
+    $rootScope.settings.aapNum = 0;
+    console.log("aapNum: ", $rootScope.settings.aapNum);
+    function apiTime() {
+      if(!$rootScope.settings.speakerList.length || (Date.now() > ($rootScope.settings.timers.teacher + 86400000*1))) {
+          getAPI('teacher');
+          $rootScope.settings.timers.teacher = Date.now();
+          console.log("teachers will call again at: ", ($rootScope.settings.timers.teacher + 86400000*1));
+        } else {
+          console.log("teachers already loaded");
+        };
+
+      if(!$rootScope.settings.languages.length || (Date.now() > ($rootScope.settings.timers.organization + 86400000*1))) {
+        ApiServe.getLanguages().then(function(response) {
+          $rootScope.settings.languages = response.data;
+          $rootScope.settings.timers.languages = Date.now();
+        });
+          console.log("Languages will call again at: ",($rootScope.settings.timers.organization + 86400000*1));
+        } else {
+          console.log("languages already loaded");
+        };
+
+      if(!$rootScope.settings.orgList.length || (Date.now() > ($rootScope.settings.timers.organization + 86400000*1))) {
+          getAPI('organization');
+          $rootScope.settings.timers.organization = Date.now();
+          console.log("organizations will call again at: ",($rootScope.settings.timers.organization + 86400000*1));
+        } else {
+          console.log("organizations already loaded");
+        };
+
+      if(!$rootScope.settings.teachings.length || (Date.now() > ($rootScope.settings.timers.teaching + 86400000*1))) {
+          getAPI('teaching');
+          $rootScope.settings.timers.teaching = Date.now();
+          console.log("teachings will call again at: ", ($rootScope.settings.timers.teaching + 86400000*1));
+        } else {
+          console.log("teachings already loaded");
+        };
+
+      /*if($rootScope.settings.teachings.length) {
+          console.log("teachings already loaded");
+        } else {
+          getAPI('teaching');  
+        };
+      if($rootScope.settings.languages.length) {
+          console.log("languages already loaded");
+        } else {
+          ApiServe.getLanguages().then(function(response) {
+            $rootScope.settings.languages = response.data;
+          });
+        }; */
+    }
+    apiTime(); //call on load
+    getAPI('teaching');
+    //getAPI('organization');
+
+    //Set rLanguage:
+    if($rootScope.settings.rLanguage == 0) {
+      $rootScope.settings.rLanguage = $rootScope.settings.languages[0];
+      console.log("rLanguage changed: ", $rootScope.settings.rLanguage);
+    }
+    console.log("rLanguage = ", $rootScope.settings.rLanguage);
+
+    $interval(function() {
+      $rootScope.settings.firstRun = 0;
+      apiTime(); 
+    }, 86400000, 20);
+
+    
 
 }])
 
@@ -136,58 +197,37 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
 }
 }
 ])
-.controller('SermonsCtrl', ['settings', '$scope', '$rootScope', '$http', 'fonteFns', '$state', function(settings, $scope, $rootScope, $http, fonteFns, $state, $stateParams) {
+.controller('SermonsCtrl', ['$scope', '$sce', '$rootScope', '$http', 'fonteFns', '$state', function($scope, $sce, $rootScope, $http, fonteFns, $state, $stateParams) {
   //Teaching page controller
   if(typeof analytics !== "undefined") {
-    analytics.trackView("Sermons");
+    analytics.trackView("Teachings");
   }
 
+  $scope.trustSrc = function(src) {
+    return $sce.trustAsResourceUrl(src);
+  }
   $(".waiting").show();
-
-  //move to different API
-  /*$http.get('http://146.148.29.150/fonte/api/html/web/teaching/api').success(function(data) {
-        $scope.teachingList = data;
-        $(".waiting").hide();
-        console.log("Teachings API called with success", data);
-      }).error(function(error) {
-        alert("Teachings API unable to be called");
-      });*/
 
   //Info for Org Description Page:
   $scope.whichOrg = $state.params.orgId;
   $scope.whichSpeaker = $state.params.speakerId;
-  //$scope.settings = settings;
-    
+  $(".waiting").hide();
 
-    $(".waiting").hide();
+  $scope.playNow = fonteFns.playNow;
+  $scope.download = fonteFns.download;
+  $scope.sortingBy = "hits";
 
-    $scope.playNow = fonteFns.playNow;
-    $scope.download = fonteFns.download;
-      //jQuery on Click Events to remove the Android issues with clicking
-      //$("amazingaudioplayer-card h2, amazingaudioplayer-card i").click(playNow  ())
-
-    //on click count. The problem is that this doesn't work with PlayNow yet ***
-    $(".amazingaudioplayer-next").click(function(){
-      $http.get('http://146.148.29.150/fonte/api/html/web/teaching/hit?id=' + sermon.id).success(function(data) {
-          console.log("hit added, ID = ", sermon.id);
-        }).error(function(error) {
-          console.log("unable to count hit");
-      });
-    });
-
-    //My attempt at sorting
-    $scope.sortingBy = "hits";
-
+  $scope.clearSearch = function() {
+    console.log("Function clearSearch called");
+    $scope.search_query = "";
+  }
 
 }])
 
-.controller('ResourceCtrl', ['settings', '$scope', '$http', '$cordovaFileOpener2', function(settings, $scope, $http, $cordovaFileOpener2){
-  $scope.organizationList = settings.orgList;
+.controller('ResourceCtrl', ['$scope', '$sce', '$http', '$cordovaFileOpener2', function($scope, $sce, $http, $cordovaFileOpener2){
   if(typeof analytics !== "undefined") {
     analytics.trackView("Resources");
   }
-  $scope.settings = settings;
-
   console.log("ResourceCtrl called");
   $(".waiting").show();
   $http.get('http://api.biblia.co.mz/resource/api').success(function(data) {
@@ -201,27 +241,49 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
 
   $scope.resourceOpen = function(resource) {
     //Not working ***
+    var trustedURL = $sce.trustAsResourceUrl(resource.resource_url);
+    console.log("resource URL: ", resource.resource_url);
+    handleDocumentWithURL(
+      function() {console.log('resource open success');},
+      function(error) {
+        console.log('resource open failure', error);
+        if(error == 53) {
+          console.log('No app that handles this file type.');
+        }
+      }, 
+      resource.resource_url
+    );
     $http.get('http://api.biblia.co.mz/resource/hit?id=' + resource.id).success(function(data) {
         console.log("hit added, ID = ", resource.id);
       }).error(function(error) {
         console.log("unable to count hit");
       });
-    console.log("resource URL: ", resource.resource_url);
+      /*
+    //console.log("resource URL: ", resource.resource_url);
+    cordova.plugins.fileOpener2.appIsInstalled('com.adobe.reader', {
+    success : function(res) {
+        if (res.status === 0) {
+            console.log('Adobe Reader is not installed.');
+        } else {
+            console.log('Adobe Reader is installed.')
+        }
+        }
+    });
     $cordovaFileOpener2.open(
-      resource.resource_url,
+      trustedURL,
       'application/pdf'
     ).then(function() {
         // file opened successfully
         console.log("file opened successfully");
     }, function(err) {
         // An error occurred. Show a message to the user
-        console.log("file not opened successfully");
-    });
+        console.log("file not opened successfully", JSON.stringify(err));
+    });*/
   }
 
 }])
 
-.controller('BibleCtrl', ['$scope', '$http', 'settings', '$translate', 'fonteFns', function($scope, $http, settings, $translate, fonteFns) {
+.controller('BibleCtrl', ['$scope', '$http', '$rootScope', '$translate', function($scope, $http, $rootScope, $translate) {
   console.log("BibleCtrl called");
   if(typeof analytics !== "undefined") {
     analytics.trackView("Bible");
@@ -230,16 +292,12 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
     console.log("GA Bible tag not called");
   }
 
-  $scope.settings = settings;
-  console.log("setting: ", settings);
-  //$scope.languages = fonteFns.getLanguages();
-  
-  $scope.lang = $translate.use();
   listBooks = function(){
     $(".waiting").show();
-    if ($scope.settings.testament == "IDOT") {
+    if (($rootScope.settings.testament == "IDOT") && ($rootScope.settings.rLanguage.IDOT != 0)) {
       $http.get('http://146.148.29.150/fonte/api/html/web/ot-book/api').success(function(data) {
         $scope.books = data;
+        console.log("OT called", data);
         $(".waiting").hide();
       }).error(function(error) {
         alert("ot_books unable to be called");
@@ -248,40 +306,44 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
       $http.get('http://146.148.29.150/fonte/api/html/web/nt-book/api').success(function(data) {
         $scope.books = data;
         $(".waiting").hide();
+        console.log("NT called", data);
+        
       }).error(function(error) {
-        alert("nt_books unable to be called", error);
         console.log("nt_books api error: ", error);
       });
     };
   };
   listBooks();
   $scope.$watch('settings.testament', listBooks);
-
+  $scope.$watch('settings.rLanguage', listBooks);
+        
 
 
 }])
 
-.controller('BibleBookCtrl', ['$scope', '$http', 'settings', '$translate', '$state', 'fonteFns', function($scope, $http, settings, $translate, $state, fonteFns) {
+.controller('BibleBookCtrl', ['$scope', '$sce', '$rootScope', '$http', '$translate', '$state', 'fonteFns', function($scope, $sce, $rootScope, $http, $translate, $state, fonteFns) {
   console.log("BibleBookCtrl called");
   //$ionicLoading.show();
-  $scope.settings = settings;
   settings.bibleBookId = $state.params.bookId;
   $scope.bookName = $state.params.bookName;
-  $scope.lang = $translate.use();
   if(typeof analytics !== "undefined") {
     analytics.trackEvent('Click', 'Book Click', settings.testament + settings.bibleBookId);  
     analytics.trackEvent('Click', 'Book Click', settings.rLanguage.en_language);
     console.log('Click', 'Book Click', settings.rLanguage.en_language);
-  };  
+  };
+
+  $scope.trustSrc = function(src) {
+    return $sce.trustAsResourceUrl(src);
+  }  
   bookCode = $state.params.bookCode;
   if (settings.testament == "IDOT"){
-    damId = settings.rLanguage.IDOT;
+    damId = $rootScope.settings.rLanguage.IDOT;
   } else {
-    damId = settings.rLanguage.IDNT;
+    damId = $rootScope.settings.rLanguage.IDNT;
   }
   $http({
     method: 'GET',
-    url: 'http://dbt.io/audio/path?v=2&key=' + settings.dbtKey + '&dam_id=' + damId + '&book_id=' + bookCode
+    url: 'http://dbt.io/audio/path?v=2&key=' + $rootScope.settings.dbtKey + '&dam_id=' + damId + '&book_id=' + bookCode
   }).then(function successCallback(data){
     console.log("api success!", settings.bibleBookId);
       $scope.api = data;
@@ -490,4 +552,17 @@ $scope.downloadThis = function(title, url, type, folder, extension) {
     $scope.lang = newLang;
     console.log("Language changed - $scope.lang = ", $scope.lang);
   };
-}]);
+  $scope.changeRLanguage = function(rLanguage) {
+    console.log("rLanguage changed: ", rLanguage);
+    console.log("rLanguage changed rS: ", $rootScope.settings.rLanguage);
+    $rootScope.settings.rLanguage = rLanguage;
+  };
+
+
+}])
+.directive('headerBar', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/header-bar.html'
+  };
+});

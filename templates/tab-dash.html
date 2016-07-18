@@ -34,7 +34,8 @@
             <ion-radio type="radio" ng-model="settings.lang" ng-change="changeLanguage(settings.lang)" ng-selected="settings.lang == 'en'" value="en">
               {{'SETTINGS_EN' | translate}}
             </ion-radio>
-            <a class="button icon-right ion-chevron-right button-clear button-dark" ng-click="next(1)">Next</a>
+            <div style="float:right"><a class="button icon-right ion-chevron-right button-clear button-dark" ng-click="next(1)">{{'NEXT' | translate}}</a></div>
+            <div style="clear:both"></div>
           </form>
     </div>
   </div>
@@ -47,7 +48,8 @@
               <ion-checkbox ng-repeat="item in settings.orgList" ng-model="item.checked" ng-checked="item.checked" ng-if="settings.lang == 'en'">{{item.en_name}}</ion-checkbox>
               <ion-checkbox ng-repeat="item in settings.orgList" ng-model="item.checked" ng-checked="item.checked" ng-if="settings.lang == 'pt'">{{item.pt_name}}</ion-checkbox>
           </ion-list>
-          <a class="button icon-right ion-chevron-right button-clear button-dark" ng-click="next(2)">Next</a>
+          <div style="float:right"><a class="button icon-right ion-chevron-right button-clear button-dark" ng-click="next(2)">{{'NEXT' | translate}}</a></div>
+            <div style="clear:both"></div>
 
         </form>
     </div>

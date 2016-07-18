@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analytics', 'starter.controllers', 'starter.services', 'ngCordova', 'pascalprecht.translate', 'ngStorage'])
+angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analytics', 'starter.controllers', 'starter.services', 'ngCordova', 'pascalprecht.translate', 'ngStorage', 'ngSanitize'])
 
 .run(function($ionicPlatform, $ionicAnalytics, $rootScope, $translate, settingsFns, $interval) {
   $ionicPlatform.ready(function() {
@@ -38,15 +38,13 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       }, null);
     } else {
       $translate.use($rootScope.settings.lang);
-        $interval(function() {
-          console.log("teaching.length after 5 seconds", $rootScope.settings.speakerList.length);
-        }, 5000, 1);
     }
 
     document.addEventListener("deviceready", onDeviceReady, false);
       function onDeviceReady() {
         console.log("Cordova file log: ", cordova.file);
-               
+      $rootScope.settings.android = ionic.Platform.isAndroid();
+      
       }
 
     //GA
@@ -149,33 +147,53 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
 })
 
 //Filter list by organization listed in settings
-.filter("orgFilter", ['settings', function(settings) {
+.filter("orgFilter", ['$rootScope', function($rootScope) {
+  console.log("orgFilter Run", $rootScope.settings);
   return function(items) {
-  var filtered = [];
-  orgs = settings.orgList;
-  angular.forEach(orgs, function(org){
-    if(org.checked) {
-      //console.log(org);
+    var filtered = [];
+    orgs = $rootScope.settings.orgList;
+    angular.forEach(orgs, function(org){
+      if(org.checked) {
+        angular.forEach(items, function(item) {
+        if(org.id == item.organization_id) {
+            filtered.push(item);
+          };
+        });
+      };
+    });
+    return filtered;
+  }
+  var filterTest = [];
+  console.log("Filter results: ", filtered);
+
+}])
+
+//Filter by chosen language:
+.filter("rLangFilter", ['$rootScope', function($rootScope) {
+  rLanguage = $rootScope.settings.rLanguage;
+  return function(items, settings) {
+    if (settings.rLanguage == undefined) {
+      settings.rLanguage = $rootScope.settings.languages[0];
+      console.log("rLanguage undefined: set to:", JSON.stringify(settings.rLanguage));
+    }
+    var filtered = [];
       angular.forEach(items, function(item) {
         //console.log("org.id: ", org.id);
         //console.log("item.Organization", item);lang_main: 2,
-        if(org.id == item.organization_id) {
-          if(item.primary_language_id == settings.rLanguage.id || item.secondary_language_id == settings.rLanguage.id) {
+        if((settings.rLanguage.id == item.primary_language_id) || (settings.rLanguage.id == item.secondary_language_id)) {
             filtered.push(item);
           };
-        };
-      });
-    };
-  });
-  return filtered;
-  };
+        });
+    return filtered;
+  }
+
 }])
 
 .filter("ashtml", ['$sce', function($sce) {
   return function(htmlCode){
     return $sce.trustAsHtml(htmlCode);
   }
-}])
+}])//     
 
 .config(function($ionicConfigProvider) {
   $ionicConfigProvider.views.maxCache(5);
@@ -213,7 +231,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       url: '/bible',
       views: {
         'tab-bible': {
-          templateUrl: 'templates/tab-bible.html'
+          templateUrl: 'templates/tab-bible.html',
+          controller: 'BibleCtrl'
         }
       }
     })

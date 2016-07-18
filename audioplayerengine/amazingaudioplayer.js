@@ -3,6 +3,7 @@
  * Website: http://amazingaudioplayer.com
  * Version 3.4 
  */
+ console.log("AAP Loaded successfully");
 var AmazingAudioPlatforms = {
     flashInstalled: function() {
         var flashInstalled = false;

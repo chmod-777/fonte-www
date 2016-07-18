@@ -1,15 +1,9 @@
 <ion-view view-title="{{'BIBLE_HEADER' | translate}}">
+  <header-bar></header-bar>
+
   <ion-content on-swipe-right="goBack()" on-swipe-left="goForward()">
   <div class="waiting"><ion-spinner></ion-spinner></div>
   <div class="padding small">
-    <label class="item item-input item-select">
-        <div class="input-label">
-          {{'BIBLE_CLANG' | translate}}
-        </div>
-
-              <select ng-model="settings.rLanguage" ng-options="language.en_language for language in languages" ng-value='{{language.id}}'>
-              </select>
-    </label>
     <ion-list class="" ng-if="settings.rLanguage.IDOT != 0">
         
         <ion-radio ng-model="settings.testament" ng-value="'IDNT'">{{'BIBLE_NT' | translate}}</ion-radio>
@@ -19,15 +13,15 @@
   <ion-list>
     <h3 class="padding">{{'BIBLE_BOOKS' | translate}}</h3>
       
-      <ion-item ng-if="lang === 'en'" ng-repeat='books in books' class="item-icon-right item-thumbnail-left" type="item-text-wrap" href="#/tab/bible/{{books.Index}}/{{books.bookEN}}/{{books.bookCode}}">
+      <ion-item ng-if="settings.lang === 'en'" ng-repeat='book in books | filter : search_query' class="item-icon-right item-thumbnail-left" type="item-text-wrap" href="#/tab/bible/{{book.Index}}/{{book.bookEN}}/{{book.bookCode}}">
         <img src="images/speakers/bible.png" />
-        <h2>{{books.bookEN}}</h2>
+        <h2>{{book.bookEN}}</h2>
         
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
-      <ion-item ng-if="lang === 'pt'" ng-repeat='books in books' class="item-icon-right item-thumbnail-left" type="item-text-wrap" href="#/tab/bible/{{books.Index}}/{{books.bookPT}}/{{books.bookCode}}">
+      <ion-item ng-if="settings.lang === 'pt'" ng-repeat='book in books | filter : search_query' class="item-icon-right item-thumbnail-left" type="item-text-wrap" href="#/tab/bible/{{book.Index}}/{{book.bookPT}}/{{book.bookCode}}">
         <img src="images/speakers/bible.png" />
-        <h2>{{books.bookPT}}</h2>
+        <h2>{{book.bookPT}}</h2>
         
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>

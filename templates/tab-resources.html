@@ -1,19 +1,16 @@
 <ion-view view-title="Resources">
-  <ion-content on-swipe-right="goBack()" on-swipe-left="goForward()">
-
-<ion-list>
-        
-
-        <!--<ion-item ng-repeat="sermon in preachingList | filter:query | orgFilter | orderBy:sortingBy" ng-click="playNow({{sermon}})" data-tap-disabled="true" class="item-thumbnail-left item-icon-right amazingaudioplayer-card">
-         |  filter:query | orgFilter  |  filter:query | orgFilter -->
-        <ion-item ng-repeat="resource in resourceList" class="item-icon-right resource-card" ng-controller="DlButtonCtrl as dl">
+	
+	<header-bar></header-bar>
+	<ion-content on-swipe-right="goBack()" on-swipe-left="goForward()">
+	<div class="waiting"><ion-spinner></ion-spinner></div> 
+	<ion-list>
+        <ion-item ng-repeat="resource in resourceList | filter : search_query | orgFilter | rLangFilter:settings" class="item-icon-right resource-card">
             <div style="display:none">{{teacher = (settings.speakerList | filter : {id: resource.teacher_id})[0];
             org = (settings.orgList | filter : {id: resource.organization_id})[0];}}</div>
 	        <row>
 	            <div class="preacher-img col-25" style="background-image:url({{teacher.photo}})"/>
 	                <img src="{{org.photo}}" class="org-img"/>
 	            </div>
-	            <i ng-click="dl.addDownload(resource, 'resource')" class="icon ion-ios-download" style="padding-right:30px"></i>
 	            <h2 ng-if="settings.lang =='en'" ng-click="resourceOpen(resource)">{{resource.en_name}}</h2>
 	            <h2 ng-if="settings.lang =='pt'" ng-click="resourceOpen(resource)">{{resource.pt_name}}</h2>
 	            <!--Author Line -->

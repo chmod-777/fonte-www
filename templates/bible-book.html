@@ -7,7 +7,7 @@
       <h2 class="padding">{{bookName}} {{'BOOK_CHAPTER' | translate}} {{chapters.chapter_id}}</h2>
 	    <p ng-if="lang === 'pt'" class="padding">{{settings.rLanguage.pt_language}}</p>
 	    <p ng-if="lang === 'en'" class="padding">{{settings.rLanguage.en_language}}</p>
-      <li style="display:none" data-artist="{{'BOOK_CHAPTER' | translate}} {{chapters.chapter_id}}" data-title="{{bookName}}" data-album data-info data-image="images/speakers/bible.png" data-duration=""><div class="amazingaudioplayer-source" data-src="{{settings.rootURL + chapters.path}}" data-type="audio/mpeg" /></div></li>
+      <li style="display:none" data-artist="{{'BOOK_CHAPTER' | translate}} {{chapters.chapter_id}}" data-title="{{bookName}}" data-album data-info data-image="images/speakers/bible.png" data-duration=""><div class="amazingaudioplayer-source" data-src="{{trustSrc(settings.rootURL + chapters.path)}}" data-type="audio/mpeg" /></div></li>
     </ion-item>
   </ion-content>
 </ion-view>
