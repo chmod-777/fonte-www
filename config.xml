@@ -1,58 +1,50 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<widget xmlns="http://www.w3.org/ns/widgets" 
-        xmlns:cdv="http://cordova.apache.org/ns/1.0"
-        xmlns:gap = "http://phonegap.com/ns/1.0" 
-        version   = "1.0.26">
-
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0" version="1.0.26">
   <name>Fonte da Vida</name>
-  <description>
-        Biblia e Sermoes na sua Lingua
+  <description>&#xD;
+        Biblia e Sermoes na sua Lingua&#xD;
     </description>
-  <author email="jon@equipmoz.org" href="http://equipmoz.org">
-      Jon Reinagel
+  <author email="jon@equipmoz.org" href="http://equipmoz.org">&#xD;
+      Jon Reinagel&#xD;
     </author>
   <content src="index.html"/>
-  <access origin="*" />
-  <allow-navigation href="http://*/*" />
-  <!--<preference name="loadUrlTimeoutValue" value="700000" />-->
-  <preference name="target-device" value="universal" />
-  <preference name="fullscreen" value="true" />
-  <preference name="phonegap-version" value="cli-5.2.0" />
+  <access origin="*"/>
+  <allow-navigation href="http://*/*"/>
+  <preference name="target-device" value="universal"/>
+  <preference name="fullscreen" value="true"/>
+  <preference name="phonegap-version" value="cli-5.2.0"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="android-minSdkVersion" value="16"/>
-  <preference name="android-build-tool" value="gradle" /> 
+  <preference name="android-build-tool" value="gradle"/>
   <preference name="BackupWebStorage" value="none"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="false"/>
   </feature>
-  <plugin spec="https://github.com/apache/cordova-plugin-splashscreen.git" />
-  <plugin name="com.danielcwilson.plugins.googleanalytics" spec="0.6.1" source="pgb" />
-     <!-- Icons -->
-   <platform name="android">
-      <icon src="images/icon-96x96.png" width="96" height="96" platform="android" gap:role="default" />
-      <icon src="images/icon-72x72.png" width="72" height="72" platform="android" gap:density="hdpi" />
-      <icon src="images/ios-icon-120.png" platform="android" />
-   </platform>
-
-   <platform name="ios">
-      <icon src="images/ios-icon-120.png" width="120" height="120" platform="ios" />
-   </platform>
-
-   <platform name="winphone">
-     <icon src="images/wp-tile-71.png" width="71" height="71" />
-     <icon src="images/wp-tile-99.png" width="99" height="99" />
-     <icon src="images/wp-tile-110.png" width="110" height="110" />
-     <icon src="images/wp-tile-150.png" width="150" height="150" />
-     <icon src="images/wp-tile-159.png" width="159" height="159" />
-     <icon src="images/wp-tile-170.png" width="170" height="170" />
-     <icon src="images/wp-tile-202.png" width="202" height="202" /> 
-     <icon src="images/wp-tile-336.png" width="336" height="336" role="background" />
-   </platform>
-      <!-- Splash Screens -->
-   <gap:splash src="splash.png" />
-   <gap:splash src="images/splash-160x220.png" gap:platform="android" gap:density="ldpi" />
-   <gap:splash src="splash.png" gap:platform="android" gap:density="mdpi" />
-   <gap:splash src="images/splash-450x650.png" gap:platform="android" gap:density="hdpi" />
+  <plugin spec="https://github.com/apache/cordova-plugin-splashscreen.git"/>
+  <plugin name="com.danielcwilson.plugins.googleanalytics" spec="0.6.1" source="pgb"/>
+  <platform name="android">
+    <icon src="images/icon-96x96.png" width="96" height="96" platform="android" gap:role="default"/>
+    <icon src="images/icon-72x72.png" width="72" height="72" platform="android" gap:density="hdpi"/>
+    <icon src="images/ios-icon-120.png" platform="android"/>
+  </platform>
+  <platform name="ios">
+    <icon src="images/ios-icon-120.png" width="120" height="120" platform="ios"/>
+  </platform>
+  <platform name="winphone">
+    <icon src="images/wp-tile-71.png" width="71" height="71"/>
+    <icon src="images/wp-tile-99.png" width="99" height="99"/>
+    <icon src="images/wp-tile-110.png" width="110" height="110"/>
+    <icon src="images/wp-tile-150.png" width="150" height="150"/>
+    <icon src="images/wp-tile-159.png" width="159" height="159"/>
+    <icon src="images/wp-tile-170.png" width="170" height="170"/>
+    <icon src="images/wp-tile-202.png" width="202" height="202"/>
+    <icon src="images/wp-tile-336.png" width="336" height="336" role="background"/>
+  </platform>
+  <gap:splash src="splash.png"/>
+  <gap:splash src="images/splash-160x220.png" gap:platform="android" gap:density="ldpi"/>
+  <gap:splash src="splash.png" gap:platform="android" gap:density="mdpi"/>
+  <gap:splash src="images/splash-450x650.png" gap:platform="android" gap:density="hdpi"/>
+  <gap:splash src="images/Default-568h@2x.png" gap:platform="ios" width="640" height="1136" />
 </widget>

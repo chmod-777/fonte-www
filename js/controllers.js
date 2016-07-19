@@ -243,14 +243,19 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
     //Not working ***
     var trustedURL = $sce.trustAsResourceUrl(resource.resource_url);
     console.log("resource URL: ", resource.resource_url);
+    $(".waiting").show();
     handleDocumentWithURL(
-      function() {console.log('resource open success');},
+      function() {
+        console.log('resource open success');
+        $(".waiting").hide();
+      },
       function(error) {
-        console.log('resource open failure', error);
+        alert('resource open failure', error);
+        $(".waiting").hide();
         if(error == 53) {
-          console.log('No app that handles this file type.');
+          alert('No app that handles this file type.');
         }
-      }, 
+      },
       resource.resource_url
     );
     $http.get('http://api.biblia.co.mz/resource/hit?id=' + resource.id).success(function(data) {
@@ -517,7 +522,25 @@ $scope.downloadThis = function(title, url, type, folder, extension) {
   }*/
 }])
 
-.controller('SettingsCtrl', ['$scope', '$rootScope', '$http', '$translate', 'settingsFns', function($scope, $rootScope, $http, $translate, settingsFns) {
+.controller('LatestCtrl', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
+  $scope.rLatest = [];
+  $scope.lang = $rootScope.settings.lang;
+  console.log("Language: ", $scope.lang);
+  //syncData(); //nonfunctional
+  getLatest = function() {
+    return $http.get('http://api.biblia.co.mz/resource/api?limit=5').success(function(data) {
+          $scope.rLatest = data;
+          console.log("Latest resources called with success", $scope.rLatest);
+
+          //saveData("settings.orgList", data);
+        }).error(function(error) {
+          alert("Latest resources unable to be called");
+      });
+  }
+  $scope.rLatest = getLatest();
+}])
+
+.controller('SettingsCtrl', ['$scope', '$ionicScrollDelegate', '$rootScope', '$http', '$translate', 'settingsFns', function($scope, $ionicScrollDelegate, $rootScope, $http, $translate, settingsFns) {
   if(typeof analytics !== "undefined") {
     analytics.trackView("Settings");
   };
@@ -529,11 +552,22 @@ $scope.downloadThis = function(title, url, type, folder, extension) {
     $("#fp-div").animate({
       'left': number * -1000 + "px"
     }, 400, 'linear');
+    $ionicScrollDelegate.scrollTop(true);  
   }
   lang = $rootScope.settings.lang;
+  $scope.rLatest = [];
   console.log("lang: ", lang);
   //syncData(); //nonfunctional
-  
+  getLatest = function() {
+    $http.get('http://api.biblia.co.mz/resource/api?limit=5').success(function(data) {
+          console.log("Latest resources called with success", data);
+          $scope.rLatest = data;
+          //saveData("settings.orgList", data);
+        }).error(function(error) {
+          alert("Latest resources unable to be called");
+      });
+  }
+  getLatest();
 
    // settingsFns.saveData;
   //$scope.loadData() = settingsFns.loadData;

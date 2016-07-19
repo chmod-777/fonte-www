@@ -200,7 +200,7 @@ a.speaker-name {
 	width: 100px;
 	float: left;
 	margin-right: 10px;
-	background-size: 100% 100%;
+	background-size: auto 100%;
 }
 
 .item-divider h1 {
@@ -308,6 +308,9 @@ a.speaker-name {
 #fp-2 {
 	left:1000px;
 }
+#fp-3 {
+	left:2000px;
+}
 .fp {
 	position:absolute;
 	width:100%; /*change back to 100% after done messing */
@@ -325,6 +328,10 @@ a.speaker-name {
 }
 .sermons-page {
 
+}
+.fonte-play {
+	float:right;
+	font-size:250%;
 }
 
 .search {
