@@ -24,6 +24,13 @@
   </feature>
   <plugin spec="https://github.com/apache/cordova-plugin-splashscreen.git"/>
   <plugin name="com.danielcwilson.plugins.googleanalytics" spec="0.6.1" source="pgb"/>
+  <plugin name="cordova-plugin-whitelist" />
+  <plugin name="cordova-plugin-statusbar" />
+  <plugin name="cordova-plugin-globalization" />
+  <plugin name="cordova-plugin-file" />
+  <plugin name="cordova-plugin-file-transfer" />
+  <plugin name="cordova-plugin-file-opener2" />
+  <plugin name="ionic-plugin-keyboard" />
   <platform name="android">
     <icon src="images/icon-96x96.png" width="96" height="96" platform="android" gap:role="default"/>
     <icon src="images/icon-72x72.png" width="72" height="72" platform="android" gap:density="hdpi"/>
