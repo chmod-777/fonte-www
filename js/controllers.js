@@ -242,20 +242,27 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
   $scope.resourceOpen = function(resource) {
     //Not working ***
     var trustedURL = $sce.trustAsResourceUrl(resource.resource_url);
+      if(typeof analytics !== "undefined") {
+        analytics.trackView("Resource Open: ", resource.id);
+      }
     console.log("resource URL: ", resource.resource_url);
     $(".waiting").show();
+    
     handleDocumentWithURL(
       function() {
         console.log('resource open success');
         $(".waiting").hide();
       },
       function(error) {
-        alert('resource open failure', error);
-        $(".waiting").hide();
-        if(error == 53) {
-          alert('No app that handles this file type.');
-        }
-      },
+    if (error == 2) {
+      alert('File not found, please check the URL.');
+      } else if (error == 53) {
+        // This is for Android only, because iOS always uses the QuickLook framework.
+        alert('No app that handles this file type, please install one from the Play Store.');
+      } else {
+        alert('Unknown generic error. Code: ' + error);
+      }
+    },
       resource.resource_url
     );
     $http.get('http://api.biblia.co.mz/resource/hit?id=' + resource.id).success(function(data) {

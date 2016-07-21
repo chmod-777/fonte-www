@@ -31,8 +31,7 @@
   <plugin name="cordova-plugin-file-transfer" />
   <plugin name="cordova-plugin-file-opener2" />
   <plugin name="ionic-plugin-keyboard" />
-  <plugin name="com.polarcape.plugins.documenthandler" />
-  <plugin name="ch.ti8m.documenthandler" />
+  <plugin name="https://github.com/Telerik-Verified-Plugins/DocumentHandler" />
 
   <platform name="android">
     <icon src="images/icon-96x96.png" width="96" height="96" platform="android" gap:role="default"/>
