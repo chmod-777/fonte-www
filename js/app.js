@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analytics', 'starter.controllers', 'starter.services', 'ngCordova', 'pascalprecht.translate', 'ngStorage', 'ngSanitize'])
+angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analytics', 'starter.controllers', 'starter.services', 'ngCordova', 'pascalprecht.translate', 'ngStorage', 'ngSanitize', 'angular-loading-bar'])
 
 .run(function($ionicPlatform, $ionicAnalytics, $rootScope, $translate, settingsFns, $interval) {
   $ionicPlatform.ready(function() {
