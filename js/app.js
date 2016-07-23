@@ -294,7 +294,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       views: {
         'tab-resources': {
           templateUrl: 'templates/resource-resourcedetail.html',
-          controller: 'ResourceCtrl'
+          controller: 'RDetailCtrl'
         }
       }
     })

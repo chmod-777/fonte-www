@@ -6,7 +6,8 @@
 
         <ion-item ng-repeat="teaching in settings.teachings | filter : search_query | rLangFilter:settings | orgFilter " class="amazingaudioplayer-card"">
             <div style="display:none">{{teacher = (settings.speakerList | filter : {id: teaching.teacher_id})[0];
-            org = (settings.orgList | filter : {id: teaching.organization_id})[0];}}</div>
+            org = (settings.orgList | filter : {id: teaching.organization_id})[0];
+            license = (settings.licenses | filter : {id: org.license_type_id})[0];}}</div>
             
             <div class="preacher-img" ng-click="playNow(teaching)" style="background-image:url({{teacher.photo}})">
                 <img ng-click="playNow(teaching)" ng-src="{{org.photo}}" class="org-img"/></div>

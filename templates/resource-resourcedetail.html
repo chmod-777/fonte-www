@@ -1,16 +1,29 @@
 
 <ion-view view-title="About Resource">
-<ion-content>
+<ion-content class='resource-description'>
+    <div class="waiting"><ion-spinner></ion-spinner></div> 
     <ion-list class="list-inset fonte-description">
         <ion-item class="item-text-wrap">
-            <img ng-src="{{settings.speakerList[whichSpeaker].image}}"/>
-            <h2 ng-if="settings.lang =='en'">{{settings.speakerList[whichSpeaker].en_name}}</h2>
-            <h2 ng-if="settings.lang =='pt'">{{settings.speakerList[whichSpeaker].pt_name}}</h2>
-            <a href="#/tab/sermons/org-{{settings.speakerList[whichSpeaker].orgId}}" ng-if="settings.lang =='en'"><button><h3>{{settings.orgList[whichSpeaker].en_orgName}}</h3></button></a>
-            <a href="#/tab/sermons/org-{{settings.speakerList[whichSpeaker].orgId}}" ng-if="settings.lang =='pt'"><button><h3>{{settings.orgList[whichSpeaker].pt_orgName}}</h3></button></a>
-            <br /><br />
-            <p ng-if="settings.lang =='en'">{{settings.speakerList[whichSpeaker].en_description}}</p>
-            <p ng-if="settings.lang =='pt'">{{settings.speakerList[whichSpeaker].pt_description}}</p>
+            <div class="preacher-img col col-25" style="background-image:url({{src.teacher.photo}}); min-height:100px"/>
+                    <div class="row" style="height:100%; padding:0;">
+                        <img src="{{src.organization.photo}}" style="padding:0" class="col-50 col col-bottom"/>
+                    </div>
+                </div>
+            <div class="col col-75 col-offset-25">
+                <h2>{{src.resource.en_name}}</h2>
+                <a href="#/tab/resources/speaker-{{src.teacher.id}}">
+                <button><h3>{{src.teacher.en_name}}</h3></button></a><br />
+                <p class="language-display" ng-if="settings.lang == 'en'">Language: {{settings.languages[src.resource.primary_language_id].en_language}} <i ng-if="src.resource.secondary_language_id">/</i> {{settings.languages[src.resource.secondary_language_id].en_language}} <!--{{sermon.hits}}--></p>
+                <p>{{src.resource.en_description}}</p>
+                <div class="license-block">
+                    <img src="{{src.license.img_url}}" />
+                    <h2>{{src.license.en_license_name}}</h2>
+                    <p>{{src.license.en_description}}</p>
+                </div>
+                <a href="#/tab/resources"><button>< back</button></a>
+            
+            </div>
+            <i ng-click="resourceOpen(src.resource)" class="icon ion-ios-download col col-33 col-offset-33 ion-positive" style="width:100%; align: center; font-size:96px;"></i>
         </ion-item>
     </ion-list>
 </ion-content>

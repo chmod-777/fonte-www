@@ -134,7 +134,7 @@
 	padding-left: 5px;
 }
 
-.search input, .search label {
+.search input, .search label, .item-input-wrapper {
 	padding: 0px;
 	margin: 0px;
 	border-radius: 30px;
@@ -145,29 +145,14 @@
 	padding-left: 15px;
 }
 
-.search .item-input-wrapper button.button-clear {
-	color: #999;
-	right: 30px;
-	font-weight: 500;
-}
-
 .amazingaudioplayer-card h2, .resource-card h2 {
 	font-style: italic;
 	font-weight: bold;
-	font-size: 120%;
-}
-
-.teacher-name {
-	float: left;
 }
 
 .amazingaudioplayer-card a, .resource-card a {
 	text-decoration: none;
 	font-weight: bold;
-}
-
-.resource-description {
-	margin-left: 110px;
 }
 
 p.language-display {
@@ -178,7 +163,6 @@ p.language-display {
 	padding: 0px 10px;
 	border-radius: 10px;
 	color: #fff;
-	margin-top: 10px;
 }
 
 a.speaker-name {
@@ -186,21 +170,6 @@ a.speaker-name {
 
 .amazingaudioplayer-card:nth-child(even), .resource-card:nth-child(even) {
 	background: #c6daec;
-}
-
-.org-img {
-	float: right;
-	position: absolute;
-	width: 45px;
-	top: 70px;
-}
-
-.preacher-img {
-	height: 100px;
-	width: 100px;
-	float: left;
-	margin-right: 10px;
-	background-size: auto 100%;
 }
 
 .item-divider h1 {
@@ -319,9 +288,8 @@ a.speaker-name {
 	position:relative;
 	/*left:-2000px;*/
 }
-.second-header-bar.bar.bar-positive {
-	border-top:none;
-	border-color: #387ef5;
+.item-complex .item-content, .item-radio .item-content {
+	padding-right:26px;
 }
 .sermon-page button {
 	margin: 2px;
@@ -332,6 +300,12 @@ a.speaker-name {
 .fonte-play {
 	float:right;
 	font-size:250%;
+}
+.license-block {
+	background-color: #ddd;
+	font-size:90%;
+	margin:20px;
+	padding:10px;
 }
 
 .search {
@@ -354,38 +328,10 @@ a.speaker-name {
 	right:30px;
 	font-weight: 500;
 	}
-.amazingaudioplayer-card h2, .resource-card h2 {
-	font-style: italic;
-	font-weight: bold;
-	font-size:120%;
-}
-
-.teacher-name {
-	float:left;
-}
 
 .amazingaudioplayer-card a, .resource-card a {
 	text-decoration: none;
 	font-weight: bold;
-}
-
-.resource-description {
-	margin-left: 110px;
-}
-
-p.language-display {
-	text-decoration: none;
-	font-weight: bold;
-	background-color: #0c60ee;
-	display: inline-block;
-	padding:0px 10px;
-	border-radius: 10px;
-	color: #fff;
-	margin-top: 10px;
-}
-
-a.speaker-name {
-
 }
 
 .amazingaudioplayer-card:nth-child(even), .resource-card:nth-child(even) {
@@ -399,12 +345,18 @@ a.speaker-name {
 	top:70px;
 }
 
+.responsive-sm .org-img {
+	width:25px;
+}
+
 .preacher-img {
 	height:100px;
 	width:100px;
 	float:left;
 	margin-right:10px;
-	background-size: 100% 100%;
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-position: bottom;
 }
 
 /* Styles for Downloads Page */
@@ -428,4 +380,7 @@ a.speaker-name {
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+}
+.license_img {
+	max-height: 20px;
 }

@@ -91,7 +91,8 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
       }],
       teachings: [],
       orgList: [],
-      speakerList: []
+      speakerList: [],
+      licenses: []
     })  
 
     $rootScope.settings.aapNum = 0;
@@ -106,13 +107,24 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
         };
 
       if(!$rootScope.settings.languages.length || (Date.now() > ($rootScope.settings.timers.organization + 86400000*1))) {
-        ApiServe.getLanguages().then(function(response) {
+        var v = 'languages';
+        ApiServe.getLocal(v).then(function(response) {
           $rootScope.settings.languages = response.data;
           $rootScope.settings.timers.languages = Date.now();
         });
           console.log("Languages will call again at: ",($rootScope.settings.timers.organization + 86400000*1));
         } else {
           console.log("languages already loaded");
+        };
+
+      if(!$rootScope.settings.licenses.length) {
+        var v = 'licenses';
+        ApiServe.getLocal(v).then(function(response) {
+          $rootScope.settings.licenses = response.data;
+        });
+          console.log("Licenses called: ", response.data);
+        } else {
+          console.log("Licenses already loaded");
         };
 
       if(!$rootScope.settings.orgList.length || (Date.now() > ($rootScope.settings.timers.organization + 86400000*1))) {
@@ -146,7 +158,8 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
     }
     apiTime(); //call on load
     getAPI('teaching');
-    //getAPI('organization');
+    getAPI('teacher');
+    getAPI('organization');
 
     //Set rLanguage:
     if($rootScope.settings.rLanguage == 0) {
@@ -223,21 +236,23 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
   }
 
 }])
-
-.controller('ResourceCtrl', ['$scope', '$sce', '$http', '$cordovaFileOpener2', function($scope, $sce, $http, $cordovaFileOpener2){
+.controller('ResourceCtrl', ['$scope', '$rootScope', '$sce', '$http', '$cordovaFileOpener2', function($scope, $rootScope, $sce, $http, $cordovaFileOpener2){
   if(typeof analytics !== "undefined") {
     analytics.trackView("Resources");
   }
   console.log("ResourceCtrl called");
   $(".waiting").show();
   $http.get('http://api.biblia.co.mz/resource/api').success(function(data) {
-        $scope.resourceList = data;
+        $rootScope.settings.resourceList = data;
         $(".waiting").hide();
+        $scope.resourceList = $rootScope.settings.resourceList;
         console.log("Resource API called with success", data);
-        console.log("resourceList: ", $scope.resourceList);
+        console.log("resourceList: ", $rootScope.resourceList);
       }).error(function(error) {
         alert("resource API unable to be called");
       });
+
+
 
   $scope.resourceOpen = function(resource) {
     //Not working ***
@@ -292,6 +307,61 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
         console.log("file not opened successfully", JSON.stringify(err));
     });*/
   }
+  $scope.clearSearch = function() {
+    console.log("Function clearSearch called");
+    $scope.search_query = "";
+  }
+
+}])
+
+.controller('RDetailCtrl', ['$scope', '$state', 'getId', '$sce', '$http', '$cordovaFileOpener2', '$rootScope' , function($scope, $state, getId, $sce, $http, $cordovaFileOpener2, $rootScope){
+  if(typeof analytics !== "undefined") {
+    analytics.trackView("Resources");
+  }
+  $('.waiting').hide();
+  resourceId = $state.params.resourceId;
+  $scope.src = getId.all(resourceId, 'resource');
+  console.log("chosenResource: ", $scope.chosenResource, resourceId);
+/*  $scope.license = $rootScope.settings.licenses[$scope.chosenResource.license_type_id];
+  $scope.teacher = $rootScope.settings.teacher[$scope.chosenResource.teacher_id];
+  $scope.organization = $rootScope.settings.orgList[$scope.chosenResource.organization_id];
+*/
+  $scope.resourceOpen = function(resource) {
+    var trustedURL = $sce.trustAsResourceUrl(resource.resource_url);
+      if(typeof analytics !== "undefined") {
+        analytics.trackView("Resource Open: ", resource.id);
+      }
+    console.log("resource URL: ", resource.resource_url);
+    $(".waiting").show();
+    
+    if(typeof handleDocumentWithURL !== 'undefined') {
+      handleDocumentWithURL(
+        function() {
+          console.log('resource open success');
+          $(".waiting").hide();
+        },
+        function(error) {
+      if (error == 2) {
+        alert('File not found, please check the URL.');
+        } else if (error == 53) {
+          // This is for Android only, because iOS always uses the QuickLook framework.
+          alert('No app that handles this file type, please install one from the Play Store.');
+        } else {
+          alert('Unknown generic error. Code: ' + error);
+        }
+      },
+        resource.resource_url
+      );
+    } else {
+      window.open(resource.resource_url, '_blank');
+      $(".waiting").hide();
+    }
+    $http.get('http://api.biblia.co.mz/resource/hit?id=' + resource.id).success(function(data) {
+        console.log("hit added, ID = ", resource.id);
+      }).error(function(error) {
+        console.log("unable to count hit");
+      });
+}
 
 }])
 
@@ -303,7 +373,6 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
   } else {
     console.log("GA Bible tag not called");
   }
-
   listBooks = function(){
     $(".waiting").show();
     if (($rootScope.settings.testament == "IDOT") && ($rootScope.settings.rLanguage.IDOT != 0)) {
@@ -328,7 +397,10 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
   listBooks();
   $scope.$watch('settings.testament', listBooks);
   $scope.$watch('settings.rLanguage', listBooks);
-        
+  $scope.clearSearch = function() {
+    console.log("Function clearSearch called");
+    $scope.search_query = "";
+  }    
 
 
 }])

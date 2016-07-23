@@ -4,26 +4,34 @@
 	<ion-content on-swipe-right="goBack()" on-swipe-left="goForward()">
 	<div class="waiting"><ion-spinner></ion-spinner></div> 
 	<ion-list>
-        <ion-item ng-repeat="resource in resourceList | filter : search_query | orgFilter | rLangFilter:settings" class="resource-card">
+        <ion-item ng-repeat="resource in resourceList | filter : search_query | orgFilter | rLangFilter:settings" class="resource-card" href="#/tab/resources/resource-{{resource.id}}">
             <div style="display:none">{{teacher = (settings.speakerList | filter : {id: resource.teacher_id})[0];
-            org = (settings.orgList | filter : {id: resource.organization_id})[0];}}</div>
+            org = (settings.orgList | filter : {id: resource.organization_id})[0];
+            license = (settings.licenses | filter : {id: org.license_type_id})[0];}}</div>
 	        <row>
-	            <div class="preacher-img col-25" style="background-image:url({{teacher.photo}})"/>
-	                <img src="{{org.photo}}" class="org-img"/>
+	            <div class="preacher-img col col-25" style="background-image:url({{teacher.photo}}); min-height:100px"/>
+	            	<div class="row" style="height:100%; padding:0;">
+	                	<img src="{{org.photo}}" style="padding:0" class="col-50 col col-bottom"/>
+	                </div>
 	            </div>
-	            <h2 ng-if="settings.lang =='en'" ng-click="resourceOpen(resource)">{{resource.en_name}}</h2>
-	            <h2 ng-if="settings.lang =='pt'" ng-click="resourceOpen(resource)">{{resource.pt_name}}</h2>
-	            <!--Author Line -->
-	            <a class="teacher-name" href="#/tab/resources/speaker-{{resource.teacher_id}}" ng-if="settings.lang =='pt'">{{teacher.pt_name}}<br/></a>
-	            <a class="teacher-name" href="#/tab/resources/speaker-{{resource.teacher_id}}" ng-if="settings.lang =='en'">{{teacher.en_name}}<br/></a>
-	            <br/>
+	            <div class="col col-75 col-offset-25">
+		            <h2 ng-if="settings.lang =='en'" ng-click="resourceOpen(resource)">{{resource.en_name}}</h2>
+		            <h2 ng-if="settings.lang =='pt'" ng-click="resourceOpen(resource)">{{resource.pt_name}}</h2>
+		            <!--Author Line -->
+		            <a class="teacher-name" href="#/tab/resources/speaker-{{resource.teacher_id}}" ng-if="settings.lang =='pt'">{{teacher.pt_name}}<br/></a>
+		            <a class="teacher-name" href="#/tab/resources/speaker-{{resource.teacher_id}}" ng-if="settings.lang =='en'">{{teacher.en_name}}<br/></a>
+		            <br/>
 
-	            <!--Language Line-->
-	            <p class="language-display" ng-if="settings.lang == 'en'">{{settings.languages[resource.primary_language_id].en_language}} <i ng-if="sermon.secondary_language_id">/</i> {{settings.languages[resource.secondary_language_id].en_language}} <!--{{sermon.hits}}--></p>
-	            <p class="language-display" ng-if="settings.lang == 'pt'">{{settings.languages[resource.primary_language_id].pt_language}} <i ng-if="sermon.secondary_language_id">/</i> {{settings.languages[resource.secondary_language_id].pt_language}} <!--{{sermon.hits}}--></p>
+		            <!--Language Line-->
+		            
+		            <p class="language-display" ng-if="settings.lang == 'en'">{{settings.languages[resource.primary_language_id].en_language}} <i ng-if="sermon.secondary_language_id">/</i> {{settings.languages[resource.secondary_language_id].en_language}} <!--{{sermon.hits}}--></p>
+		            <p class="language-display" ng-if="settings.lang == 'pt'">{{settings.languages[resource.primary_language_id].pt_language}} <i ng-if="sermon.secondary_language_id">/</i> {{settings.languages[resource.secondary_language_id].pt_language}} <!--{{sermon.hits}}--></p>
+		            <div style="float:right"><img class="license_img" ng-src="{{license.img_url}}"/></div>
+		            
 
-	            <div class="resource-description item-text-wrap" ng-if="settings.lang == 'en'"><p>{{resource.en_description | limitTo: 200}}{{resource.en_description.length > 200 ? '...' : ''}}</p></div>
-				<div class="resource-description item-text-wrap" ng-if="settings.lang == 'pt'"><p>{{resource.pt_description | limitTo: 200}}{{resource.pt_description.length > 200 ? '...' : ''}}</p></div>
+		            <div class="resource-description item-text-wrap" >
+		            	<p class="item-text-wrap" ng-if="settings.lang == 'en'">{{resource.en_description | limitTo: 200}}{{resource.en_description.length > 200 ? '...' : ''}}</p><p ng-if="settings.lang == 'pt'">{{resource.pt_description | limitTo: 200}}{{resource.pt_description.length > 200 ? '...' : ''}}</p></div>
+				</div>
         	</row>
         </ion-item>
     </ion-list>

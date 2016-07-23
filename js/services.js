@@ -11,19 +11,54 @@ angular.module('starter.services', [])
       });
     }
     
-    var getLanguages = function() {
-      return $http.get('ajax/languages.json').success(function(data) {
+    var getLocal = function(v) {
+      return $http.get('ajax/' + v + '.json').success(function(data) {
         $(".waiting").hide();
-        console.log("Languages API called with success", data);
+        console.log(v + " local API called with success", data);
         return data;
       }).error(function(error) {
-        alert("Languages API unable to be called");
+        alert(v + " local API unable to be called");
       });
     }
 
     return {
       getAPIS: getAPIS,
-      getLanguages: getLanguages
+      getLocal: getLocal
+    };
+
+}])
+.factory('getId', ['$rootScope', '$filter', function($rootScope, $filter) {
+    
+    //after finding out the specific ID's, return the proper license, org, and teacher information
+    var getV = function(teacherId, orgId, resourceId) {
+      var v = [];
+      v.organization = $filter('filter')($rootScope.settings.orgList, function (d) {return d.id == orgId;})[0];
+      v.teacher = $filter('filter')($rootScope.settings.speakerList, function (d) {return d.id == teacherId;})[0];
+      v.license = $filter('filter')($rootScope.settings.licenses, function (d) {return d.id == v.organization.license_type_id;})[0]; 
+      v.resource = findD($rootScope.settings.resourceList, resourceId)
+      console.log("getId returned: ", v);
+
+
+      return v;
+    }
+
+    var all = function(v, type) {
+      var teacherId = 0, orgId = 0, resourceId = 0;
+      if(type == 'resource') {
+        source = findD($rootScope.settings.resourceList, v);
+        teacherId = source.teacher_id;
+        orgId = source.organization_id;
+      }
+      return getV(teacherId, orgId, v);
+    }
+
+    //Find ID = variable in the object location
+    var findD = function(location, variable) {
+      return $filter('filter')(location, function(d) {return d.id == variable;})[0];
+    }
+
+    return {
+      all: all
     };
 
 }])
