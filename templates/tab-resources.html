@@ -15,8 +15,8 @@
 	                </div>
 	            </div>
 	            <div class="col col-75 col-offset-25">
-		            <h2 ng-if="settings.lang =='en'" ng-click="resourceOpen(resource)">{{resource.en_name}}</h2>
-		            <h2 ng-if="settings.lang =='pt'" ng-click="resourceOpen(resource)">{{resource.pt_name}}</h2>
+		            <h2 ng-if="settings.lang =='en'">{{resource.en_name}}</h2>
+		            <h2 ng-if="settings.lang =='pt'">{{resource.pt_name}}</h2>
 		            <!--Author Line -->
 		            <a class="teacher-name" href="#/tab/resources/speaker-{{resource.teacher_id}}" ng-if="settings.lang =='pt'">{{teacher.pt_name}}<br/></a>
 		            <a class="teacher-name" href="#/tab/resources/speaker-{{resource.teacher_id}}" ng-if="settings.lang =='en'">{{teacher.en_name}}<br/></a>

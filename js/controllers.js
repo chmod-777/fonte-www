@@ -119,10 +119,10 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
 
       if(!$rootScope.settings.licenses.length) {
         var v = 'licenses';
-        ApiServe.getLocal(v).then(function(response) {
-          $rootScope.settings.licenses = response.data;
+        ApiServe.getLocal(v).then(function(lResponse) {
+          $rootScope.settings.licenses = lResponse.data;
         });
-          console.log("Licenses called: ", response.data);
+          console.log("Licenses called: ", lResponse.data);
         } else {
           console.log("Licenses already loaded");
         };
@@ -314,7 +314,41 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
 
 }])
 
-.controller('RDetailCtrl', ['$scope', '$state', 'getId', '$sce', '$http', '$cordovaFileOpener2', '$rootScope' , function($scope, $state, getId, $sce, $http, $cordovaFileOpener2, $rootScope){
+.controller('DlCtrl', [ '$ionicPlatform', '$cordovaFile', function($ionicPlatform, $cordovaFile) {
+  
+  this.resourceDl = function(resource){
+    console.log("resourceDl called", JSON.stringify(resource.resource_url));
+    var directory = 'downloads';
+    var filename = 'download.pdf';
+    var url = resource.resource_url;
+
+    $ionicPlatform.ready(function() {})
+    .then(function() {
+      console.log("createDir called");
+      return $cordovaFile.createDir(directory, false);
+    })
+    .then(function() {
+      console.log("createFile called");
+      return $cordovaFile.createFile(directory + '/' + filename, false);
+    })
+    .then(function(newFile) {
+      console.log("newFile: ", newFile.nativeURL);
+      return $cordovaFile.downloadFile(url, newFile.nativeURL);
+    })
+    .then(function(result) {
+      // Success!
+      console.log("success:", result);
+    }, function(err) {
+      // Error
+      console.log("error: ", JSON.stringify(err, null, 2));
+    }, function (progress) {
+      // constant progress updates
+      console.log('Downloading: '+(progress.loaded/progress.total).toFixed()+'%');
+    });
+  }
+}])
+
+.controller('RDetailCtrl', ['$scope', '$state', '$window', 'getId', '$sce', '$http', '$cordovaFileOpener2', '$rootScope' , function($scope, $state, $window, getId, $sce, $http, $cordovaFileOpener2, $rootScope){
   if(typeof analytics !== "undefined") {
     analytics.trackView("Resources");
   }
@@ -326,6 +360,11 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
   $scope.teacher = $rootScope.settings.teacher[$scope.chosenResource.teacher_id];
   $scope.organization = $rootScope.settings.orgList[$scope.chosenResource.organization_id];
 */
+  $scope.resourceDownload = function(resource) {
+      $window.open(resource.resource_url, '_blank');
+      console.log("resourceDownload called");      
+  }
+
   $scope.resourceOpen = function(resource) {
     var trustedURL = $sce.trustAsResourceUrl(resource.resource_url);
       if(typeof analytics !== "undefined") {

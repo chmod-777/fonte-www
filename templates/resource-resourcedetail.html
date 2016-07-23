@@ -23,7 +23,10 @@
                 <a href="#/tab/resources"><button>< back</button></a>
             
             </div>
-            <i ng-click="resourceOpen(src.resource)" class="icon ion-ios-download col col-33 col-offset-33 ion-positive" style="width:100%; align: center; font-size:96px;"></i>
+            <div class="row">
+                <i ng-click="dl.resourceDl(src.resource)" class="icon ion-ios-download col col-25 col-offset-25 ion-positive" ng-controller="DlCtrl as dl" style="width:100%; align: center; font-size:96px;"><p>Download</p></i>
+                <i ng-click="resourceOpen(src.resource)" class="icon ion-document-text col col-25 ion-positive" style="width:100%; align: center; font-size:96px;"><p>Open</p></i>
+            </div>
         </ion-item>
     </ion-list>
 </ion-content>
