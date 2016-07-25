@@ -39,8 +39,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     } else {
       $translate.use($rootScope.settings.lang);
     }
-    $('scroll-content').headroom();
-
+    
     document.addEventListener("deviceready", onDeviceReady, false);
       function onDeviceReady() {
         console.log("Cordova file log: ", cordova.file);
@@ -107,7 +106,13 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     SEARCH_HITS: 'hits',
     SEARCH_ORGANIZATION: 'Organization',
     SEARCH_TITLE: 'Title',
-    SEARCH_PREACHER: 'Preacher'
+    SEARCH_PREACHER: 'Preacher',
+    DOWNLOAD: 'Download',
+    SEARCH: 'Search',
+    OPEN: 'Open',
+    SELECTED_LANGUAGE: 'Your Selected Language: ',
+    RESOURCE_LANGUAGE: 'Resource Language: '
+
   });
   $translateProvider.translations('pt', {
     ABOUT_TITLE: 'Sobre o Applicativo',
@@ -142,7 +147,12 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     SEARCH_HITS: 'Visitas',
     SEARCH_ORGANIZATION: 'Organização',
     SEARCH_TITLE: 'Titulo',
-    SEARCH_PREACHER: 'Pregador'
+    SEARCH_PREACHER: 'Pregador',
+    DOWNLOAD: 'Baixar',
+    SEARCH: 'Procurar',
+    OPEN: 'Abrir',
+    SELECTED_LANGUAGE: 'Selecionar o seu Idioma: ',
+    RESOURCE_LANGUAGE: 'Idioma dos Recursos: '
   });
   $translateProvider.preferredLanguage('pt');
 })

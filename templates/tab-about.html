@@ -2,18 +2,33 @@
   <ion-content on-swipe-left="goToStart()" class="about-page">
   <ion-item class="item-text-wrap">
   <img src='images/ios-icon-120.png' style="float:left; padding: 0 10px 10px 0;"/><h1>Fonte da Vida</h1>
-  <p>Fonte da Vida is a joint partnership between <a href="http://equipmoz.org">Equip Mozambique</a> and the local mozambican churches, principally <a href="http://penielmoz.org">Peniel International</a>.
+    <div ng-if="settings.lang =='en'">
+      <p>Fonte da Vida is a joint partnership between <a href="http://equipmoz.org">Equip Mozambique</a> and the local mozambican churches, principally <a href="http://penielmoz.org">Peniel International</a>.
 
-  </p><p>The goal of the application is to provide resources to the local believers in a language and method they can understand. Any church is able to upload resources on the app provided they follow the <a>guidelines</a>.
-  </p><p>
-  If you want to upload your resources to benefit the Mozambican people, please click the link above or <a href="mailto: dino@equipmoz.org" >e-mail us for more information</a>. We are always looking for more organizations to partner with and would love to hear from you.
-  </p><p>
-  If you believe there is a copyright infringement of any of the material provided, please fill out form located <a>here</a>.
-   </p><p>
-  Chief Programmer: Jon Reinagel, <a href="http://equipmoz.org">Equip Mozambique</a><br/>
-  API Design: Kneight Reinagel<br/>
-  Translation: Nordino Armando<br/>
-  </p>
+      </p><p>The goal of the application is to provide resources to the local believers in a language and method they can understand. Any church is able to upload resources on the app provided they follow the <a>guidelines</a>.
+      </p><p>
+      If you want to upload your resources to benefit the Mozambican people, please click the link above or <a href="mailto: nordino@equipmoz.org" >e-mail us for more information</a>. We are always looking for more organizations to partner with and would love to hear from you.
+      </p><p>
+      If you believe there is a copyright infringement of any of the material provided, please fill out form located <a>here</a>.
+       </p><p>
+      Chief Programmer: Jon Reinagel, <a href="http://equipmoz.org">Equip Mozambique</a><br/>
+      API Design: Kneight Reinagel<br/>
+      Translation: Nordino Armando<br/>
+      </p>
+    </div>
+    <div ng-if="settings.lang =='pt'">
+       <p> Fonte da Vida é uma parceria conjunta entre <a href="http://equipmoz.org">Equip Mozambique</a> e as igrejas locais moçambicanas, principalmente <a href="http://penielmoz.org">Peniel International</a>.
+       
+       </p><p> O objetivo do aplicativo é fornecer recursos para os crentes locais em um idioma e método que eles possam entender. Qualquer igreja é capaz de fazer upload de recursos no aplicativo desde que sigam as <a> orientações </a>.
+       </p><p>
+       Se você quer enviar seus recursos para beneficiar o povo moçambicano, por favor clique no link acima ou <a href="mailto: nordino@equipmoz.org"> Envie-nos um e-mail para mais informações </a>. Estamos sempre à procura de mais organizações ao sócio e gostariamos de ouvir de você. </p><p>
+       Se você acredita que há uma violação de direitos autorais de qualquer parte do material fornecido, por favor preencha o formulário localizado <a>aqui</a>.
+        </p><p>
+       Programador-chefe: Jon Reinagel, <a href="http://equipmoz.org">Equip Mozambique</a><br>
+       API do Projeto: Kneight Reinagel <br>
+       Tradução: Nordino Armando <br>
+       </p>
+    </div>
   </ion-item>
   </ion-content>
 </ion-view>

@@ -79,7 +79,7 @@
               </ion-radio>
             <label class="item item-input item-select">
               <div class="input-label">
-                <h2>Resource Language</h2>
+                <h2>{{'RESOURCE_LANGUAGE' | translate}}</h2>
               </div>
               <select ng-options="language.en_language for language in settings.languages" ng-model="settings.rLanguage" ng-change="changeRLanguage(settings.rLanguage)" ng-value='settings.rLanguage.en_language'>
               </select>
@@ -87,7 +87,7 @@
             </label>
             
             </ion-list>
-            <h2>Your selected Language: {{settings.rLanguage.en_language}}</h2>
+            <h2>{{'SELECTED_LANGUAGE' | translate}}{{settings.rLanguage.en_language}}</h2>
             <h4 class="padding">{{'SETTINGS_ORGANIZATIONS' | translate}}</h4>
             <ion-list>
                 <ion-checkbox ng-if="settings.lang =='en'" ng-repeat="item in settings.orgList" ng-model="item.checked" ng-checked="item.checked">{{item.en_name}}</ion-checkbox>
