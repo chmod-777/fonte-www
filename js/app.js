@@ -39,6 +39,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     } else {
       $translate.use($rootScope.settings.lang);
     }
+    $('scroll-content').headroom();
 
     document.addEventListener("deviceready", onDeviceReady, false);
       function onDeviceReady() {

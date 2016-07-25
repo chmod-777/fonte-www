@@ -9,7 +9,7 @@
                         <img src="{{src.organization.photo}}" style="padding:0" class="col-50 col col-bottom"/>
                     </div>
                 </div>
-            <div class="col col-75 col-offset-25">
+            <div class="col col-75 col-offset-25" ng-if="settings.lang =='en'">
                 <h2>{{src.resource.en_name}}</h2>
                 <a href="#/tab/resources/speaker-{{src.teacher.id}}">
                 <button><h3>{{src.teacher.en_name}}</h3></button></a><br />
@@ -21,6 +21,20 @@
                     <p>{{src.license.en_description}}</p>
                 </div>
                 <a href="#/tab/resources"><button>< back</button></a>
+            
+            </div>
+            <div class="col col-75 col-offset-25" ng-if="settings.lang =='pt'">
+                <h2>{{src.resource.pt_name}}</h2>
+                <a href="#/tab/resources/speaker-{{src.teacher.id}}">
+                <button><h3>{{src.teacher.pt_name}}</h3></button></a><br />
+                <p class="language-display" ng-if="settings.lang == 'en'">Language: {{settings.languages[src.resource.primary_language_id].pt_language}} <i ng-if="src.resource.secondary_language_id">/</i> {{settings.languages[src.resource.secondary_language_id].pt_language}} <!--{{sermon.hits}}--></p>
+                <p>{{src.resource.pt_description}}</p>
+                <div class="license-block">
+                    <img src="{{src.license.img_url}}" />
+                    <h2>{{src.license.pt_license_name}}</h2>
+                    <p>{{src.license.pt_description}}</p>
+                </div>
+                <a href="#/tab/resources"><button>< voltar</button></a>
             
             </div>
             <div class="row">
