@@ -1,5 +1,5 @@
 
-<ion-view view-title="About Resource">
+<ion-view view-title="{{'ABOUT_RESOURCE' | translate}}">
 <ion-content class='resource-description'>
     <div class="waiting"><ion-spinner></ion-spinner></div> 
     <ion-list class="list-inset fonte-description">
@@ -38,8 +38,8 @@
             
             </div>
             <div class="row">
-                <i ng-click="dl.resourceDl(src.resource)" class="icon ion-ios-download col col-25 col-offset-25 ion-positive" ng-controller="DlCtrl as dl" style="width:100%; align: center; font-size:96px;"><p>{{'DOWNLOAD' | translate}</p></i>
-                <i ng-click="resourceOpen(src.resource)" class="icon ion-document-text col col-25 ion-positive" style="width:100%; align: center; font-size:96px;"><p>{{'OPEN' | translate}</p></i>
+                <i ng-click="dl.resourceDl(src.resource)" class="icon ion-ios-download col col-25 col-offset-25 ion-positive" ng-controller="DlCtrl as dl" style="width:100%; align: center; font-size:96px;"><p>{{'DOWNLOAD' | translate}}</p></i>
+                <i ng-click="resourceOpen(src.resource)" class="icon ion-document-text col col-25 ion-positive" style="width:100%; align: center; font-size:96px;"><p>{{'OPEN' | translate}}</p></i>
             </div>
         </ion-item>
     </ion-list>

@@ -75,6 +75,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
 
   $translateProvider.translations('en', {
     ABOUT_TITLE: 'About the App',
+    ABOUT_RESOURCE: 'About the Resource',
     TAB_HOME: 'Home',
     TAB_BIBLES: 'Bibles',
     TAB_DOWNLOADS: 'Downloads',
@@ -111,11 +112,14 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     SEARCH: 'Search',
     OPEN: 'Open',
     SELECTED_LANGUAGE: 'Your Selected Language: ',
-    RESOURCE_LANGUAGE: 'Resource Language: '
+    RESOURCE_LANGUAGE: 'Resource Language: ',
+    NEXT: 'Next',
+    BACK:'Back'
 
   });
   $translateProvider.translations('pt', {
     ABOUT_TITLE: 'Sobre o Applicativo',
+    ABOUT_RESOURCE: 'Sobre o Recurso',
     TAB_HOME: 'Casa',
     TAB_BIBLES: 'Bíblias',
     TAB_DOWNLOADS: 'Baixados',
@@ -152,7 +156,9 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     SEARCH: 'Procurar',
     OPEN: 'Abrir',
     SELECTED_LANGUAGE: 'Selecionar o seu Idioma: ',
-    RESOURCE_LANGUAGE: 'Idioma dos Recursos: '
+    RESOURCE_LANGUAGE: 'Idioma dos Recursos: ',
+    NEXT: 'Proxima',
+    BACK: 'Volta'
   });
   $translateProvider.preferredLanguage('pt');
 })
