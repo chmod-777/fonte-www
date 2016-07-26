@@ -26,7 +26,17 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     //Globalization plugin for changing the app language through the OS system language.
     //If on a phone and this is the first run, use the Mobile language settings
     //Otherwise use the saved settings
-    if(typeof navigator.globalization !== "undefined" && $rootScope.settings.firstRun == 1) {
+    
+    
+    document.addEventListener("deviceready", onDeviceReady, false);
+      function onDeviceReady() {
+      
+      console.log("Cordova file log: ", cordova.file);
+      
+      $rootScope.settings.android = ionic.Platform.isAndroid();
+      
+      //Language Setter
+      if(typeof navigator.globalization !== "undefined" && $rootScope.settings.firstRun == 1) {
       navigator.globalization.getPreferredLanguage(function(syslanguage) {
         console.log(syslanguage.value);
         $translate.use((syslanguage.value).split("-")[0]).then(function(data) {
@@ -37,14 +47,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
         });
       }, null);
     } else {
-      $translate.use($rootScope.settings.lang);
-    }
-    
-    document.addEventListener("deviceready", onDeviceReady, false);
-      function onDeviceReady() {
-        console.log("Cordova file log: ", cordova.file);
-      $rootScope.settings.android = ionic.Platform.isAndroid();
-      
+      translate.use($rootScope.settings.lang);
+    }  
       }
 
     //GA
@@ -114,7 +118,11 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     SELECTED_LANGUAGE: 'Your Selected Language: ',
     RESOURCE_LANGUAGE: 'Resource Language: ',
     NEXT: 'Next',
-    BACK:'Back'
+    BACK:'Back',
+    LANGUAGE: 'Language',
+    AUTHOR: 'Author',
+    ORGANIZATION: 'Organization',
+    LICENSE: 'License'
 
   });
   $translateProvider.translations('pt', {
@@ -158,10 +166,19 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     SELECTED_LANGUAGE: 'Selecionar o seu Idioma: ',
     RESOURCE_LANGUAGE: 'Idioma dos Recursos: ',
     NEXT: 'Proxima',
-    BACK: 'Volta'
+    BACK: 'Volta',
+    LANGUAGE: 'Idioma',
+    AUTHOR: 'Autor',
+    ORGANIZATION: 'Organização',
+    LICENSE: 'Licença'
   });
   $translateProvider.preferredLanguage('pt');
 })
+
+.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = false;
+    cfpLoadingBarProvider.parentSelector = '.loading-bar';
+}])
 
 //Filter list by organization listed in settings
 .filter("orgFilter", ['$rootScope', function($rootScope) {
@@ -275,7 +292,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       views: {
         'tab-sermons': {
           templateUrl: 'templates/sermons-orgdetail.html',
-          controller: 'SermonsCtrl'
+          controller: 'DetailPageCtrl'
         }
       }
     })
@@ -284,7 +301,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       views: {
         'tab-sermons': {
           templateUrl: 'templates/sermons-speakerdetail.html',
-          controller: 'SermonsCtrl'
+          controller: 'DetailPageCtrl'
         }
       }
     })
@@ -293,7 +310,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       views: {
         'tab-resources': {
           templateUrl: 'templates/sermons-orgdetail.html',
-          controller: 'ResourceCtrl'
+          controller: 'DetailPageCtrl'
         }
       }
     })
@@ -302,7 +319,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       views: {
         'tab-resources': {
           templateUrl: 'templates/sermons-speakerdetail.html',
-          controller: 'ResourceCtrl'
+          controller: 'DetailPageCtrl'
         }
       }
     })

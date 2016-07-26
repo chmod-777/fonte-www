@@ -20,6 +20,7 @@
             <br/>
             <p class="language-display" ng-if="settings.lang == 'en'" class="language-display">{{settings.languages[teaching.primary_language_id].en_language}} <i ng-if="teaching.secondary_language_id">/</i> {{settings.languages[teaching.secondary_language_id].en_language}} <!--{{teaching.hits}}--></p>
             <p class="language-display" ng-if="settings.lang == 'pt'" class="language-display">{{settings.languages[teaching.primary_language_id].pt_language}} <i ng-if="teaching.secondary_language_id">/</i> {{settings.languages[teaching.secondary_language_id].pt_language}} <!--{{teaching.hits}}--></p>
+            <div style=""><img class="license_img" ng-src="{{license.img_url}}"/></div>
 
             <li ng-if="settings.lang =='pt'" style="display:none" data-artist="{{teacher.pt_name}}" data-title="{{teaching.pt_title}}" data-album data-info data-image="{{teacher.photo}}" data-duration="{{teaching.length}}"><div class="amazingaudioplayer-source" data-src="{{trustSrc(teaching.teaching_url)}}" data-type="audio/mpeg" /></div></li><li ng-if="settings.lang =='en'" style="display:none" data-artist="{{teacher.en_name}}" data-title="{{teaching.en_title}}" data-album data-info data-image="{{teacher.photo}}" data-duration="{{teaching.length}}"><div class="amazingaudioplayer-source" data-src="{{trustSrc(teaching.teaching_url)}}" data-type="audio/mpeg" /></div></li>
         </ion-item>

@@ -122,7 +122,7 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
         ApiServe.getLocal(v).then(function(lResponse) {
           $rootScope.settings.licenses = lResponse.data;
         });
-          console.log("Licenses called: ", lResponse.data);
+          console.log("Licenses called");
         } else {
           console.log("Licenses already loaded");
         };
@@ -210,7 +210,7 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
 }
 }
 ])
-.controller('SermonsCtrl', ['$scope', '$sce', '$rootScope', '$http', 'fonteFns', '$state', function($scope, $sce, $rootScope, $http, fonteFns, $state, $stateParams) {
+.controller('SermonsCtrl', ['$scope', '$sce', '$rootScope', '$http', 'fonteFns', function($scope, $sce, $rootScope, $http, fonteFns) {
   //Teaching page controller
   if(typeof analytics !== "undefined") {
     analytics.trackView("Teachings");
@@ -221,9 +221,6 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
   }
   $(".waiting").show();
 
-  //Info for Org Description Page:
-  $scope.whichOrg = $state.params.orgId;
-  $scope.whichSpeaker = $state.params.speakerId;
   $(".waiting").hide();
 
   $scope.playNow = fonteFns.playNow;
@@ -348,7 +345,12 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
   }
 }])
 
-.controller('RDetailCtrl', ['$scope', '$state', '$window', 'getId', '$sce', '$http', '$cordovaFileOpener2', '$rootScope' , function($scope, $state, $window, getId, $sce, $http, $cordovaFileOpener2, $rootScope){
+.controller('DetailPageCtrl', ['$rootScope', '$state', '$scope', function($rootScope, $state, $scope) {
+  $scope.whichOrg = $state.params.orgId;
+  $scope.whichSpeaker = $state.params.speakerId;
+}])
+
+.controller('RDetailCtrl', ['$scope', '$parse', '$state', '$window', 'getId', '$sce', '$http', '$cordovaFileOpener2', '$rootScope' , function($scope, $parse, $state, $window, getId, $sce, $http, $cordovaFileOpener2, $rootScope){
   if(typeof analytics !== "undefined") {
     analytics.trackView("Resources");
   }

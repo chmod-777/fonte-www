@@ -2,46 +2,90 @@
 <ion-view view-title="{{'ABOUT_RESOURCE' | translate}}">
 <ion-content class='resource-description'>
     <div class="waiting"><ion-spinner></ion-spinner></div> 
-    <ion-list class="list-inset fonte-description">
-        <ion-item class="item-text-wrap">
-            <div class="preacher-img col col-25" style="background-image:url({{src.teacher.photo}}); min-height:100px"/>
-                    <div class="row" style="height:100%; padding:0;">
-                        <img src="{{src.organization.photo}}" style="padding:0" class="col-50 col col-bottom"/>
-                    </div>
-                </div>
-            <div class="col col-75 col-offset-25" ng-if="settings.lang =='en'">
-                <h2>{{src.resource.en_name}}</h2>
-                <a href="#/tab/resources/speaker-{{src.teacher.id}}">
-                <button><h3>{{src.teacher.en_name}}</h3></button></a><br />
-                <p class="language-display" ng-if="settings.lang == 'en'">Language: {{settings.languages[src.resource.primary_language_id].en_language}} <i ng-if="src.resource.secondary_language_id">/</i> {{settings.languages[src.resource.secondary_language_id].en_language}} <!--{{sermon.hits}}--></p>
-                <p>{{src.resource.en_description}}</p>
-                <div class="license-block">
-                    <img src="{{src.license.img_url}}" />
-                    <h2>{{src.license.en_license_name}}</h2>
-                    <p>{{src.license.en_description}}</p>
-                </div>
-                <a href="#/tab/resources"><button>< back</button></a>
+    <ion-item class="item-text-wrap">
+
+    <div class="padding-bottom padding-left">
+        <h2 ng-if="settings.lang == 'en'" style="font-size:130%; font-style:italics; font-weight:bold">{{src.resource.en_name}}</h2>
+        <h2 ng-if="settings.lang == 'pt'" style="font-size:130%; font-style:italics; font-weight:bold">{{src.resource.pt_name}}</h2>
+    </div>
+    <div class="row">
+        <div ng-if="settings.lang == 'en'" class="col col-75 padding item-text-wrap">{{src.resource.en_description}}</div>
+        <div ng-if="settings.lang == 'pt'" class="col col-75 padding item-text-wrap">{{src.resource.pt_description}}</div>
+        <div class="col col-25 col-bottom"><button class="button button-calm icon-left ion-document-text">{{'OPEN' | translate}}
+        </button></div>
+    </div>
+        <!--Language Section-->
+        <a class="item item-icon-left" style="border: none">
+            <i class="icon ion-android-globe"></i>
+            {{'LANGUAGE' | translate}}
+            <span class="item-note" ng-if="settings.lang == 'en'">{{settings.languages[src.resource.primary_language_id].en_language}} <i ng-if="src.resource.secondary_language_id">/</i> {{settings.languages[src.resource.secondary_language_id].en_language}}</span> 
+            <span class="item-note" ng-if="settings.lang == 'pt'">{{settings.languages[src.resource.primary_language_id].pt_language}} <i ng-if="src.resource.secondary_language_id">/</i> {{settings.languages[src.resource.secondary_language_id].pt_language}}</span>
+        </a>
+
+        <!--Author Section-->
+        <a class="item item-divider item-icon-right" href="#/tab/resources/speaker-{{src.teacher.id}}">
+            <i class="icon ion-chevron-right icon-right"></i>
+            <div class=item-icon-left><i class="icon ion-edit"></i>{{'AUTHOR' | translate}}
+            <h2 ng-if="settings.lang == 'en'" style="font-size:120%; font-style:italics">{{src.teacher.en_name}}</h2>
+            <h2 ng-if="settings.lang == 'pt'" style="font-size:120%; font-style:italics">{{src.teacher.pt_name}}</h2>
+            </div>
+        </a>
+        <div class="row match-img-height">
+            <div class="col col-33"><img src="{{src.teacher.photo}}" style="width:100%"/>
+            </div>
+            <div ng-if="settings.lang == 'en'" style="overflow:hidden">
+                {{src.teacher.en_description | limitTo:250}}
+            </div>
+            <div ng-if="settings.lang == 'pt'" style="overflow:hidden">
+                {{src.teacher.pt_description | limitTo:250}}
+            </div>
+        </div>
+        
+        <!--Organization Section-->
+        <a class="item item-divider item-icon-right" href="#/tab/resources/org-{{src.organization.id}}">
+            <!--<i class="icon ion-edit"></i>-->
+            <i class="icon ion-chevron-right icon-right"></i>
+            <div class=item-icon-left><i class="icon ion-ios-world-outline"></i>{{'ORGANIZATION' | translate}}
+            <h2 ng-if="settings.lang == 'en'" style="font-size:120%; font-style:italics">{{src.organization.en_name}}</h2>
+            <h2 ng-if="settings.lang == 'pt'" style="font-size:120%; font-style:italics">{{src.organization.pt_name}}</h2>
+            </div>
+        </a>
+        <div class="row">
+            <div class="col col-33"><img src="{{src.organization.photo}}" style="width:100%"/>
+            </div>
+            <div ng-if="settings.lang == 'en'" class="float:left">
+                {{src.organization.en_description | limitTo:250}}
+            </div>
+            <div ng-if="settings.lang == 'pt'" class="float:left">
+                {{src.organization.pt_description | limitTo:250}}
+            </div>
+        </div>
+        
+        <!--License Section-->
+        <a class="item item-divider item-icon-right">
+            <div class=item-icon-left><i class="icon ion-ios-list-outline"></i>{{'LICENSE' | translate}}
+            <h2 ng-if="settings.lang == 'en'" style="font-size:120%; font-style:italics">{{src.license.en_license_name}}</h2>
+            <h2 ng-if="settings.lang == 'pt'" style="font-size:120%; font-style:italics">{{src.license.pt_license_name}}</h2>
+            </div>
+        </a>
+        <div class="row">
+            <div class="col col-33"><img src="{{src.license.img_url}}" style="width:100%"/>
+            </div>
+            <div ng-if="settings.lang == 'en'">
+                {{src.license.en_description}}
+            </div>
+            <div ng-if="settings.lang == 'pt'">
+                {{src.license.pt_description}}
+            </div>
+        </div>
+            <!--<a href="#/tab/resources"><button>< voltar</button></a>-->
             
             </div>
-            <div class="col col-75 col-offset-25" ng-if="settings.lang =='pt'">
-                <h2>{{src.resource.pt_name}}</h2>
-                <a href="#/tab/resources/speaker-{{src.teacher.id}}">
-                <button><h3>{{src.teacher.pt_name}}</h3></button></a><br />
-                <p class="language-display" ng-if="settings.lang == 'en'">Language: {{settings.languages[src.resource.primary_language_id].pt_language}} <i ng-if="src.resource.secondary_language_id">/</i> {{settings.languages[src.resource.secondary_language_id].pt_language}} <!--{{sermon.hits}}--></p>
-                <p>{{src.resource.pt_description}}</p>
-                <div class="license-block">
-                    <img src="{{src.license.img_url}}" />
-                    <h2>{{src.license.pt_license_name}}</h2>
-                    <p>{{src.license.pt_description}}</p>
-                </div>
-                <a href="#/tab/resources"><button>< voltar</button></a>
+            <button class="button button-large button-block button-calm icon-left ion-ios-download" ng-click="dl.resourceDl(src.resource)" ng-controller="DlCtrl as dl" style="display:none">{{'DOWNLOAD' | translate}}
+                </button>
+            <button class="button button-block button-large button-positive icon-left ion-document-text">{{'OPEN' | translate}}
+                </button>
             
-            </div>
-            <div class="row">
-                <i ng-click="dl.resourceDl(src.resource)" class="icon ion-ios-download col col-25 col-offset-25 ion-positive" ng-controller="DlCtrl as dl" style="width:100%; align: center; font-size:96px;"><p>{{'DOWNLOAD' | translate}}</p></i>
-                <i ng-click="resourceOpen(src.resource)" class="icon ion-document-text col col-25 ion-positive" style="width:100%; align: center; font-size:96px;"><p>{{'OPEN' | translate}}</p></i>
-            </div>
         </ion-item>
-    </ion-list>
 </ion-content>
 </ion-view>
