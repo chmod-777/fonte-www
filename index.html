@@ -68,9 +68,8 @@
         </ion-header-bar>
         <ion-content>
           <ion-list>
-          <h2>{{ 'SETTINGS_INFORMATION' | translate}}</h2>
           <form name="settingsForm">
-            <h4 class="padding">{{'SETTINGS_CLANGUAGE' | translate}}</h4>
+            <h4 class="padding item item-divider">{{'SETTINGS_CLANGUAGE' | translate}}</h4>
               <ion-radio type="radio" ng-model="settings.lang" ng-change="changeLanguage(settings.lang)" value="pt">
                 {{'SETTINGS_PT' | translate}}
               </ion-radio>
@@ -78,17 +77,17 @@
                 {{'SETTINGS_EN' | translate}}
               </ion-radio>
             <label class="item item-input item-select">
-              <div class="input-label">
+              <div class="input-label item-text-wrap">
                 <h2>{{'RESOURCE_LANGUAGE' | translate}}</h2>
               </div>
-              <select ng-options="language.en_language for language in settings.languages" ng-model="settings.rLanguage" ng-change="changeRLanguage(settings.rLanguage)" ng-value='settings.rLanguage.en_language'>
+              <select ng-options="language.{{settings.lang}}_language for language in settings.languages" ng-model="settings.rLanguage" ng-value='settings.rLanguage.{{settings.lang}}_language' ng-init="settings.rLanguage = settings.languages[settings.rLanguage.id]">
               </select>
 
             </label>
             
             </ion-list>
-            <h2>{{'SELECTED_LANGUAGE' | translate}}{{settings.rLanguage.en_language}}</h2>
-            <h4 class="padding">{{'SETTINGS_ORGANIZATIONS' | translate}}</h4>
+            <!--<h2>{{'SELECTED_LANGUAGE' | translate}}{{settings.rLanguage.en_language}}</h2>-->
+            <h4 class="padding item item-divider item-text-wrap">{{'SETTINGS_ORGANIZATIONS' | translate}}</h4>
             <ion-list>
                 <ion-checkbox ng-if="settings.lang =='en'" ng-repeat="item in settings.orgList" ng-model="item.checked" ng-checked="item.checked">{{item.en_name}}</ion-checkbox>
                 <ion-checkbox ng-if="settings.lang =='pt'" ng-repeat="item in settings.orgList" ng-model="item.checked" ng-checked="item.checked">{{item.pt_name}}</ion-checkbox>

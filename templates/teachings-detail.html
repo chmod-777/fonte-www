@@ -1,0 +1,41 @@
+
+<ion-view view-title="{{'ABOUT_RESOURCE' | translate}}">
+<ion-content class='resource-description'>
+    <div class="waiting"><ion-spinner></ion-spinner></div> 
+    <ion-item class="item-text-wrap">
+        
+    <div class="padding-bottom padding-left">
+        <h2 ng-if="settings.lang == 'en'" style="font-size:130%; font-style:italics; font-weight:bold">{{src.teaching.en_title}}</h2>
+        <h2 ng-if="settings.lang == 'pt'" style="font-size:130%; font-style:italics; font-weight:bold">{{src.teaching.pt_title}}</h2>
+    </div>
+
+                <!--Language Section-->
+        <div class="row">
+            <div class="col col-66">
+            <a class="item item-icon-left" style="border: none">
+                <i class="icon ion-android-globe"></i>
+                {{'LANGUAGE' | translate}}
+                <span class="item-note" ng-if="settings.lang == 'en'">{{settings.languages[src.teaching.primary_language_id].en_language}} <i ng-if="src.teaching.secondary_language_id">/</i> {{settings.languages[src.teaching.secondary_language_id].en_language}}</span> 
+                <span class="item-note" ng-if="settings.lang == 'pt'">{{settings.languages[src.teaching.primary_language_id].pt_language}} <i ng-if="src.teaching.secondary_language_id">/</i> {{settings.languages[src.teaching.secondary_language_id].pt_language}}</span>
+            </a>
+            </div>
+            <div class="col col-33"><button class="button button-calm icon-left ion-ios-play" ng-click="playNow(src.teaching)">{{'PLAY' | translate}}
+            </button></div>
+        </div>
+
+        <info-teacher></info-teacher>
+        
+        <info-organization></info-organization>
+        
+        <info-license></info-license>
+            <!--<a href="#/tab/resources"><button>< voltar</button></a>-->
+            
+            </div>
+            <button class="button button-large button-block button-calm icon-left ion-ios-download" ng-click="dl.resourceDl(src.resource)" ng-controller="DlCtrl as dl" style="display:none">{{'DOWNLOAD' | translate}}
+                </button>
+            <button class="button button-block button-large button-positive icon-left ion-ios-play" ng-click="playNow(src.teaching)">{{'PLAY' | translate}}
+                </button>
+            
+        </ion-item>
+</ion-content>
+</ion-view>

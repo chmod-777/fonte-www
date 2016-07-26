@@ -23,32 +23,30 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    //Globalization plugin for changing the app language through the OS system language.
-    //If on a phone and this is the first run, use the Mobile language settings
-    //Otherwise use the saved settings
     
-    
+    $rootScope.settings.runTimes += 1;     
     document.addEventListener("deviceready", onDeviceReady, false);
       function onDeviceReady() {
-      
-      console.log("Cordova file log: ", cordova.file);
-      
-      $rootScope.settings.android = ionic.Platform.isAndroid();
-      
-      //Language Setter
-      if(typeof navigator.globalization !== "undefined" && $rootScope.settings.firstRun == 1) {
-      navigator.globalization.getPreferredLanguage(function(syslanguage) {
-        console.log(syslanguage.value);
-        $translate.use((syslanguage.value).split("-")[0]).then(function(data) {
-            console.log("Language-choice SUCCESS through OS settings: " + data);
-            $rootScope.lang = (syslanguage.value).split("-")[0];
-          }, function(data) {
-            console.log("Language-choice FAIL through OS settings" + data);
-        });
-      }, null);
-    } else {
-      translate.use($rootScope.settings.lang);
-    }  
+        
+        console.log("Cordova file log: ", cordova.file);
+        
+        $rootScope.settings.android = ionic.Platform.isAndroid();
+        
+        //Language Setter
+        if(typeof navigator.globalization !== "undefined" && $rootScope.settings.runTimes < 2) {
+          navigator.globalization.getPreferredLanguage(function(syslanguage) {
+            console.log(syslanguage.value);
+            $translate.use((syslanguage.value).split("-")[0]).then(function(data) {
+                console.log("Language-choice SUCCESS through OS settings: " + data);
+                $rootScope.lang = (syslanguage.value).split("-")[0];
+              }, function(data) {
+                console.log("Language-choice FAIL through OS settings" + data);
+            });
+          }, null);
+        } else {
+          $translate.use($rootScope.settings.lang);
+        }
+
       }
 
     //GA
@@ -287,8 +285,17 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
         }
       }
     })
+  .state('tab.teachings-detail', {
+      url: '/sermons/teaching-:teachingId',
+      views: {
+        'tab-sermons': {
+          templateUrl: 'templates/teachings-detail.html',
+          controller: 'SDetailCtrl'
+        }
+      }
+    })
   .state('tab.orgdetail', {
-      url: '/sermons/org-:orgId',
+      url: '/teaching/org-:orgId',
       views: {
         'tab-sermons': {
           templateUrl: 'templates/sermons-orgdetail.html',
@@ -297,7 +304,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       }
     })
     .state('tab.speakerdetail', {
-      url: '/sermons/speaker-:speakerId',
+      url: '/teaching/speaker-:speakerId',
       views: {
         'tab-sermons': {
           templateUrl: 'templates/sermons-speakerdetail.html',

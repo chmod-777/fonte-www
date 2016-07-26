@@ -10,7 +10,7 @@
             
         </div>
         <div class="col"></div>
-        <select class="col col-33 item item-input item-select" ng-options="language.{{settings.lang}}_language for language in settings.languages" ng-model="settings.rLanguage" ng-change="changeRLanguage(settings.rLanguage)" ng-value='{{language[settings.rLanguage]}}' ng-init="settings.rLanguage = settings.languages[settings.rLanguage.id]">
+        <select class="col col-33 item item-input item-select" ng-options="language.{{settings.lang}}_language for language in settings.languages" ng-model="settings.rLanguage" ng-value='{{language[settings.rLanguage]}}' ng-init="settings.rLanguage = settings.languages[settings.rLanguage.id]">
         </select>
     <!--
      <div class="input-label col">

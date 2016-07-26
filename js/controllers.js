@@ -44,15 +44,29 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
     function getAPI(url, location) {
       ApiServe.getAPIS(url).then(function(response) {
         if(url == "organization") {
-          $rootScope.settings.orgList = response.data;
-      
+          
       //Setting defaults for organizations: new ones default to true 
+          for(var i=0; i < response.data.length; i++) {
+            if($rootScope.settings.orgList[i] == undefined) {
+              $rootScope.settings.orgList[i] = response.data[i];
+              $rootScope.settings.orgList[i].checked = true;
+            }
+          }
+          /*
           angular.forEach($rootScope.settings.orgList, function(value, key) {
             if(value.checked == undefined) {
               console.log("Org not checked: defaulting to true");
               value.checked = true;
-            }       
+            }
           });
+          angular.forEach(response.data, function(value, key) {
+            if(value.checked == undefined) {
+              console.log("Org not checked: defaulting to true");
+              value.checked = true;
+            }
+          });
+          $rootScope.settings.orgList = response.data;*/
+      
         }
         else if(url == "teacher") {
           $rootScope.settings.speakerList = response.data;
@@ -80,9 +94,9 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
       aapNum: 0,
       lang: 'pt',
       testament: "IDNT",
-      rLanguage: 0,
+      rLanguage: {id: 0, en_language: "Portuguese", pt_language: "Português", IDNT: "PORNLHN2DA", IDOT: 0},
       languages: "",
-      firstRun: 1,
+      runTimes: 0,
       timers: [{
         teacher: 0,
         teaching: 0,
@@ -157,19 +171,12 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
         }; */
     }
     apiTime(); //call on load
-    getAPI('teaching');
-    getAPI('teacher');
     getAPI('organization');
 
     //Set rLanguage:
-    if($rootScope.settings.rLanguage == 0) {
-      $rootScope.settings.rLanguage = $rootScope.settings.languages[0];
-      console.log("rLanguage changed: ", $rootScope.settings.rLanguage);
-    }
     console.log("rLanguage = ", $rootScope.settings.rLanguage);
 
     $interval(function() {
-      $rootScope.settings.firstRun = 0;
       apiTime(); 
     }, 86400000, 20);
 
@@ -350,13 +357,30 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
   $scope.whichSpeaker = $state.params.speakerId;
 }])
 
+.controller('SDetailCtrl', ['$scope', 'fonteFns', '$state', 'getId', '$rootScope' , function($scope, fonteFns, $state, getId, $rootScope){
+  if(typeof analytics !== "undefined") {
+    analytics.trackView("Teaching page " + $state.params.teachingId);
+  }
+  $('.waiting').hide();
+  teachingId = $state.params.teachingId;
+  $scope.src = getId.all(teachingId, 'teaching');
+  console.log("chosenTeaching: ", $scope.src, teachingId);
+
+  $scope.playNow = fonteFns.playNow;
+  $scope.wordLength = window.innerWidth - 220;
+  $scope.page = 'teaching';
+
+}])
+
 .controller('RDetailCtrl', ['$scope', '$parse', '$state', '$window', 'getId', '$sce', '$http', '$cordovaFileOpener2', '$rootScope' , function($scope, $parse, $state, $window, getId, $sce, $http, $cordovaFileOpener2, $rootScope){
   if(typeof analytics !== "undefined") {
-    analytics.trackView("Resources");
+    analytics.trackView("Resource page " + $state.params.resourceId);
   }
   $('.waiting').hide();
   resourceId = $state.params.resourceId;
   $scope.src = getId.all(resourceId, 'resource');
+  $scope.wordLength = window.innerWidth - 220;
+  $scope.page = 'resource';
   console.log("chosenResource: ", $scope.chosenResource, resourceId);
 /*  $scope.license = $rootScope.settings.licenses[$scope.chosenResource.license_type_id];
   $scope.teacher = $rootScope.settings.teacher[$scope.chosenResource.teacher_id];
@@ -670,9 +694,12 @@ $scope.downloadThis = function(title, url, type, folder, extension) {
       'background-position-x': number * 20 + 40 + "%"
     }, 400, 'linear');
     $("#fp-div").animate({
-      'left': number * -1000 + "px"
+      'left': number * -2000 + "px"
     }, 400, 'linear');
     $ionicScrollDelegate.scrollTop(true);  
+  }
+  if($rootScope.settings.runTimes > 1) {
+    $("#fp-div").css("left", "-4000px");
   }
   lang = $rootScope.settings.lang;
   $scope.rLatest = [];
@@ -718,5 +745,23 @@ $scope.downloadThis = function(title, url, type, folder, extension) {
   return {
     restrict: 'E',
     templateUrl: 'templates/header-bar.html'
+  };
+})
+.directive('infoOrganization', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/info-organization.html'
+  };
+})
+.directive('infoTeacher', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/info-teacher.html'
+  };
+})
+.directive('infoLicense', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/info-license.html'
   };
 });

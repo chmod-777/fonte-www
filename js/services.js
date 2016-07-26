@@ -30,14 +30,17 @@ angular.module('starter.services', [])
 .factory('getId', ['$rootScope', '$filter', function($rootScope, $filter) {
     
     //after finding out the specific ID's, return the proper license, org, and teacher information
-    var getV = function(teacherId, orgId, resourceId) {
+    var getV = function(teacherId, orgId, resourceId, type) {
       var v = [];
       v.organization = $filter('filter')($rootScope.settings.orgList, function (d) {return d.id == orgId;})[0];
       v.teacher = $filter('filter')($rootScope.settings.speakerList, function (d) {return d.id == teacherId;})[0];
       v.license = $filter('filter')($rootScope.settings.licenses, function (d) {return d.id == v.organization.license_type_id;})[0]; 
-      v.resource = findD($rootScope.settings.resourceList, resourceId)
-      console.log("getId returned: ", v);
-
+      if(type == "resource") {
+        v.resource = findD($rootScope.settings.resourceList, resourceId)
+        console.log("getId returned: ", v);
+      } else if(type == "teaching") {
+        v.teaching = findD($rootScope.settings.teachings, resourceId)
+      }
 
       return v;
     }
@@ -49,7 +52,13 @@ angular.module('starter.services', [])
         teacherId = source.teacher_id;
         orgId = source.organization_id;
       }
-      return getV(teacherId, orgId, v);
+      if(type == 'teaching') {
+        source = findD($rootScope.settings.teachings, v);
+        teacherId = source.teacher_id;
+        orgId = source.organization_id;
+      }
+
+      return getV(teacherId, orgId, v, type);
     }
 
     //Find ID = variable in the object location
