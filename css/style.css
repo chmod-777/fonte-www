@@ -112,6 +112,11 @@
 	position:absolute;
 	width:100%; /*change back to 100% after done messing */
 }
+.fp a.button {
+	margin: 10px auto;
+	position: relative;
+	max-width:500px;
+}
 #fp-div {
 	position:relative;
 	/*left:-2000px;*/

@@ -1,10 +1,3 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analytics', 'starter.controllers', 'starter.services', 'ngCordova', 'pascalprecht.translate', 'ngStorage', 'ngSanitize', 'angular-loading-bar'])
 
 .run(function($ionicPlatform, $ionicAnalytics, $rootScope, $translate, settingsFns, $interval) {
@@ -20,7 +13,6 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       cordova.plugins.Keyboard.disableScroll(true);
     }
     if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
     $rootScope.settings.runTimes += 1;     
@@ -52,16 +44,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
           $translate.use($rootScope.settings.lang);
           console.log("default Language used");
         }
-
-    //GA
-/*    if(typeof analytics !== "undefined") {
-      analytics.startTrackedWithId("UA-53163653-2");
-    } else {
-      console.log("analytics not started");
-    }*/
-  
-  });
-
+      });
 })
 
 .config(function ($sceDelegateProvider, $translateProvider) {
@@ -124,7 +107,11 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     LANGUAGE: 'Language',
     AUTHOR: 'Author',
     ORGANIZATION: 'Organization',
-    LICENSE: 'License'
+    LICENSE: 'License',
+    PLAY: 'Play',
+    PREACHER: 'Teacher',
+    ABOUT_TEACHING: "About this Teaching"
+
 
   });
   $translateProvider.translations('pt', {
@@ -172,7 +159,10 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     LANGUAGE: 'Idioma',
     AUTHOR: 'Autor',
     ORGANIZATION: 'Organização',
-    LICENSE: 'Licença'
+    LICENSE: 'Licença',
+    PLAY: 'Toca',
+    PREACHER: 'Pregador',
+    ABOUT_TEACHING: "Sobre este Incinamento"
   });
   $translateProvider.preferredLanguage('pt');
   $translateProvider.useSanitizeValueStrategy('escape');

@@ -1,13 +1,19 @@
 angular.module('starter.services', [])
 
-.factory('ApiServe', ['$http', function($http) {
-    
+.factory('ApiServe', ['$http', '$rootScope', function($http, $rootScope) {
+    var networkError = 0;
     var getAPIS = function(v) {
       return $http.get('http://api.biblia.co.mz/' + v + '/api').success(function(data) {
           console.log(v + " API called with success", data);
           //saveData("settings.orgList", data);
         }).error(function(error) {
-          alert(v + " API unable to be called");
+          console.log(v + " API unable to be called");
+          if ((networkError < 1) && ($rootScope.settings.lang == 'en')) {
+            alert("There was an error retrieving information from the network. Without data, the functionality of this app will be severely limited");
+          } else if ((networkError < 1) && ($rootScope.settings.lang == 'pt')) {
+            alert("Não tem connexão a rede. Sem rede, a funcionalidade deste applicativo ficara muito limitado.");
+          }
+          networkError += 1;
       });
     }
     
@@ -17,7 +23,7 @@ angular.module('starter.services', [])
         console.log(v + " local API called with success", data);
         return data;
       }).error(function(error) {
-        alert(v + " local API unable to be called");
+        console.log(v + " local API unable to be called");
       });
     }
 

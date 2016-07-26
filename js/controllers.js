@@ -28,19 +28,6 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
         }
     }
     
-
-    /*
-    saveData = function(){
-      $localStorage.settings = $rootScope.settings;
-        console.log("Data Save function called: ");
-    }
-    loadData = function() {
-        $rootScope.settings = $localStorage.settings;
-        console.log("Data Load function called: ", $localStorage.settings);
-      }*/
-    //settings.orgList = [];
-    //$rootScope.settings = settingsFns.initial;
-
     function getAPI(url, location) {
       ApiServe.getAPIS(url).then(function(response) {
         if(url == "organization") {
@@ -52,20 +39,6 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
               $rootScope.settings.orgList[i].checked = true;
             }
           }
-          /*
-          angular.forEach($rootScope.settings.orgList, function(value, key) {
-            if(value.checked == undefined) {
-              console.log("Org not checked: defaulting to true");
-              value.checked = true;
-            }
-          });
-          angular.forEach(response.data, function(value, key) {
-            if(value.checked == undefined) {
-              console.log("Org not checked: defaulting to true");
-              value.checked = true;
-            }
-          });
-          $rootScope.settings.orgList = response.data;*/
       
         }
         else if(url == "teacher") {
@@ -80,13 +53,8 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
       });
     }
 
-    //get languages: only local test
-
-
-    //Get the selected information from the server
-    //getAPI('organization');
-    //getAPI('teacher');
-    //getAPI('teaching');
+    getAPI('teacher');
+    getAPI('teaching');
 
     $rootScope.settings = $localStorage.$default({
       dbtKey: 'd634c26f06be1dae73edfb08d7290f52',
@@ -106,7 +74,8 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
       teachings: [],
       orgList: [],
       speakerList: [],
-      licenses: []
+      licenses: [],
+      networkError: 0
     })  
 
     $rootScope.settings.aapNum = 0;
@@ -157,18 +126,6 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
           console.log("teachings already loaded");
         };
 
-      /*if($rootScope.settings.teachings.length) {
-          console.log("teachings already loaded");
-        } else {
-          getAPI('teaching');  
-        };
-      if($rootScope.settings.languages.length) {
-          console.log("languages already loaded");
-        } else {
-          ApiServe.getLanguages().then(function(response) {
-            $rootScope.settings.languages = response.data;
-          });
-        }; */
     }
     apiTime(); //call on load
 
@@ -288,27 +245,6 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
       }).error(function(error) {
         console.log("unable to count hit");
       });
-      /*
-    //console.log("resource URL: ", resource.resource_url);
-    cordova.plugins.fileOpener2.appIsInstalled('com.adobe.reader', {
-    success : function(res) {
-        if (res.status === 0) {
-            console.log('Adobe Reader is not installed.');
-        } else {
-            console.log('Adobe Reader is installed.')
-        }
-        }
-    });
-    $cordovaFileOpener2.open(
-      trustedURL,
-      'application/pdf'
-    ).then(function() {
-        // file opened successfully
-        console.log("file opened successfully");
-    }, function(err) {
-        // An error occurred. Show a message to the user
-        console.log("file not opened successfully", JSON.stringify(err));
-    });*/
   }
   $scope.clearSearch = function() {
     console.log("Function clearSearch called");
@@ -652,20 +588,9 @@ $scope.downloadThis = function(title, url, type, folder, extension) {
       //$(".download-icon").active();
       downloadz(item, key);
     };
-
-  /*$scope.toDownload = function (item, type) {
-    console.log("toDownload called (item, type): ", item, type);
-    if(type == 'teaching') {
-      downloadService.download.teaching.push(item);
-    } else if (type == 'resource') {
-      download.resource.push(item);
-    }  else if (type == 'resource') {
-      download.bible.push(item);
-    }
-  }*/
 }])
 
-.controller('LatestCtrl', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
+/*.controller('LatestCtrl', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
   $scope.rLatest = [];
   $scope.lang = $rootScope.settings.lang;
   console.log("Language: ", $scope.lang);
@@ -681,7 +606,7 @@ $scope.downloadThis = function(title, url, type, folder, extension) {
       });
   }
   $scope.rLatest = getLatest();
-}])
+}])*/
 
 .controller('SettingsCtrl', ['$scope', '$ionicScrollDelegate', '$rootScope', '$http', '$translate', 'settingsFns', function($scope, $ionicScrollDelegate, $rootScope, $http, $translate, settingsFns) {
   if(typeof analytics !== "undefined") {
@@ -703,27 +628,8 @@ $scope.downloadThis = function(title, url, type, folder, extension) {
   lang = $rootScope.settings.lang;
   $scope.rLatest = [];
   console.log("lang: ", lang);
-  //syncData(); //nonfunctional
-  /*getLatest = function() {
-    $http.get('http://api.biblia.co.mz/resource/api?limit=5').success(function(data) {
-          console.log("Latest resources called with success", data);
-          $scope.rLatest = data;
-          //saveData("settings.orgList", data);
-        }).error(function(error) {
-          alert("Latest resources unable to be called");
-      });
-  }
-  getLatest();*/
-
-   // settingsFns.saveData;
-  //$scope.loadData() = settingsFns.loadData;
-
+  
   $scope.next = next; //make function next() accessible from the front page
-
-    //Firing before getLanguages completes.
-     //settings.languages;
-      //settings.languages = fonteFns.getLanguages();
-  /*$scope.languages = settings.languages;*/
 
   console.log("SettingsCtrl settings information: ", $rootScope.settings);
   $scope.changeLanguage = function(newLang) {
