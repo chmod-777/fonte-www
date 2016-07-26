@@ -42,7 +42,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
             console.log(syslanguage.value);
             $translate.use((syslanguage.value).split("-")[0]).then(function(data) {
                 console.log("Language-choice SUCCESS through OS settings: " + data);
-                $rootScope.lang = (syslanguage.value).split("-")[0];
+                $rootScope.settings.lang = (syslanguage.value).split("-")[0];
+                $rootScope.lang = $rootScope.settings.lang;
               }, function(data) {
                 console.log("Language-choice FAIL through OS settings" + data);
             });
