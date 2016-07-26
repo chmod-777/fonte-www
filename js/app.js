@@ -171,6 +171,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     LICENSE: 'Licença'
   });
   $translateProvider.preferredLanguage('pt');
+  $translateProvider.useSanitizeValueStrategy('escape');
 })
 
 .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
