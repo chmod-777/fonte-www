@@ -23,8 +23,9 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    
     $rootScope.settings.runTimes += 1;     
+    console.log("runTimes: ", $rootScope.settings.runTimes);     
+    
     document.addEventListener("deviceready", onDeviceReady, false);
       function onDeviceReady() {
         
@@ -32,8 +33,11 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
         
         $rootScope.settings.android = ionic.Platform.isAndroid();
         
+
+
+      }
         //Language Setter
-        if(typeof navigator.globalization !== "undefined" && $rootScope.settings.runTimes < 2) {
+        if(typeof navigator.globalization !== "undefined") {
           navigator.globalization.getPreferredLanguage(function(syslanguage) {
             console.log(syslanguage.value);
             $translate.use((syslanguage.value).split("-")[0]).then(function(data) {
@@ -45,9 +49,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
           }, null);
         } else {
           $translate.use($rootScope.settings.lang);
+          console.log("default Language used");
         }
-
-      }
 
     //GA
 /*    if(typeof analytics !== "undefined") {

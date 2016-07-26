@@ -171,7 +171,6 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
         }; */
     }
     apiTime(); //call on load
-    getAPI('organization');
 
     //Set rLanguage:
     console.log("rLanguage = ", $rootScope.settings.rLanguage);
@@ -705,7 +704,7 @@ $scope.downloadThis = function(title, url, type, folder, extension) {
   $scope.rLatest = [];
   console.log("lang: ", lang);
   //syncData(); //nonfunctional
-  getLatest = function() {
+  /*getLatest = function() {
     $http.get('http://api.biblia.co.mz/resource/api?limit=5').success(function(data) {
           console.log("Latest resources called with success", data);
           $scope.rLatest = data;
@@ -714,7 +713,7 @@ $scope.downloadThis = function(title, url, type, folder, extension) {
           alert("Latest resources unable to be called");
       });
   }
-  getLatest();
+  getLatest();*/
 
    // settingsFns.saveData;
   //$scope.loadData() = settingsFns.loadData;

@@ -70,10 +70,10 @@
           <ion-list>
           <form name="settingsForm">
             <h4 class="padding item item-divider">{{'SETTINGS_CLANGUAGE' | translate}}</h4>
-              <ion-radio type="radio" ng-model="settings.lang" ng-change="changeLanguage(settings.lang)" value="pt">
+              <ion-radio type="radio" ng-model="settings.lang" ng-change="changeLanguage(settings.lang)" value="pt" ng-init="settings.lang">
                 {{'SETTINGS_PT' | translate}}
               </ion-radio>
-              <ion-radio type="radio" ng-model="settings.lang" ng-change="changeLanguage(settings.lang)" value="en">
+              <ion-radio type="radio" ng-model="settings.lang" ng-change="changeLanguage(settings.lang)" value="en" ng-init="settings.lang">
                 {{'SETTINGS_EN' | translate}}
               </ion-radio>
             <label class="item item-input item-select">
