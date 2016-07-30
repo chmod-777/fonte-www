@@ -1,8 +1,16 @@
 <ion-view view-title="{{'BOOK_HEADER' | translate}}" ng-controller="BibleBookCtrl">
   <ion-content>
     <div class="waiting"><ion-spinner></ion-spinner></div>
-    <h1></h1>
-    <ion-item class="item-avatar" type="item-text-wrap" ng-repeat="chapters in api.data" ng-click="playNow({{chapters}})">
+    <nothing-here></nothing-here>
+    <div class="item item-divider bible-org-info">{{'ORGANIZATION' | translate}}</div>
+    <div class="item bible-org-info">
+      <h3>{{copyright.organization[0].organization}}</h3>
+      {{copyright.mark}}
+      <br />
+      <a href="{{copyright.organization[0].organization_url}}">{{copyright.organization[0].organization_url}}</a>
+    </div>
+    <div class="item item-divider">{{bookName}}</div>
+    <ion-item class="item-avatar" type="item-text-wrap" ng-repeat="chapters in filteredItems = api.data" ng-click="playNow({{chapters}})">
 	    <img src="images/speakers/bible.png" />
       <h2 class="padding">{{bookName}} {{'BOOK_CHAPTER' | translate}} {{chapters.chapter_id}}</h2>
 	    <p ng-if="lang === 'pt'" class="padding">{{settings.rLanguage.pt_language}}</p>

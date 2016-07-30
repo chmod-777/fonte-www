@@ -70,7 +70,13 @@
 .fonte-description h2 {
 	font-size: 130%;
 }
-
+.nothing-box{
+	display: fixed;
+	font-size:130%;
+	margin:0 auto;
+	align:center;
+	padding: 100px 40%;
+}
 
 /* Front Page first view branding */
 #fp-regular {

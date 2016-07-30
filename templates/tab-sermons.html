@@ -2,12 +2,13 @@
     <header-bar></header-bar>
     <ion-content class="sermon-page" on-swipe-right="goBack()" on-swipe-left="goForward()">
     <div class="waiting"><ion-spinner></ion-spinner></div> 
-    <div class="sermons-page">
+    <nothing-here></nothing-here>
 
-        <ion-item ng-repeat="teaching in settings.teachings | filter : search_query | rLangFilter:settings | orgFilter" class="amazingaudioplayer-card" href="#/tab/sermons/teaching-{{teaching.id}}">
+        <ion-item ng-repeat="teaching in filteredItems = (settings.teachings | filter : search_query | rLangFilter:settings | orgFilter)" class="amazingaudioplayer-card" href="#/tab/sermons/teaching-{{teaching.id}}">
             <div style="display:none">{{teacher = (settings.speakerList | filter : {id: teaching.teacher_id})[0];
             org = (settings.orgList | filter : {id: teaching.organization_id})[0];
             license = (settings.licenses | filter : {id: org.license_type_id})[0];}}</div>
+            
             
             <div class="preacher-img" style="background-image:url({{teacher.photo}})">
                 <img ng-src="{{org.photo}}" class="org-img"/></div>
@@ -18,8 +19,8 @@
             <a href="#/tab/teaching/speaker-{{teaching.teacher_id}}" ng-if="settings.lang =='en'" style="float:left">{{teacher.en_name}}<br/></a>
             <i ng-click="playNow(teaching)" class="icon ion-ios-play fonte-play"></i>
             <br/>
-            <p class="language-display" ng-if="settings.lang == 'en'" class="language-display">{{settings.languages[teaching.primary_language_id].en_language}} <i ng-if="teaching.secondary_language_id">/</i> {{settings.languages[teaching.secondary_language_id].en_language}} <!--{{teaching.hits}}--></p>
-            <p class="language-display" ng-if="settings.lang == 'pt'" class="language-display">{{settings.languages[teaching.primary_language_id].pt_language}} <i ng-if="teaching.secondary_language_id">/</i> {{settings.languages[teaching.secondary_language_id].pt_language}} <!--{{teaching.hits}}--></p>
+            <p class="language-display" ng-if="settings.lang == 'en'" class="language-display">{{settings.languages[teaching.primary_language_id].en_language}} <i ng-if="teaching.secondary_language_id">/</i> {{settings.languages[teaching.secondary_language_id].en_language}}</p>
+            <p class="language-display" ng-if="settings.lang == 'pt'" class="language-display">{{settings.languages[teaching.primary_language_id].pt_language}} <i ng-if="teaching.secondary_language_id">/</i> {{settings.languages[teaching.secondary_language_id].pt_language}}</p>
             <div style=""><img class="license_img" ng-src="{{license.img_url}}"/></div>
 
             <li ng-if="settings.lang =='pt'" style="display:none" data-artist="{{teacher.pt_name}}" data-title="{{teaching.pt_title}}" data-album data-info data-image="{{teacher.photo}}" data-duration="{{teaching.length}}"><div class="amazingaudioplayer-source" data-src="{{trustSrc(teaching.teaching_url)}}" data-type="audio/mpeg" /></div></li><li ng-if="settings.lang =='en'" style="display:none" data-artist="{{teacher.en_name}}" data-title="{{teaching.en_title}}" data-album data-info data-image="{{teacher.photo}}" data-duration="{{teaching.length}}"><div class="amazingaudioplayer-source" data-src="{{trustSrc(teaching.teaching_url)}}" data-type="audio/mpeg" /></div></li>

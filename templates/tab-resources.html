@@ -2,9 +2,10 @@
 	
 	<header-bar></header-bar>
 	<ion-content on-swipe-right="goBack()" on-swipe-left="goForward()">
-	<div class="waiting"><ion-spinner></ion-spinner></div> 
+	<div class="waiting"><ion-spinner></ion-spinner></div>
+	<nothing-here></nothing-here>
 	<ion-list>
-        <ion-item ng-repeat="resource in resourceList | filter : search_query | orgFilter | rLangFilter:settings" class="resource-card" href="#/tab/resources/resource-{{resource.id}}">
+        <ion-item ng-repeat="resource in filteredItems = (resourceList | filter : search_query | orgFilter | rLangFilter:settings)" class="resource-card" href="#/tab/resources/resource-{{resource.id}}">
             <div style="display:none">{{teacher = (settings.speakerList | filter : {id: resource.teacher_id})[0];
             org = (settings.orgList | filter : {id: resource.organization_id})[0];
             license = (settings.licenses | filter : {id: org.license_type_id})[0];}}</div>

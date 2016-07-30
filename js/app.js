@@ -110,8 +110,27 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     LICENSE: 'License',
     PLAY: 'Play',
     PREACHER: 'Teacher',
-    ABOUT_TEACHING: "About this Teaching"
-
+    ABOUT_TEACHING: "About this Teaching",
+    EMAIL_SUCCESS: "E-mail successfully sent",
+    EMAIL_FAIL: "E-mail was not successfully sent. Are you connected to the internet?",
+    NAME: "Name",
+    PHONE: "Telephone number",
+    LANGUAGES_AVAILABLE: "Language(s) in which your organization has resources, teachings, or sermons",
+    ORGANIZATION_DETAILS: "Please tell us more about your organization",
+    SUBMIT: "Submit",
+    PARTNERSHIP: "Partnership",
+    PARTNERSHIP_INFORMATION: "Partnership Information and Form",
+    COPYRIGHT: "Copyright",
+    COPYRIGHT_FORM: "Copyright Complaint Form",
+    TEACHING_FILED: "Teaching or Resource with complaint filed",
+    COPYRIGHT_DETAIL: "Please explain the issue you have with the teaching or resource",
+    IMPORTANT_NOTICE: "IMPORTANT: Your organization must agree to the terms and conditions found",
+    HERE: "here",
+    AGREE: "Agree and Continue",
+    NOTHING: "Nothing here. Please check the following:",
+    YOUR_INTERNET: "Your Internet Connection",
+    YOUR_LANGUAGE: "Your Selected Language",
+    YOUR_ORGANIZATIONS: "Your Selected Organizations"
 
   });
   $translateProvider.translations('pt', {
@@ -123,7 +142,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     TAB_SERMONS: 'Sermões',
     TAB_RESOURCES: 'Recursos',
     TAB_ABOUT: 'Sobre o Applicativo',
-    TAG_LINE: 'A Bíblia, Sermões, e Recursos Cristão na sua lingua!',
+    TAG_LINE: 'A Bíblia, Sermões, e Recursos Cristão na sua Idioma!',
     BIBLE_CLANG: 'A Sua Língua',
     BIBLE_NT: 'Novo Testamento',
     BIBLE_OT: 'Velho Testamento',
@@ -162,7 +181,30 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     LICENSE: 'Licença',
     PLAY: 'Toca',
     PREACHER: 'Pregador',
-    ABOUT_TEACHING: "Sobre este Incinamento"
+    ABOUT_TEACHING: "Sobre este Incinamento",
+    EMAIL_SUCCESS: "E-mail enviado com sucesso",
+    EMAIL_FAIL: "E-mail não foi enviado com sucesso. Esta conectado a rede?",
+    NAME: "Nome",
+    PHONE: "Número de telefone",
+    LANGUAGES_AVAILABLE: "Língua(s) em que a sua organização tem recursos, ensinamentos e sermões",
+    ORGANIZATION_DETAILS: "Por favor nos dê mais informações sobre a sua organização",
+    SUBMIT: "Enviar",
+    PARTNERSHIP: "Parceria",
+    PARTNERSHIP_INFORMATION: "Informações e ficha sobre a parceria",
+    COPYRIGHT: "Direitos Autorais",
+    COPYRIGHT_FORM: "Ficha de reclamação de direitos autorais",
+    TEACHING_FILED: "Ensino ou recurso com a queixa apresentada",
+    COPYRIGHT_DETAIL: "Por favor, explique o problema que você tem com o ensino ou recurso",
+    IMPORTANT_NOTICE: "IMPORTANTE: Sua organização deve concordar com os termos e condições encontradas",
+    HERE: "aqui",
+    AGREE: "Eu Concordo - Continua",
+    NOTHING: "O seu pescisa não encontro nada. For favor, cheque o seguinte:",
+    YOUR_INTERNET: "O seu rede e megas",
+    YOUR_LANGUAGE: "O seu idioma selecionado",
+    YOUR_ORGANIZATIONS: "O seus organizações selecionado"
+
+  
+
   });
   $translateProvider.preferredLanguage('pt');
   $translateProvider.useSanitizeValueStrategy('escape');
@@ -359,7 +401,25 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
         templateUrl: 'templates/tab-about.html'
       }
     }
-  });
+  })
+  .state('tab.copyright', {
+      url: '/about/copyright-form',
+      views: {
+        'tab-about': {
+          templateUrl: 'templates/about-copyright.html',
+          controller: 'FormCtrl as form'
+        }
+      }
+    })
+  .state('tab.partnership', {
+      url: '/about/partnership-form',
+      views: {
+        'tab-about': {
+          templateUrl: 'templates/about-partnership.html',
+          controller: 'FormCtrl as form'
+        }
+      }
+    });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');

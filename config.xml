@@ -31,6 +31,7 @@
   <plugin name="cordova-plugin-file-transfer" />
   <plugin name="cordova-plugin-file-opener2" />
   <plugin name="ionic-plugin-keyboard" />
+  <plugin spec="https://github.com/katzer/cordova-plugin-email-composer.git" />
   <plugin name="https://github.com/Telerik-Verified-Plugins/DocumentHandler" />
 
   <platform name="android">
@@ -78,7 +79,7 @@
         <!-- iPad Spotlight and Settings Icon -->
         <icon src="images/ios/icon-50.png" width="50" height="50" />
         <icon src="images/ios/icon-50-2x.png" width="100" height="100" />
-        <gap:splash src="images/ios/iphone5-p.png" width="320" height="480" />
+        <gap:splash src="images/ios/iphone-p.png" width="320" height="480" />
         <gap:splash src="images/ios/iphone6-2x-l.png" width="640" height="960" />
         <gap:splash src="images/ios/iphone6-2x-p.png" width="640" height="1136" />
         <gap:splash src="images/ios/ipad-p.png" width="768" height="1024" />

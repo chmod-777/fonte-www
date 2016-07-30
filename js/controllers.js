@@ -345,7 +345,11 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
         alert('File not found, please check the URL.');
         } else if (error == 53) {
           // This is for Android only, because iOS always uses the QuickLook framework.
-          alert('No app that handles this file type, please install one from the Play Store.');
+          if ($rootScope.settings.lang == 'pt') {
+            alert('Não tem aplicativo que pode abrir este tipo de ficheiro PDF. Faz download de uma no Play Store');
+          } else {
+            alert('No app that handles this file type, please install one from the Play Store.');
+          }
         } else {
           alert('Unknown generic error. Code: ' + error);
         }
@@ -364,6 +368,61 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
 }
 
 }])
+
+.controller('FormCtrl', [ '$http', '$scope', '$window', '$translate', function($http, $scope, $window, $translate){
+  console.log("FormCtrl called");
+  this.sendMail = function(emailInfo, formType) {
+
+  console.log('SendMail called:');
+  if (formType == 'copyright') {
+  var email = {
+   method: 'POST',
+   url: 'http://api.biblia.co.mz/postmail.php',
+   headers: {
+     'Content-Type': 'application/x-www-form-urlencoded'
+   },
+   data: $.param({ 
+      'name'     : $('input[name=name]').val(),
+      'email'    : $('input[name=email]').val(),
+      'organization' : $('input[name=organization]').val(),
+      'teaching' : $('input[name=teaching]').val(),
+      'issue' : $('input[name=issue]').val()
+    })
+  }} else if (formType == 'partnership') {
+    var email = {
+   method: 'POST',
+   url: 'http://api.biblia.co.mz/postmail.php',
+   headers: {
+     'Content-Type': 'application/x-www-form-urlencoded'
+   },
+   data: $.param({ 
+      'name'     : $('input[name=name]').val(),
+      'email'    : $('input[name=email]').val(),
+      'organization' : $('input[name=organization]').val(),
+      'phone' : $('input[name=phone]').val(),
+      'details' : $('input[name=details]').val(),
+      'languages' : $('input[name=languages]').val()
+    }) 
+  }
+  }
+
+  $http(email).then(function(){
+    console.log("email success", email);
+    $window.location.href = '#/tab/dash';
+      $translate('EMAIL_SUCCESS').then(function (headline) {
+    alert(headline);
+  }, function (translationId) {
+    alert(translationId);
+    });
+  }, function(){
+    $translate('EMAIL_FAIL').then(function (headline) {
+    alert(headline);
+  }, function (translationId) {
+    alert(translationId);
+    });
+  });
+  
+}}])
 
 .controller('BibleCtrl', ['$scope', '$http', '$rootScope', '$translate', function($scope, $http, $rootScope, $translate) {
   console.log("BibleCtrl called");
@@ -431,39 +490,70 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
   }).then(function successCallback(data){
     console.log("api success!", settings.bibleBookId);
       $scope.api = data;
-      console.log($scope.api);
+      console.log("data from api: ", data);
+
+
+      if (!data.length && ((damId == 'NDCBSZN2DA') || (damId == 'KDNBSZN2DA'))) {
+        console.log("$http not working: trying Jon EN hack method");
+        $http({
+          method: 'GET',
+          url: 'http://dbt.io/audio/path?v=2&key=' + $rootScope.settings.dbtKey + '&dam_id=' + 'ENGESVN2DA' + '&book_id=' + bookCode
+          }).then(function successCallback(engResults){
+            var data = engResults.data;
+            console.log("Jon EN hack data: ", data);
+            var bookNum = data[0].path.substring(12, 14);
+            var bookName = data[0].path.substring(20, 32);
+            if (data) {
+              var zero = "0";
+              for (var i = 0 ; i < data.length ; ++i) {
+                data[i].path = damId + "/B" + bookNum + "___" + zero + (i+1) + "_" + bookName + damId + ".mp3";
+                console.log("data path: ", data[i].path);
+                if (i == 8) {
+                  zero="";
+                }
+                $scope.api.data = data;
+              }
+            }
+          });
+      } else if (!data.length && (damId == 'RNGSBMN2DA')) {
+        console.log("$http not working: trying Jon PT hack method");
+        $http({
+          method: 'GET',
+          url: 'http://dbt.io/audio/path?v=2&key=' + $rootScope.settings.dbtKey + '&dam_id=' + 'PORNLHN2DA' + '&book_id=' + bookCode
+          }).then(function successCallback(engResults){
+            var data = engResults.data;
+            console.log("Jon PT hack data: ", data);
+            var bookNum = data[0].path.substring(12, 14);
+            var bookName = data[0].path.substring(20, 32);
+            if (data) {
+              var zero = "0";
+              for (var i = 0 ; i < data.length ; ++i) {
+                data[i].path = damId + "/B" + bookNum + "___" + zero + (i+1) + "_" + bookName + damId + ".mp3";
+                console.log("data path: ", data[i].path);
+                if (i == 8) {
+                  zero="";
+                }
+                $scope.api.data = data;
+              }
+            }
+          });
+      }
       $(".waiting").hide();
-  }, function errorCallback(response){
-    /* *** To do: make this work for NDau etc
-          $http({
-                async: true,
-                url: 'http://dbt.io/audio/path',
-                type:'GET',
-                data:'v=2&key=' + dbtKey + '&dam_id=' + escape(dam_books) + '&book_id=' + escape(bookId),
-                success:function(data){
-                  if (data) {
-                    $("#chapters span").html('');
-                    for (var i = 0 ; i < data.length ; ++i) {
-                      var zero = "0";
-                      if (i>8) {
-                        zero="";
-                      }
-                      var chapter = data[i];
-                      /* Jon Note: Since the API is not working for the majority of the languages I need, I had to hack the API a bit. 
-                      */
-                      /*
-                      var bookNum = chapter.path.substring(12, 14);
-                      var bookName = chapter.path.substring(20, 32);
-                      console.log("Pull suceeded");
-                      $("#chapters span").append("<a href='#' onclick='loadChapter(\"" + damId + "/B" + bookNum + "___" + zero + chapter.chapter_id + "_" + bookName + damId + ".mp3" +
-                       "\");return false;'>" + chapter.chapter_id + "</a>");
-                      }
-                    }
-                  }
-                });*/
-    console.log(JSON.stringify(response));
-    console.log("dbt.io api error");
   });
+  $http({
+    method: 'GET',
+    url: '  http://dbt.io/library/metadata?v=2&key=' + $rootScope.settings.dbtKey + '&dam_id=' + damId
+  }).then(function successCallback(data){
+    console.log("copyright pull success!", data);
+      $scope.copyright = data.data[0];
+      console.log("$scope.copyright: ", $scope.copyright);
+      if(data.data[0] == undefined) {
+        $('.bible-org-info').hide();
+      }
+      }, function errorCallback(error) {
+        $('.bible-org-info').hide();
+        console.log("error: ", error);
+      });
   $scope.playNow = fonteFns.playNow;
   $scope.download = fonteFns.download;
 
@@ -668,5 +758,11 @@ $scope.downloadThis = function(title, url, type, folder, extension) {
   return {
     restrict: 'E',
     templateUrl: 'templates/info-license.html'
+  };
+})
+.directive('nothingHere', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/nothing-here.html'
   };
 });
