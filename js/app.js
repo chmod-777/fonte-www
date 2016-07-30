@@ -130,7 +130,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     NOTHING: "Nothing here. Please check the following:",
     YOUR_INTERNET: "Your Internet Connection",
     YOUR_LANGUAGE: "Your Selected Language",
-    YOUR_ORGANIZATIONS: "Your Selected Organizations"
+    YOUR_ORGANIZATIONS: "Your Selected Organizations",
+    NARRATOR: "Narrators"
 
   });
   $translateProvider.translations('pt', {
@@ -201,7 +202,8 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     NOTHING: "O seu pescisa não encontro nada. For favor, cheque o seguinte:",
     YOUR_INTERNET: "O seu rede e megas",
     YOUR_LANGUAGE: "O seu idioma selecionado",
-    YOUR_ORGANIZATIONS: "O seus organizações selecionado"
+    YOUR_ORGANIZATIONS: "O seus organizações selecionado",
+    NARRATOR: "Narradores"
 
   
 

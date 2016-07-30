@@ -65,37 +65,37 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
       rLanguage: {id: 0, en_language: "Portuguese", pt_language: "Português", IDNT: "PORNLHN2DA", IDOT: 0},
       languages: "",
       runTimes: 0,
-      timers: [{
-        teacher: 0,
-        teaching: 0,
-        orgList: 0,
-        organization: 0
-      }],
       teachings: [],
       orgList: [],
       speakerList: [],
       licenses: [],
+      timerTeacher: Date.now(),
+      timerTeaching: Date.now(),
+      timerOrg: Date.now(),
+      timerResource: Date.now(),
       networkError: 0
-    })  
+    }); 
 
     $rootScope.settings.aapNum = 0;
     console.log("aapNum: ", $rootScope.settings.aapNum);
+    console.log("$rootscope.timers: ", $rootScope.timers);
     function apiTime() {
-      if(!$rootScope.settings.speakerList.length || (Date.now() > ($rootScope.settings.timers.teacher + 86400000*1))) {
+      console.log("apiTime called");
+      if(!$rootScope.settings.speakerList.length || (Date.now() > ($rootScope.settings.timerTeacher + 86400000*1))) {
           getAPI('teacher');
           $rootScope.settings.timers.teacher = Date.now();
-          console.log("teachers will call again at: ", ($rootScope.settings.timers.teacher + 86400000*1));
+          console.log("teachers will call again at: ", ($rootScope.settings.timerTeacher + 86400000*1));
         } else {
           console.log("teachers already loaded");
         };
 
-      if(!$rootScope.settings.languages.length || (Date.now() > ($rootScope.settings.timers.organization + 86400000*1))) {
+      if(!$rootScope.settings.languages.length || (Date.now() > ($rootScope.settings.timerOrg + 86400000*7))) {
         var v = 'languages';
         ApiServe.getLocal(v).then(function(response) {
           $rootScope.settings.languages = response.data;
           $rootScope.settings.timers.languages = Date.now();
         });
-          console.log("Languages will call again at: ",($rootScope.settings.timers.organization + 86400000*1));
+          console.log("Languages will call again at: ", ($rootScope.settings.timerOrg + 86400000*7));
         } else {
           console.log("languages already loaded");
         };
@@ -110,18 +110,18 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
           console.log("Licenses already loaded");
         };
 
-      if(!$rootScope.settings.orgList.length || (Date.now() > ($rootScope.settings.timers.organization + 86400000*1))) {
+      if(!$rootScope.settings.orgList.length || (Date.now() > ($rootScope.settings.timerOrg + 86400000*1))) {
           getAPI('organization');
           $rootScope.settings.timers.organization = Date.now();
-          console.log("organizations will call again at: ",($rootScope.settings.timers.organization + 86400000*1));
+          console.log("organizations will call again at: ",($rootScope.settings.timerOrg + 86400000*1));
         } else {
           console.log("organizations already loaded");
         };
 
-      if(!$rootScope.settings.teachings.length || (Date.now() > ($rootScope.settings.timers.teaching + 86400000*1))) {
+      if(!$rootScope.settings.teachings.length || (Date.now() > ($rootScope.settings.timerTeaching + 86400000*1))) {
           getAPI('teaching');
           $rootScope.settings.timers.teaching = Date.now();
-          console.log("teachings will call again at: ", ($rootScope.settings.timers.teaching + 86400000*1));
+          console.log("teachings will call again at: ", ($rootScope.settings.timerTeaching + 86400000*1));
         } else {
           console.log("teachings already loaded");
         };
@@ -134,7 +134,7 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
 
     $interval(function() {
       apiTime(); 
-    }, 86400000, 20);
+    }, 60000*60, 20);
 
     
 
@@ -493,7 +493,7 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
       console.log("data from api: ", data);
 
 
-      if (!data.length && ((damId == 'NDCBSZN2DA') || (damId == 'KDNBSZN2DA'))) {
+      if (!data.length && ((damId == 'NDCBSZN2DA') || (damId == 'KDNBSZN2DA') || (damId =='YAOBSMN2DA'))) {
         console.log("$http not working: trying Jon EN hack method");
         $http({
           method: 'GET',
@@ -547,13 +547,23 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
     console.log("copyright pull success!", data);
       $scope.copyright = data.data[0];
       console.log("$scope.copyright: ", $scope.copyright);
-      if(data.data[0] == undefined) {
+      if(!$scope.speakers.length) {
         $('.bible-org-info').hide();
       }
       }, function errorCallback(error) {
         $('.bible-org-info').hide();
         console.log("error: ", error);
       });
+  $http.get('ajax/speakers.json').success(function(data) {
+    console.log("speakers.json called with success", data);
+    angular.forEach(data[0], function(value, key) {
+      if((key == 'dam') && (value == damId)) {
+        $scope.speakers = data[0]['names'];
+        console.log("$scope.speakers called: ", $scope.speakers);
+      }
+      console.log("speakers.json forEach called: ", data)
+    });
+  });
   $scope.playNow = fonteFns.playNow;
   $scope.download = fonteFns.download;
 

@@ -2,12 +2,16 @@
   <ion-content>
     <div class="waiting"><ion-spinner></ion-spinner></div>
     <nothing-here></nothing-here>
-    <div class="item item-divider bible-org-info">{{'ORGANIZATION' | translate}}</div>
-    <div class="item bible-org-info">
-      <h3>{{copyright.organization[0].organization}}</h3>
-      {{copyright.mark}}
-      <br />
-      <a href="{{copyright.organization[0].organization_url}}">{{copyright.organization[0].organization_url}}</a>
+    <div ng-if="copyright.organization[0].organization.length || speakers.length">
+      <div class="item item-divider bible-org-info">{{'ORGANIZATION' | translate}}</div>
+      <div class="item bible-org-info item-text-wrap">
+        <h3>{{copyright.organization[0].organization}}</h3>
+        {{copyright.mark}}
+        <br />
+        <a href="{{copyright.organization[0].organization_url}}">{{copyright.organization[0].organization_url}}</a>
+        <br />
+        <p class="item-wrap" ng-if="speakers.length">{{ 'NARRATORS' | translate }}: {{speakers}}</p>
+      </div>
     </div>
     <div class="item item-divider">{{bookName}}</div>
     <ion-item class="item-avatar" type="item-text-wrap" ng-repeat="chapters in filteredItems = api.data" ng-click="playNow({{chapters}})">
