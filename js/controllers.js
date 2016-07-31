@@ -93,7 +93,7 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
         var v = 'languages';
         ApiServe.getLocal(v).then(function(response) {
           $rootScope.settings.languages = response.data;
-          $rootScope.settings.timers.languages = Date.now();
+          $rootScope.settings.timerOrg = Date.now();
         });
           console.log("Languages will call again at: ", ($rootScope.settings.timerOrg + 86400000*7));
         } else {
@@ -112,7 +112,7 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
 
       if(!$rootScope.settings.orgList.length || (Date.now() > ($rootScope.settings.timerOrg + 86400000*1))) {
           getAPI('organization');
-          $rootScope.settings.timers.organization = Date.now();
+          $rootScope.settings.timerOrg = Date.now();
           console.log("organizations will call again at: ",($rootScope.settings.timerOrg + 86400000*1));
         } else {
           console.log("organizations already loaded");
@@ -120,7 +120,7 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
 
       if(!$rootScope.settings.teachings.length || (Date.now() > ($rootScope.settings.timerTeaching + 86400000*1))) {
           getAPI('teaching');
-          $rootScope.settings.timers.teaching = Date.now();
+          $rootScope.settings.timerTeaching = Date.now();
           console.log("teachings will call again at: ", ($rootScope.settings.timerTeaching + 86400000*1));
         } else {
           console.log("teachings already loaded");

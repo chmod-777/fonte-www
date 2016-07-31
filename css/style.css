@@ -206,7 +206,9 @@ a.speaker-name {
 	padding:5px;
 	z-index: 1000;
 }
-
+.ion-document-text{
+	min-width: 85px;
+}
 .tab-overlay, .ion-tabs {
 	z-index: 20000;
 	position: fixed;

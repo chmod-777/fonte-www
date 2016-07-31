@@ -9,9 +9,9 @@
         <h2 ng-if="settings.lang == 'pt'" style="font-size:130%; font-style:italics; font-weight:bold">{{src.resource.pt_name}}</h2>
     </div>
     <div class="row">
-        <div ng-if="settings.lang == 'en'" class="col col-75 padding item-text-wrap">{{src.resource.en_description}}</div>
-        <div ng-if="settings.lang == 'pt'" class="col col-75 padding item-text-wrap">{{src.resource.pt_description}}</div>
-        <div class="col col-33 col-bottom"><button class="button button-calm icon-left ion-document-text" ng-click="resourceOpen(src.resource)">{{'OPEN' | translate}}
+        <div ng-if="settings.lang == 'en'" class="padding item-text-wrap">{{src.resource.en_description}}</div>
+        <div ng-if="settings.lang == 'pt'" class="padding item-text-wrap">{{src.resource.pt_description}}</div>
+        <div class="col col-33 col-bottom" style="float:right"><button class="button button-calm icon-left ion-document-text" ng-click="resourceOpen(src.resource)">{{'OPEN' | translate}}
         </button></div>
     </div>
     </div>
