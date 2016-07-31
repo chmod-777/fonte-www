@@ -78,12 +78,11 @@ app.controller('MainCtrl', ['$scope', '$rootScope', '$localStorage', '$ionicTabs
 
     $rootScope.settings.aapNum = 0;
     console.log("aapNum: ", $rootScope.settings.aapNum);
-    console.log("$rootscope.timers: ", $rootScope.timers);
     function apiTime() {
       console.log("apiTime called");
       if(!$rootScope.settings.speakerList.length || (Date.now() > ($rootScope.settings.timerTeacher + 86400000*1))) {
           getAPI('teacher');
-          $rootScope.settings.timers.teacher = Date.now();
+          $rootScope.settings.timerTeacher = Date.now();
           console.log("teachers will call again at: ", ($rootScope.settings.timerTeacher + 86400000*1));
         } else {
           console.log("teachers already loaded");
