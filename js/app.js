@@ -174,7 +174,7 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     OPEN: 'Abrir',
     SELECTED_LANGUAGE: 'Selecionar o seu Idioma: ',
     RESOURCE_LANGUAGE: 'Idioma dos Recursos: ',
-    NEXT: 'Proxima',
+    NEXT: 'Proximo',
     BACK: 'Volta',
     LANGUAGE: 'Idioma',
     AUTHOR: 'Autor',
@@ -199,10 +199,10 @@ angular.module('starter', ['ionic','ionic.service.core',  'ionic.service.analyti
     IMPORTANT_NOTICE: "IMPORTANTE: Sua organização deve concordar com os termos e condições encontradas",
     HERE: "aqui",
     AGREE: "Eu Concordo - Continua",
-    NOTHING: "O seu pescisa não encontro nada. For favor, cheque o seguinte:",
-    YOUR_INTERNET: "O seu rede e megas",
-    YOUR_LANGUAGE: "O seu idioma selecionado",
-    YOUR_ORGANIZATIONS: "O seus organizações selecionado",
+    NOTHING: "O seu pescisa não foi encontrada, por favor verifique:",
+    YOUR_INTERNET: "A sua conexão à internete",
+    YOUR_LANGUAGE: "O idioma escolhido",
+    YOUR_ORGANIZATIONS: "Os organizações selecionado",
     NARRATOR: "Narradores"
 
   
